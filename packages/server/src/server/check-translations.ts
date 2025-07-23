@@ -1,4 +1,4 @@
-import type { AutomagicalConfig } from "../types/automagical-config"
+import type { AutomagicalConfig } from "@automagical-ai/core"
 import { deepGet } from "../utils/deep-get"
 import { flattenObject } from "../utils/flatten-object"
 import { loadTranslations } from "./load-translations"

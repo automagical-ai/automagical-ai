@@ -1,4 +1,3 @@
-import { useMemo } from "react"
 import {
     AutoTranslate,
     type AutoTranslateProps
@@ -8,23 +7,21 @@ export interface UseAutoTranslateOptions {
     namespace?: string
 }
 
-export interface UseAutoTranslateReturn {
-    AutoTranslate: React.ComponentType<AutoTranslateProps>
-}
+const stableComponents = new Map<string | undefined, typeof AutoTranslate>()
 
-export function useAutoTranslate({
-    namespace
-}: UseAutoTranslateOptions = {}): UseAutoTranslateReturn {
-    const AutoTranslateWithNamespace = useMemo(() => {
-        return function AutoTranslateWithNamespace(props: AutoTranslateProps) {
-            return (
-                <AutoTranslate
-                    {...props}
-                    namespace={props.namespace || namespace}
-                />
-            )
-        }
-    }, [namespace])
+export function useAutoTranslate({ namespace }: UseAutoTranslateOptions = {}) {
+    if (!stableComponents.has(namespace)) {
+        const AutoTranslateWithNamespace = (props: AutoTranslateProps) => (
+            <AutoTranslate
+                {...props}
+                namespace={props.namespace || namespace}
+            />
+        )
 
-    return { AutoTranslate: AutoTranslateWithNamespace }
+        stableComponents.set(namespace, AutoTranslateWithNamespace)
+    }
+
+    return {
+        AutoTranslate: stableComponents.get(namespace)!
+    }
 }

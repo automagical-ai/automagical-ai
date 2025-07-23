@@ -1,4 +1,4 @@
-import type { AutomagicalConfig } from "../types/automagical-config"
+import type { AutomagicalConfig } from "@automagical-ai/core"
 import { performTranslations } from "./perform-translations"
 
 export async function translateMessage({

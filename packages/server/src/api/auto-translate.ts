@@ -1,6 +1,6 @@
+import type { AutomagicalConfig } from "@automagical-ai/core"
 import { loadTranslations } from "../server/load-translations"
 import { saveTranslations } from "../server/save-translations"
-import type { AutomagicalConfig } from "../types/automagical-config"
 import { deepDelete } from "../utils/deep-delete"
 import { deepGet } from "../utils/deep-get"
 import { deepSet } from "../utils/deep-set"
@@ -15,12 +15,8 @@ interface AutoTranslateParams {
 
 export async function autoTranslate({
     body: { key, message },
-    config: { appId, autoTranslate, apiKey, apiUrl }
+    config: { applicationId, autoTranslate, apiKey, apiUrl }
 }: AutoTranslateParams) {
-    appId = appId || process.env.AUTOMAGICAL_APP_ID
-    apiKey = apiKey || process.env.AUTOMAGICAL_API_KEY
-    apiUrl = apiUrl || "https://automagical.ai/api"
-
     if (!autoTranslate) {
         return Response.json(
             { error: "Auto translate config not found" },
@@ -61,7 +57,7 @@ export async function autoTranslate({
         const translation = deepGet(translations, key) as string | undefined
         if (translation) continue
 
-        const endpoint = "https://automagical.ai/api/auto-translate"
+        const endpoint = `${apiUrl}/api/auto-translate`
 
         console.log(
             `Translating message: ${message} to ${locale} using endpoint: ${endpoint}`
@@ -70,11 +66,16 @@ export async function autoTranslate({
         // TODO Attach the API Key using bearer
         const response = await fetch(endpoint, {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {})
+            },
             body: JSON.stringify({
-                appId,
+                applicationId,
+                key,
                 message,
-                defaultLocale,
-                locale
+                from: defaultLocale,
+                to: locale
             })
         })
 

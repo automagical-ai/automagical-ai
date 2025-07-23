@@ -86,6 +86,19 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
+  packages/server:
+    dependencies:
+      '@automagical-ai/core':
+        specifier: file:../core
+        version: link:../core
+    devDependencies:
+      '@types/node':
+        specifier: ^24.1.0
+        version: 24.1.0
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+
 packages:
 
   '@biomejs/biome@2.1.2':

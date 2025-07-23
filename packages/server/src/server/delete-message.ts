@@ -1,4 +1,4 @@
-import type { AutomagicalConfig } from "../types/automagical-config"
+import type { AutomagicalConfig } from "@automagical-ai/core"
 import { deepDelete } from "../utils/deep-delete"
 import { loadTranslations } from "./load-translations"
 import { saveTranslations } from "./save-translations"

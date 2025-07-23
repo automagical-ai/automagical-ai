@@ -1,0 +1,26 @@
+{
+    "name": "@automagical-ai/server",
+    "homepage": "https://automagical.ai",
+    "version": "0.0.1",
+    "description": "Automagical AI Server",
+    "main": "dist/index.js",
+    "files": [
+        "src",
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc --watch"
+    },
+    "keywords": [],
+    "author": "Automagical AI, LLC",
+    "license": "GNU General Public License v3.0",
+    "devDependencies": {
+        "@types/node": "^24.1.0",
+        "typescript": "5.8.3"
+    },
+    "dependencies": {
+        "@automagical-ai/core": "file:../core"
+    },
+    "packageManager": "pnpm@10.13.1"
+}

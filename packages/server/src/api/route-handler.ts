@@ -1,8 +1,9 @@
-import type { AutomagicalConfig } from "../types/automagical-config"
+import type { AutomagicalConfig } from "@automagical-ai/core"
 import { autoTranslate } from "./auto-translate"
 
 export function routeHandler(config: AutomagicalConfig) {
-    config.appId = config.appId || process.env.AUTOMAGICAL_APP_ID
+    config.applicationId =
+        config.applicationId || process.env.AUTOMAGICAL_APPLICATION_ID
     config.apiKey = config.apiKey || process.env.AUTOMAGICAL_API_KEY
     config.apiUrl = config.apiUrl || "https://automagical.ai/api"
 
@@ -17,7 +18,7 @@ export function routeHandler(config: AutomagicalConfig) {
 
                 switch (slug) {
                     case "auto-translate":
-                        return autoTranslate({ body, config })
+                        return await autoTranslate({ body, config })
                     default:
                         return Response.json(
                             { error: "Not found" },
