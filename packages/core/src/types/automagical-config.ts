@@ -1,10 +1,9 @@
+import type { AutoTranslateConfig } from "./auto-translate-config"
+
 export type AutomagicalConfig = {
     apiKey?: string
     apiUrl?: string
     appId?: string
-    autoTranslate?: {
-        defaultLocale: string
-        locales: readonly string[]
-        translateEndpoint?: string
-    }
+    baseUrl?: string
+    autoTranslate?: AutoTranslateConfig
 }

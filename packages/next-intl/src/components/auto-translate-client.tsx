@@ -14,7 +14,7 @@ export function AutoTranslateClient({
     const t = useTranslations()
 
     const locale = useLocale()
-    const { autoTranslate } = useAutomagicalConfig()
+    const { autoTranslate, baseUrl } = useAutomagicalConfig()
     const defaultLocale = autoTranslate?.defaultLocale
 
     const [previousMessage, setPreviousMessage] = useState(message)
@@ -46,18 +46,25 @@ export function AutoTranslateClient({
                 ? `${namespace}.${prevMessageKey}`
                 : prevMessageKey
 
-            await fetch(
-                `/api/auto-translate/delete-message?key=${translationKey}`
-            )
+            await fetch(`${baseUrl}/api/automagical/delete-translation`, {
+                method: "POST",
+                body: JSON.stringify({
+                    key: translationKey
+                })
+            })
         }
 
-        await fetch(
-            `/api/auto-translate/translate-message?key=${translationKey}&message=${message}`
-        )
+        await fetch(`${baseUrl}/api/automagical/auto-translate`, {
+            method: "POST",
+            body: JSON.stringify({
+                key: translationKey,
+                message: message
+            })
+        })
 
         isTranslatingRef.current = false
         setIsTranslating(false)
-    }, [previousMessage, message, tKey, namespace, translationKey])
+    }, [previousMessage, message, tKey, namespace, translationKey, baseUrl])
 
     useEffect(() => {
         setPreviousMessage(message)
