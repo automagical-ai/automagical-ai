@@ -1,0 +1,18 @@
+{
+    "name": "@automagical-ai/core",
+    "homepage": "https://automagical.ai",
+    "version": "0.0.1",
+    "description": "Automagical AI Core",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc --watch"
+    },
+    "keywords": [],
+    "author": "Automagical AI, LLC",
+    "license": "GNU General Public License v3.0",
+    "devDependencies": {
+        "typescript": "5.8.3"
+    },
+    "packageManager": "pnpm@10.13.1"
+}
