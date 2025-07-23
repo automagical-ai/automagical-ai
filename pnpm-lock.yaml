@@ -27,7 +27,7 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  packages/next:
+  packages/next-intl:
     dependencies:
       '@automagical-ai/core':
         specifier: file:../core
