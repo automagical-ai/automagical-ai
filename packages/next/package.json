@@ -32,8 +32,8 @@
         "react-dom": ">=18.0.0"
     },
     "dependencies": {
-        "@automagical-ai/core": "link:../core",
-        "@automagical-ai/react": "link:../react"
+        "@automagical-ai/core": "file:../core",
+        "@automagical-ai/react": "file:../react"
     },
     "packageManager": "pnpm@10.13.1"
 }

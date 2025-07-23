@@ -27,7 +27,7 @@
         "react-dom": ">=18.0.0"
     },
     "dependencies": {
-        "@automagical-ai/core": "workspace:*"
+        "@automagical-ai/core": "file:../core"
     },
     "packageManager": "pnpm@10.13.1"
 }
