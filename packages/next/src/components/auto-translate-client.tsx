@@ -1,7 +1,7 @@
 "use client"
 
 import { createMessageKey } from "@automagical-ai/core"
-import { LoadingText } from "@automagical-ai/react"
+import { LoadingText, useAutomagicalConfig } from "@automagical-ai/react"
 import { useLocale, useTranslations } from "next-intl"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import type { AutoTranslateProps } from "./auto-translate"
@@ -11,25 +11,26 @@ export function AutoTranslateClient({
     namespace,
     tKey
 }: AutoTranslateProps) {
-    const resolvedTKey = tKey ?? createMessageKey(message)
-    const [prevMessage, setPrevMessage] = useState(message)
+    const t = useTranslations()
 
     const locale = useLocale()
+    const { autoTranslate } = useAutomagicalConfig()
+    const defaultLocale = autoTranslate?.defaultLocale
 
-    const t = useTranslations()
+    const [previousMessage, setPreviousMessage] = useState(message)
+
+    const resolvedTKey = tKey ?? createMessageKey(message)
     const translationKey = namespace
         ? `${namespace}.${resolvedTKey}`
         : resolvedTKey
 
-    const needsTranslation = useMemo(() => {
-        const defaultLocale = process.env.NEXT_PUBLIC_DEFAULT_LOCALE ?? "en"
-
-        return (
+    const needsTranslation = useMemo(
+        () =>
             !t.has(translationKey) ||
             (locale === defaultLocale && t(translationKey) !== message) ||
-            message !== prevMessage
-        )
-    }, [message, prevMessage, locale, t, translationKey])
+            message !== previousMessage,
+        [message, previousMessage, locale, t, translationKey, defaultLocale]
+    )
 
     const isTranslatingRef = useRef(false)
     const [isTranslating, setIsTranslating] = useState(false)
@@ -38,13 +39,13 @@ export function AutoTranslateClient({
         isTranslatingRef.current = true
         setIsTranslating(true)
 
-        if (prevMessage !== message && !tKey) {
-            const prevMessageKey = createMessageKey(prevMessage)
+        // Delete the previous message if it's changed
+        if (previousMessage !== message && !tKey) {
+            const prevMessageKey = createMessageKey(previousMessage)
             const translationKey = namespace
                 ? `${namespace}.${prevMessageKey}`
                 : prevMessageKey
 
-            // delete the message
             await fetch(
                 `/api/auto-translate/delete-message?key=${translationKey}`
             )
@@ -56,10 +57,10 @@ export function AutoTranslateClient({
 
         isTranslatingRef.current = false
         setIsTranslating(false)
-    }, [prevMessage, message, tKey, namespace, translationKey])
+    }, [previousMessage, message, tKey, namespace, translationKey])
 
     useEffect(() => {
-        setPrevMessage(message)
+        setPreviousMessage(message)
     }, [message])
 
     useEffect(() => {

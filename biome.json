@@ -23,7 +23,8 @@
                     "fix": "safe",
                     "level": "info",
                     "options": {}
-                }
+                },
+                "useHookAtTopLevel": "off"
             },
             "style": {
                 "noNonNullAssertion": "off",
