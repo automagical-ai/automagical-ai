@@ -32,6 +32,9 @@ importers:
       '@automagical-ai/core':
         specifier: link:../core
         version: link:../core
+      '@automagical-ai/react':
+        specifier: link:../react
+        version: link:../react
     devDependencies:
       '@types/node':
         specifier: ^24.1.0

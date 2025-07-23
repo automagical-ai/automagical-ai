@@ -1,1 +1,1 @@
-export * from "./test"
+export * from "./utils/create-message-key"
