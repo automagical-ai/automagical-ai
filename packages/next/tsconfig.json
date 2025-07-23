@@ -2,6 +2,7 @@
     "include": ["src"],
     "compilerOptions": {
         "target": "es2018",
+        "module": "esnext",
         "outDir": "dist",
         "lib": ["dom", "esnext"],
         "declaration": true,

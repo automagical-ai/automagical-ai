@@ -16,18 +16,23 @@
     "author": "Automagical AI, LLC",
     "license": "GNU General Public License v3.0",
     "devDependencies": {
-        "react": "^19.1.0",
-        "react-dom": "^19.1.0",
+        "@types/node": "^24.1.0",
         "@types/react": "^19.0.0",
         "@types/react-dom": "^19.0.0",
+        "next": "15.4.3",
+        "next-intl": "^4.1.0",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
         "typescript": "5.8.3"
     },
     "peerDependencies": {
+        "next": ">=15.0.0",
+        "next-intl": ">=4.1.0",
         "react": ">=18.0.0",
         "react-dom": ">=18.0.0"
     },
     "dependencies": {
-        "@automagical-ai/core": "workspace:*"
+        "@automagical-ai/core": "link:../core"
     },
     "packageManager": "pnpm@10.13.1"
 }
