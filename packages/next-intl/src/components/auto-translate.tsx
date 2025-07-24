@@ -13,7 +13,8 @@ export interface AutoTranslateProps {
 export function AutoTranslate({
     children: message,
     namespace,
-    tKey
+    tKey,
+    dynamic
 }: AutoTranslateProps) {
     const resolvedNamespace = namespace ?? getNamespace()
     const resolvedKey = tKey ?? createMessageKey(message)
@@ -28,7 +29,11 @@ export function AutoTranslate({
     }
 
     return (
-        <AutoTranslateClient namespace={resolvedNamespace} tKey={tKey}>
+        <AutoTranslateClient
+            namespace={resolvedNamespace}
+            tKey={tKey}
+            dynamic={dynamic}
+        >
             {message}
         </AutoTranslateClient>
     )
