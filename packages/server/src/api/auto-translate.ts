@@ -1,22 +1,21 @@
-import type { AutomagicalConfig } from "@automagical-ai/core"
 import { loadTranslations } from "../server/load-translations"
 import { saveTranslations } from "../server/save-translations"
 import { deepDelete } from "../utils/deep-delete"
 import { deepGet } from "../utils/deep-get"
 import { deepSet } from "../utils/deep-set"
+import type { RouteParams } from "./route-handler"
 
-interface AutoTranslateParams {
-    body: {
-        key: string
-        message: string
-    }
-    config: AutomagicalConfig
+interface AutoTranslateBody {
+    key: string
+    message: string
 }
 
 export async function autoTranslate({
-    body: { key, message },
+    request,
     config: { applicationId, autoTranslate, apiKey, apiUrl }
-}: AutoTranslateParams) {
+}: RouteParams) {
+    const { key, message }: AutoTranslateBody = await request.json()
+
     if (!autoTranslate) {
         return Response.json(
             { error: "Auto translate config not found" },
@@ -46,7 +45,7 @@ export async function autoTranslate({
         }
     }
 
-    // POST this message to automagical.ai/api/translations
+    // PUT this message to automagical.ai/api/translations
     // That endpoint will handle updating the existing text and deleting all others if it changed
 
     // Perform the translations for each locale
@@ -59,7 +58,7 @@ export async function autoTranslate({
 
         const endpoint = `${apiUrl}/api/auto-translate`
 
-        console.log(
+        console.info(
             `Translating message: ${message} to ${locale} using endpoint: ${endpoint}`
         )
 
@@ -89,4 +88,6 @@ export async function autoTranslate({
         deepSet(translations, key, data.result)
         await saveTranslations(locale, translations)
     }
+
+    return Response.json({ success: true })
 }

@@ -39,19 +39,23 @@ export function AutoTranslateClient({
         isTranslatingRef.current = true
         setIsTranslating(true)
 
-        // Delete the previous message if it's changed
-        if (previousMessage !== message && !tKey) {
+        // Delete the previous translations if it's changed and the key is generated
+        if (
+            !tKey &&
+            previousMessage !== message &&
+            (locale !== defaultLocale || t(translationKey) !== message)
+        ) {
             const prevMessageKey = createMessageKey(previousMessage)
             const translationKey = namespace
                 ? `${namespace}.${prevMessageKey}`
                 : prevMessageKey
 
-            await fetch(`${baseUrl || ""}/api/automagical/delete-translation`, {
-                method: "POST",
-                body: JSON.stringify({
-                    key: translationKey
-                })
-            })
+            await fetch(
+                `${baseUrl || ""}/api/automagical/translations?key=${translationKey}`,
+                {
+                    method: "DELETE"
+                }
+            )
         }
 
         await fetch(`${baseUrl || ""}/api/automagical/auto-translate`, {
@@ -65,7 +69,17 @@ export function AutoTranslateClient({
         isTranslatingRef.current = false
         setPreviousMessage(message)
         setIsTranslating(false)
-    }, [previousMessage, message, tKey, namespace, translationKey, baseUrl])
+    }, [
+        previousMessage,
+        message,
+        t,
+        tKey,
+        namespace,
+        translationKey,
+        baseUrl,
+        locale,
+        defaultLocale
+    ])
 
     useEffect(() => {
         if (!needsTranslation) return

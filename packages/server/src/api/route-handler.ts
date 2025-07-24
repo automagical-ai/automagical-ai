@@ -1,5 +1,11 @@
 import type { AutomagicalConfig } from "@automagical-ai/core"
 import { autoTranslate } from "./auto-translate"
+import { deleteTranslations } from "./delete-translations"
+
+export interface RouteParams {
+    request: Request
+    config: AutomagicalConfig
+}
 
 export function routeHandler(config: AutomagicalConfig) {
     config.applicationId =
@@ -14,11 +20,20 @@ export function routeHandler(config: AutomagicalConfig) {
 
         switch (method) {
             case "POST": {
-                const body = await request.json()
-
                 switch (slug) {
                     case "auto-translate":
-                        return await autoTranslate({ body, config })
+                        return await autoTranslate({ request, config })
+                    default:
+                        return Response.json(
+                            { error: "Not found" },
+                            { status: 404 }
+                        )
+                }
+            }
+            case "DELETE": {
+                switch (slug) {
+                    case "translations":
+                        return await deleteTranslations({ request, config })
                     default:
                         return Response.json(
                             { error: "Not found" },
