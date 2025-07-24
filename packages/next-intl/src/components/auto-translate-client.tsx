@@ -19,10 +19,6 @@ export function AutoTranslateClient({
 
     const [previousMessage, setPreviousMessage] = useState(message)
 
-    useEffect(() => {
-        console.log("we got here somehow")
-    }, [])
-
     const resolvedTKey = tKey ?? createMessageKey(message)
     const translationKey = namespace
         ? `${namespace}.${resolvedTKey}`
