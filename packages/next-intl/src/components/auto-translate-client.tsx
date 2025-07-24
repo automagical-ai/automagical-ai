@@ -28,7 +28,7 @@ export function AutoTranslateClient({
         () =>
             !t.has(translationKey) ||
             (locale === defaultLocale && t(translationKey) !== message) ||
-            message !== previousMessage,
+            (locale !== defaultLocale && message !== previousMessage),
         [message, previousMessage, locale, t, translationKey, defaultLocale]
     )
 

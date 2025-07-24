@@ -7,6 +7,7 @@ export interface AutoTranslateProps {
     children: string
     namespace?: string
     tKey?: string
+    dynamic?: boolean
 }
 
 export function AutoTranslate({
