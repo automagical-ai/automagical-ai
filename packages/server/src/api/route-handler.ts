@@ -1,9 +1,10 @@
 import type { AutomagicalConfig } from "@automagical-ai/core"
 import type { IncomingMessage, ServerResponse } from "http"
 import { autoTranslate } from "./auto-translate"
+import { syncApplication } from "./sync-application"
 
 export interface RouteParams<TBody = Record<string, unknown>> {
-    body: TBody
+    body?: TBody
     searchParams?: URLSearchParams
     config: AutomagicalConfig
 }
@@ -26,14 +27,28 @@ export function routeHandler(config: AutomagicalConfig) {
         )
 
         const searchParams = url.searchParams
-        const method = request.method
+        const method = request.method!
         const slug = url.pathname.split("/").pop()
-        const body =
-            request instanceof Request
-                ? await request.json()
-                : typeof request.body === "string"
-                  ? JSON.parse(request.body)
-                  : request.body
+
+        async function getBody() {
+            if (method !== "POST") return null
+
+            try {
+                if (request instanceof Request) {
+                    return await request.json()
+                }
+
+                if (request.body && typeof request.body === "string") {
+                    return JSON.parse(request.body)
+                }
+
+                return request.body
+            } catch (_) {
+                return null
+            }
+        }
+
+        const body = await getBody()
 
         try {
             switch (method) {
@@ -45,6 +60,10 @@ export function routeHandler(config: AutomagicalConfig) {
                     switch (slug) {
                         case "auto-translate": {
                             await autoTranslate({ body, config })
+                            break
+                        }
+                        case "sync": {
+                            await syncApplication({ config })
                             break
                         }
                         default: {

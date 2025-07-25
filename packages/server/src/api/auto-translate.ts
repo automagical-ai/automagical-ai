@@ -6,7 +6,7 @@ import { deepSet } from "../utils/deep-set"
 import type { RouteParams } from "./route-handler"
 
 export async function autoTranslate({
-    body,
+    body = {},
     config: { applicationId, autoTranslate, apiKey, apiUrl }
 }: RouteParams<{
     key?: string

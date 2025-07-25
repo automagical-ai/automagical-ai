@@ -1,11 +1,7 @@
 "use client"
 
 import { createMessageKey } from "@automagical-ai/core"
-import {
-    LoadingText,
-    useActiveTranslations,
-    useAutomagicalConfig
-} from "@automagical-ai/react"
+import { LoadingText, useAutomagicalContext } from "@automagical-ai/react"
 import { useLocale, useTranslations } from "next-intl"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import type { AutoTranslateProps } from "./auto-translate"
@@ -19,8 +15,10 @@ export function AutoTranslateClient({
     const t = useTranslations()
 
     const locale = useLocale()
-    const { autoTranslate, baseUrl } = useAutomagicalConfig()
-    const { setActiveTranslations } = useActiveTranslations()
+    const {
+        setActiveTranslations,
+        config: { autoTranslate, baseUrl }
+    } = useAutomagicalContext()
 
     const defaultLocale = autoTranslate?.defaultLocale
 

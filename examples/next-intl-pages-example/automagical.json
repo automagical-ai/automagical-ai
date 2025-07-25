@@ -1,0 +1,7 @@
+{
+    "autoTranslate": {
+        "enabled": true,
+        "defaultLocale": "en",
+        "locales": ["en", "de"]
+    }
+}

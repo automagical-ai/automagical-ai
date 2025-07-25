@@ -3,7 +3,7 @@ import { AutomagicalProvider } from "@automagical-ai/react"
 import type { AppProps } from "next/app"
 import { useRouter } from "next/router"
 import { NextIntlClientProvider } from "next-intl"
-import automagicalConfig from "../../automagical.config"
+import automagicalConfig from "../../automagical.json"
 
 export default function App({ Component, pageProps }: AppProps) {
     const router = useRouter()
