@@ -39,6 +39,9 @@ export default function Home() {
             <Link href={route} locale={otherLocale}>
                 {otherLocale}
             </Link>
+
+            <AutoTranslate>Wassup my dawg</AutoTranslate>
+
             <main className="row-start-2 flex flex-col items-center gap-[32px] sm:items-start">
                 <Image
                     className="dark:invert"

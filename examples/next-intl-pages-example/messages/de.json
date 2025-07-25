@@ -5,7 +5,9 @@
     "read-our-docs-v:db3870": "Lesen Sie unsere Dokumente",
     "get-started-by-editing-v:68dfb3": "Beginnen Sie mit der Bearbeitung",
     "examples-v:e68ee0": "Beispiele",
-    "go-to-domain-v:775e65": "Gehen Sie zu {Domain} →",
-    "learn-v:ce78af": "Lernen"
+    "go-to-domain-v:775e65": "Gehen Sie zu {domain} →",
+    "learn-v:ce78af": "Lernen",
+    "wassup-v:c0588a": "Wassup",
+    "wassup-my-dawg-v:9e2f0b": "Wassup mein Dawg"
   }
 }
