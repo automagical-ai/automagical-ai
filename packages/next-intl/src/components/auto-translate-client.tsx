@@ -9,6 +9,7 @@ import type { AutoTranslateProps } from "./auto-translate"
 export function AutoTranslateClient({
     children: message,
     namespace,
+    values,
     tKey
 }: AutoTranslateProps) {
     const t = useTranslations()
@@ -91,10 +92,10 @@ export function AutoTranslateClient({
     if (isTranslating) {
         return (
             <LoadingText>
-                {t.has(translationKey) ? t(translationKey) : message}
+                {t.has(translationKey) ? t(translationKey, values) : message}
             </LoadingText>
         )
     }
 
-    return t.has(translationKey) ? t(translationKey) : message
+    return t.has(translationKey) ? t(translationKey, values) : message
 }

@@ -5,22 +5,21 @@ import { deepGet } from "../utils/deep-get"
 import { deepSet } from "../utils/deep-set"
 import type { RouteParams } from "./route-handler"
 
-interface AutoTranslateBody {
-    key: string
-    message: string
-}
-
 export async function autoTranslate({
-    request,
+    body,
     config: { applicationId, autoTranslate, apiKey, apiUrl }
-}: RouteParams) {
-    const { key, message }: AutoTranslateBody = await request.json()
+}: RouteParams<{
+    key?: string
+    message?: string
+}>) {
+    const { key, message } = body
 
     if (!autoTranslate) {
-        return Response.json(
-            { error: "Auto translate config not found" },
-            { status: 400 }
-        )
+        throw new Error("AutoTranslate config not found")
+    }
+
+    if (!key || !message) {
+        throw new Error("Key and message are required")
     }
 
     const { defaultLocale, locales } = autoTranslate
@@ -58,8 +57,8 @@ export async function autoTranslate({
 
         const endpoint = `${apiUrl}/api/auto-translate`
 
-        console.info(
-            `Translating message: ${message} to ${locale} using endpoint: ${endpoint}`
+        console.debug(
+            `Translating message: '${message}' from '${defaultLocale}' to '${locale}' using endpoint: ${endpoint}`
         )
 
         // TODO Attach the API Key using bearer
@@ -88,6 +87,4 @@ export async function autoTranslate({
         deepSet(translations, key, data.result)
         await saveTranslations(locale, translations)
     }
-
-    return Response.json({ success: true })
 }

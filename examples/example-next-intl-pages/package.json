@@ -9,10 +9,10 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@automagical-ai/core": "file:../../packages/core",
-        "@automagical-ai/next-intl": "file:../../packages/next-intl",
-        "@automagical-ai/react": "file:../../packages/react",
-        "@automagical-ai/server": "file:../../packages/server",
+        "@automagical-ai/core": "workspace:*",
+        "@automagical-ai/next-intl": "workspace:*",
+        "@automagical-ai/react": "workspace:*",
+        "@automagical-ai/server": "workspace:*",
         "next": "15.4.4",
         "next-intl": "^4.3.4",
         "react": "19.1.0",

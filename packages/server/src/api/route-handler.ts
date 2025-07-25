@@ -1,9 +1,10 @@
 import type { AutomagicalConfig } from "@automagical-ai/core"
+import type { IncomingMessage, ServerResponse } from "http"
 import { autoTranslate } from "./auto-translate"
-import { deleteTranslations } from "./delete-translations"
 
-export interface RouteParams {
-    request: Request
+export interface RouteParams<TBody = Record<string, unknown>> {
+    body: TBody
+    searchParams?: URLSearchParams
     config: AutomagicalConfig
 }
 
@@ -13,39 +14,83 @@ export function routeHandler(config: AutomagicalConfig) {
     config.apiKey = config.apiKey || process.env.AUTOMAGICAL_API_KEY
     config.apiUrl = config.apiUrl || "https://automagical.ai/api"
 
-    return async (request: Request) => {
-        const url = new URL(request.url)
+    return async (
+        request: Request | (IncomingMessage & { body: unknown }),
+        response?: ServerResponse
+    ) => {
+        const url = new URL(
+            request.url?.startsWith("http:") ||
+                request.url?.startsWith("https:")
+                ? request.url
+                : `protocol://origin${request.url}`
+        )
+
+        const searchParams = url.searchParams
         const method = request.method
         const slug = url.pathname.split("/").pop()
+        const body =
+            request instanceof Request
+                ? await request.json()
+                : typeof request.body === "string"
+                  ? JSON.parse(request.body)
+                  : request.body
 
-        switch (method) {
-            case "POST": {
-                switch (slug) {
-                    case "auto-translate":
-                        return await autoTranslate({ request, config })
-                    default:
-                        return Response.json(
-                            { error: "Not found" },
-                            { status: 404 }
-                        )
+        try {
+            switch (method) {
+                case "GET": {
+                    console.log("GET", slug)
+                    break
                 }
-            }
-            case "DELETE": {
-                switch (slug) {
-                    case "translations":
-                        return await deleteTranslations({ request, config })
-                    default:
-                        return Response.json(
-                            { error: "Not found" },
-                            { status: 404 }
-                        )
+                case "POST": {
+                    switch (slug) {
+                        case "auto-translate": {
+                            await autoTranslate({ body, config })
+                            break
+                        }
+                        default: {
+                            throw new Error("Not found")
+                        }
+                    }
+                    break
                 }
+                case "DELETE": {
+                    switch (slug) {
+                        // case "translations":
+                        // return await deleteTranslations({ request, config })
+                        default:
+                            throw new Error("Not found")
+                    }
+                }
+                default:
+                    throw new Error("Not found")
             }
-            default:
-                return Response.json({ error: "Not found" }, { status: 404 })
+        } catch (error) {
+            console.error(error)
+            let errorMessage = "Unknown error"
+            if (error instanceof Error) {
+                errorMessage = error.message
+            }
+
+            if (response) {
+                response.statusCode = 500
+                response.setHeader("Content-Type", "application/json")
+                response.end(JSON.stringify({ error: errorMessage }))
+                return
+            }
+
+            return new Response(JSON.stringify({ error: errorMessage }), {
+                status: 500
+            })
         }
 
-        // switch (slug) {
+        if (response) {
+            response.setHeader("Content-Type", "application/json")
+            response.end(JSON.stringify({ success: true }))
+            return
+        }
+
+        return new Response(JSON.stringify({ success: true }))
+
         //     case "check-translations":
         //         return checkTranslations({ request, config })
         //     case "translate-message":

@@ -4,10 +4,10 @@ import { deepDelete } from "../utils/deep-delete"
 import type { RouteParams } from "./route-handler"
 
 export async function deleteTranslations({
-    request,
+    searchParams,
     config: { applicationId, autoTranslate, apiKey, apiUrl }
 }: RouteParams) {
-    const key = new URL(request.url).searchParams.get("key")
+    const key = searchParams?.get("key")
 
     if (!key) {
         return Response.json({ error: "Key is required" }, { status: 400 })

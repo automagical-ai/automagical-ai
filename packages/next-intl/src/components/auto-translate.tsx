@@ -5,6 +5,7 @@ import { AutoTranslateClient } from "./auto-translate-client"
 
 export interface AutoTranslateProps {
     children: string
+    values?: Record<string, string | number | Date>
     namespace?: string
     tKey?: string
     dynamic?: boolean
@@ -14,7 +15,8 @@ export function AutoTranslate({
     children: message,
     namespace,
     tKey,
-    dynamic
+    dynamic,
+    values
 }: AutoTranslateProps) {
     const resolvedNamespace = namespace ?? getNamespace()
     const resolvedKey = tKey ?? createMessageKey(message)
@@ -25,7 +27,7 @@ export function AutoTranslate({
         : resolvedKey
 
     if (process.env.NODE_ENV !== "development") {
-        return t.has(translationKey) ? t(translationKey) : message
+        return t.has(translationKey) ? t(translationKey, values) : message
     }
 
     return (
@@ -33,6 +35,7 @@ export function AutoTranslate({
             namespace={resolvedNamespace}
             tKey={tKey}
             dynamic={dynamic}
+            values={values}
         >
             {message}
         </AutoTranslateClient>

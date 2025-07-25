@@ -21,16 +21,16 @@ importers:
   examples/example-next-pages:
     dependencies:
       '@automagical-ai/core':
-        specifier: file:../../packages/core
+        specifier: workspace:*
         version: link:../../packages/core
       '@automagical-ai/next-intl':
-        specifier: file:../../packages/next-intl
-        version: file:packages/next-intl(next-intl@4.3.4(next@15.4.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.8.3))(next@15.4.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: workspace:*
+        version: link:../../packages/next-intl
       '@automagical-ai/react':
-        specifier: file:../../packages/react
+        specifier: workspace:*
         version: link:../../packages/react
       '@automagical-ai/server':
-        specifier: file:../../packages/server
+        specifier: workspace:*
         version: link:../../packages/server
       next:
         specifier: 15.4.4
@@ -154,23 +154,6 @@ packages:
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
-
-  '@automagical-ai/core@file:packages/core':
-    resolution: {directory: packages/core, type: directory}
-
-  '@automagical-ai/next-intl@file:packages/next-intl':
-    resolution: {directory: packages/next-intl, type: directory}
-    peerDependencies:
-      next: '>=15.0.0'
-      next-intl: '>=4.1.0'
-      react: '>=18.0.0'
-      react-dom: '>=18.0.0'
-
-  '@automagical-ai/react@file:packages/react':
-    resolution: {directory: packages/react, type: directory}
-    peerDependencies:
-      react: '>=18.0.0'
-      react-dom: '>=18.0.0'
 
   '@biomejs/biome@2.1.2':
     resolution: {integrity: sha512-yq8ZZuKuBVDgAS76LWCfFKHSYIAgqkxVB3mGVVpOe2vSkUTs7xG46zXZeNPRNVjiJuw0SZ3+J2rXiYx0RUpfGg==}
@@ -915,23 +898,6 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.12
       '@jridgewell/trace-mapping': 0.3.29
-
-  '@automagical-ai/core@file:packages/core': {}
-
-  '@automagical-ai/next-intl@file:packages/next-intl(next-intl@4.3.4(next@15.4.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.8.3))(next@15.4.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
-    dependencies:
-      '@automagical-ai/core': file:packages/core
-      '@automagical-ai/react': file:packages/react(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      next: 15.4.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      next-intl: 4.3.4(next@15.4.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-
-  '@automagical-ai/react@file:packages/react(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
-    dependencies:
-      '@automagical-ai/core': file:packages/core
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
 
   '@biomejs/biome@2.1.2':
     optionalDependencies:

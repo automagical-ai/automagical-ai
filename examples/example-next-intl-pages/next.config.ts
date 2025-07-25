@@ -7,6 +7,6 @@ const nextConfig: NextConfig = {
         locales: ["en", "de"],
         defaultLocale: "en"
     }
-} as const
+}
 
 export default nextConfig

@@ -6,7 +6,7 @@
         "useIgnoreFile": true
     },
     "files": {
-        "includes": ["**", "!**/*.css"]
+        "includes": ["**", "!**/*.css", "!**/messages/*.json"]
     },
     "formatter": {
         "indentStyle": "space",
@@ -28,6 +28,7 @@
             },
             "style": {
                 "noNonNullAssertion": "off",
+                "useNodejsImportProtocol": "off",
                 "useSelfClosingElements": {
                     "fix": "safe",
                     "level": "info",
