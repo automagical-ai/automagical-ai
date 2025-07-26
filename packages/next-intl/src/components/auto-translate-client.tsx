@@ -17,7 +17,8 @@ export function AutoTranslateClient({
     const locale = useLocale()
     const {
         setActiveTranslations,
-        config: { autoTranslate, baseUrl }
+        baseURL,
+        config: { autoTranslate }
     } = useAutomagicalContext()
 
     const defaultLocale = autoTranslate?.defaultLocale
@@ -77,14 +78,14 @@ export function AutoTranslateClient({
                 : prevMessageKey
 
             await fetch(
-                `${baseUrl}/api/automagical/translations?key=${translationKey}`,
+                `${baseURL}/api/automagical/translations?key=${translationKey}`,
                 {
                     method: "DELETE"
                 }
             )
         }
 
-        await fetch(`${baseUrl}/api/automagical/auto-translate`, {
+        await fetch(`${baseURL}/api/automagical/auto-translate`, {
             method: "POST",
             body: JSON.stringify({
                 key: translationKey,
@@ -106,7 +107,7 @@ export function AutoTranslateClient({
         tKey,
         namespace,
         translationKey,
-        baseUrl,
+        baseURL,
         locale,
         defaultLocale,
         values

@@ -12,8 +12,14 @@ import {
 } from "react"
 import { TranslationToast } from "../components/translation-toast"
 
-interface AutomagicalContextType {
+interface AutomagicalProviderProps {
     config: AutomagicalConfig
+    applicationId?: string
+    baseURL?: string
+}
+
+interface AutomagicalContextType extends AutomagicalProviderProps {
+    baseURL: string
     activeTranslations: string[]
     setActiveTranslations: Dispatch<SetStateAction<string[]>>
 }
@@ -24,17 +30,14 @@ const AutomagicalContext = createContext<AutomagicalContextType | undefined>(
 
 export function AutomagicalProvider({
     children,
+    applicationId,
+    baseURL = "",
     config
-}: Partial<AutomagicalContextType> & {
-    config: AutomagicalConfig
-    children: ReactNode
-}) {
+}: AutomagicalProviderProps & { children: ReactNode }) {
     if (process.env.NODE_ENV !== "development") return children
 
     const [isSyncing, setIsSyncing] = useState(false)
     const [activeTranslations, setActiveTranslations] = useState<string[]>([])
-
-    config.baseUrl = config.baseUrl ?? ""
 
     // Check translations whenever the locales array changes (or on initial mount)
     // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
@@ -43,7 +46,7 @@ export function AutomagicalProvider({
             setIsSyncing(true)
 
             try {
-                await fetch(`${config.baseUrl}/api/automagical/sync`, {
+                await fetch(`${baseURL}/api/automagical/sync`, {
                     method: "POST"
                 })
             } catch (error) {
@@ -54,15 +57,22 @@ export function AutomagicalProvider({
         }
 
         syncApplication()
-    }, [
-        config?.autoTranslate?.defaultLocale,
-        config?.autoTranslate?.locales,
-        config?.baseUrl
-    ])
+    }, [config, baseURL])
+
+    applicationId =
+        applicationId ??
+        process.env.NEXT_PUBLIC_AUTOMAGICAL_APPLICATION_ID ??
+        process.env.NEXT_PUBLIC_AUTOMAGICAL_APP_ID
 
     return (
         <AutomagicalContext.Provider
-            value={{ config, activeTranslations, setActiveTranslations }}
+            value={{
+                config,
+                applicationId,
+                baseURL,
+                activeTranslations,
+                setActiveTranslations
+            }}
         >
             {children}
 

@@ -1,0 +1,48 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Automagical Configuration",
+    "description": "Configuration schema for Automagical AI translation system",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "type": "string",
+            "description": "A field for the [JSON schema](https://json-schema.org) specification"
+        },
+        "autoTranslate": {
+            "type": "object",
+            "description": "Auto-translation configuration",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Enable or disable auto-translation",
+                    "default": true
+                },
+                "defaultLocale": {
+                    "type": "string",
+                    "description": "Default locale for translations",
+                    "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+                    "examples": ["en", "de", "fr", "es", "en-US", "de-DE"]
+                },
+                "locales": {
+                    "type": "array",
+                    "description": "List of supported locales",
+                    "items": {
+                        "type": "string",
+                        "pattern": "^[a-z]{2}(-[A-Z]{2})?$"
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "examples": [["en", "de", "fr", "es"]]
+                },
+                "translateEndpoint": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Custom endpoint for translation service"
+                }
+            },
+            "required": ["defaultLocale", "locales"],
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}

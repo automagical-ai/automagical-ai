@@ -1,7 +1,7 @@
 import type { AutomagicalConfig } from "@automagical-ai/core"
-import { deepDelete } from "../utils/deep-delete"
-import { deepGet } from "../utils/deep-get"
-import { deepSet } from "../utils/deep-set"
+import { deepDelete } from "../lib/deep-delete"
+import { deepGet } from "../lib/deep-get"
+import { deepSet } from "../lib/deep-set"
 import { loadTranslations } from "./load-translations"
 import { saveTranslations } from "./save-translations"
 

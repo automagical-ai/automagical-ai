@@ -1,6 +1,6 @@
+import { deepDelete } from "../lib/deep-delete"
 import { loadTranslations } from "../server/load-translations"
 import { saveTranslations } from "../server/save-translations"
-import { deepDelete } from "../utils/deep-delete"
 import type { RouteParams } from "./route-handler"
 
 export async function deleteTranslations({

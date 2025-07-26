@@ -9,11 +9,21 @@ export interface RouteParams<TBody = Record<string, unknown>> {
     config: AutomagicalConfig
 }
 
-export function routeHandler(config: AutomagicalConfig) {
-    config.applicationId =
-        config.applicationId || process.env.AUTOMAGICAL_APPLICATION_ID
-    config.apiKey = config.apiKey || process.env.AUTOMAGICAL_API_KEY
-    config.apiUrl = config.apiUrl || "https://automagical.ai/api"
+export interface RouteHandlerOptions {
+    applicationId?: string
+    apiKey?: string
+    apiUrl?: string
+}
+
+export function routeHandler(options: RouteHandlerOptions) {
+    options.applicationId =
+        options.applicationId ??
+        process.env.AUTOMAGICAL_APPLICATION_ID ??
+        process.env.AUTOMAGICAL_APP_ID ??
+        process.env.NEXT_PUBLIC_AUTOMAGICAL_APPLICATION_ID ??
+        process.env.NEXT_PUBLIC_AUTOMAGICAL_APP_ID
+    options.apiKey = options.apiKey ?? process.env.AUTOMAGICAL_API_KEY
+    options.apiUrl = options.apiUrl ?? "https://automagical.ai/api"
 
     return async (
         request: Request | (IncomingMessage & { body: unknown }),

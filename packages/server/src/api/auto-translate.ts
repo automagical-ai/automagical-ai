@@ -1,17 +1,18 @@
+import { deepDelete } from "../lib/deep-delete"
+import { deepGet } from "../lib/deep-get"
+import { deepSet } from "../lib/deep-set"
 import { loadTranslations } from "../server/load-translations"
 import { saveTranslations } from "../server/save-translations"
-import { deepDelete } from "../utils/deep-delete"
-import { deepGet } from "../utils/deep-get"
-import { deepSet } from "../utils/deep-set"
 import type { RouteParams } from "./route-handler"
 
 export async function autoTranslate({
-    body = {},
-    config: { applicationId, autoTranslate, apiKey, apiUrl }
-}: RouteParams<{
-    key?: string
-    message?: string
-}>) {
+    params: { body = {} }
+}: {
+    params: RouteParams<{
+        key?: string
+        message?: string
+    }>
+}) {
     const { key, message } = body
 
     if (!autoTranslate) {
