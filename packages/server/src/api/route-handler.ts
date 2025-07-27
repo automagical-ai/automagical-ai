@@ -1,13 +1,6 @@
 import type { AutomagicalConfig } from "@automagical-ai/core"
 import type { IncomingMessage, ServerResponse } from "http"
 import { autoTranslate } from "./auto-translate"
-import { syncApplication } from "./sync-application"
-
-export interface RouteParams<TBody = Record<string, unknown>> {
-    body?: TBody
-    searchParams?: URLSearchParams
-    config: AutomagicalConfig
-}
 
 export interface RouteHandlerOptions {
     applicationId?: string
@@ -15,7 +8,17 @@ export interface RouteHandlerOptions {
     apiUrl?: string
 }
 
-export function routeHandler(options: RouteHandlerOptions) {
+export interface RouteParams<TBody = Record<string, unknown>> {
+    body?: TBody
+    searchParams?: URLSearchParams
+    options: RouteHandlerOptions
+    config: AutomagicalConfig
+}
+
+export async function routeHandler(
+    config: AutomagicalConfig,
+    options: RouteHandlerOptions = {}
+) {
     options.applicationId =
         options.applicationId ??
         process.env.AUTOMAGICAL_APPLICATION_ID ??
@@ -69,11 +72,11 @@ export function routeHandler(options: RouteHandlerOptions) {
                 case "POST": {
                     switch (slug) {
                         case "auto-translate": {
-                            await autoTranslate({ body, config })
+                            await autoTranslate({ body, config, options })
                             break
                         }
                         case "sync": {
-                            await syncApplication({ config })
+                            // await syncApplication({ config })
                             break
                         }
                         default: {

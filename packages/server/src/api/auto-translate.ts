@@ -6,13 +6,13 @@ import { saveTranslations } from "../server/save-translations"
 import type { RouteParams } from "./route-handler"
 
 export async function autoTranslate({
-    params: { body = {} }
-}: {
-    params: RouteParams<{
-        key?: string
-        message?: string
-    }>
-}) {
+    body = {},
+    config: { autoTranslate },
+    options: { apiKey, apiUrl, applicationId }
+}: RouteParams<{
+    key?: string
+    message?: string
+}>) {
     const { key, message } = body
 
     if (!autoTranslate) {

@@ -2,8 +2,10 @@ import type { AutomagicalConfig } from "@automagical-ai/core"
 import type { AutoTranslateConfig } from "@automagical-ai/core/dist/types/auto-translate-config"
 import type { RouteParams } from "./route-handler"
 
-export async function syncApplication({ config }: RouteParams) {
-    const { applicationId, autoTranslate, apiKey, apiUrl } = config
+export async function syncApplication({
+    config: { autoTranslate },
+    options: { apiKey, apiUrl, applicationId }
+}: RouteParams) {
     if (!applicationId) {
         throw new Error("Application ID is required")
     }

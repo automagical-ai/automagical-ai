@@ -5,7 +5,8 @@ import type { RouteParams } from "./route-handler"
 
 export async function deleteTranslations({
     searchParams,
-    config: { applicationId, autoTranslate, apiKey, apiUrl }
+    config: { autoTranslate },
+    options: { apiKey, apiUrl, applicationId }
 }: RouteParams) {
     const key = searchParams?.get("key")
 
