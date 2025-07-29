@@ -11,15 +11,18 @@ import {
     useState
 } from "react"
 import { TranslationToast } from "../components/translation-toast"
+import { TriplitSync } from "./triplit-sync"
 
 interface AutomagicalProviderProps {
     config: AutomagicalConfig
     applicationId?: string
     baseURL?: string
+    dbURL?: string
 }
 
 interface AutomagicalContextType extends AutomagicalProviderProps {
     baseURL: string
+    dbURL: string
     activeTranslations: string[]
     setActiveTranslations: Dispatch<SetStateAction<string[]>>
 }
@@ -32,6 +35,7 @@ export function AutomagicalProvider({
     children,
     applicationId,
     baseURL = "",
+    dbURL = "https://automagical.up.railway.app",
     config
 }: AutomagicalProviderProps & { children: ReactNode }) {
     if (process.env.NODE_ENV !== "development") return children
@@ -70,6 +74,7 @@ export function AutomagicalProvider({
                 config,
                 applicationId,
                 baseURL,
+                dbURL,
                 activeTranslations,
                 setActiveTranslations
             }}
@@ -79,6 +84,7 @@ export function AutomagicalProvider({
             <TranslationToast
                 isLoading={isSyncing || activeTranslations.length > 0}
             />
+            <TriplitSync />
         </AutomagicalContext.Provider>
     )
 }

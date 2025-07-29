@@ -1,6 +1,7 @@
 import type { AutomagicalConfig } from "@automagical-ai/core"
 import type { IncomingMessage, ServerResponse } from "http"
 import { autoTranslate } from "./auto-translate"
+import { getToken } from "./get-token"
 
 export interface RouteHandlerOptions {
     applicationId?: string
@@ -15,7 +16,7 @@ export interface RouteParams<TBody = Record<string, unknown>> {
     config: AutomagicalConfig
 }
 
-export async function routeHandler(
+export function routeHandler(
     config: AutomagicalConfig,
     options: RouteHandlerOptions = {}
 ) {
@@ -29,7 +30,7 @@ export async function routeHandler(
     options.apiUrl = options.apiUrl ?? "https://automagical.ai/api"
 
     return async (
-        request: Request | (IncomingMessage & { body: unknown }),
+        request: Request | (IncomingMessage & { body?: unknown }),
         response?: ServerResponse
     ) => {
         const url = new URL(
@@ -42,6 +43,8 @@ export async function routeHandler(
         const searchParams = url.searchParams
         const method = request.method!
         const slug = url.pathname.split("/").pop()
+
+        let result: Record<string, unknown> = { success: true }
 
         async function getBody() {
             if (method !== "POST") return null
@@ -66,7 +69,19 @@ export async function routeHandler(
         try {
             switch (method) {
                 case "GET": {
-                    console.log("GET", slug)
+                    switch (slug) {
+                        case "token": {
+                            result = await getToken({
+                                config,
+                                options
+                            })
+
+                            break
+                        }
+                        default: {
+                            throw new Error("Not found")
+                        }
+                    }
                     break
                 }
                 case "POST": {
@@ -117,11 +132,11 @@ export async function routeHandler(
 
         if (response) {
             response.setHeader("Content-Type", "application/json")
-            response.end(JSON.stringify({ success: true }))
+            response.end(JSON.stringify(result))
             return
         }
 
-        return new Response(JSON.stringify({ success: true }))
+        return new Response(JSON.stringify(result))
 
         //     case "check-translations":
         //         return checkTranslations({ request, config })
