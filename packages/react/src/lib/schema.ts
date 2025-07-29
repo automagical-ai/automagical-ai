@@ -25,7 +25,7 @@ export const schema = S.Collections({
                     S.Record({
                         enabled: S.Optional(S.Boolean()),
                         defaultLocale: S.Optional(S.String()),
-                        locales: S.Optional(S.Set(S.String()))
+                        locales: S.Optional(S.Json())
                     })
                 ),
                 autoText: S.Optional(

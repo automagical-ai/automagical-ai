@@ -5,7 +5,7 @@
         "outDir": "dist",
         "lib": ["dom", "esnext"],
         "declaration": true,
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "sourceMap": true,
         "strict": true,
         "esModuleInterop": true,

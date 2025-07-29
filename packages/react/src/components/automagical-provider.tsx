@@ -38,7 +38,8 @@ export function AutomagicalProvider({
     dbURL = "https://automagical.up.railway.app",
     config
 }: AutomagicalProviderProps & { children: ReactNode }) {
-    if (process.env.NODE_ENV !== "development") return children
+    // @ts-ignore
+    delete config.$schema
 
     const [isSyncing, setIsSyncing] = useState(false)
     const [activeTranslations, setActiveTranslations] = useState<string[]>([])
