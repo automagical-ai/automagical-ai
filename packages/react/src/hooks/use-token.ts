@@ -1,4 +1,3 @@
-import { error } from "console"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useAutomagicalContext } from "../components/automagical-provider"
 
@@ -64,5 +63,5 @@ export function useToken() {
         }
     }, [fetchToken])
 
-    return { token, error, refetch: fetchToken }
+    return { token, refetch: fetchToken }
 }
