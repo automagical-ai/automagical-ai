@@ -152,6 +152,9 @@ importers:
       '@automagical-ai/core':
         specifier: file:../core
         version: link:../core
+      detect-indent:
+        specifier: ^7.0.1
+        version: 7.0.1
     devDependencies:
       '@types/node':
         specifier: ^24.1.0
@@ -663,6 +666,10 @@ packages:
 
   decimal.js@10.6.0:
     resolution: {integrity: sha512-YpgQiITW3JXGntzdUmyUR1V812Hn8T1YVXhCu+wO3OpS4eU9l4YdD3qjyiKdV6mvV29zapkMeD390UVEf2lkUg==}
+
+  detect-indent@7.0.1:
+    resolution: {integrity: sha512-Mc7QhQ8s+cLrnUfU/Ji94vG/r8M26m8f++vyres4ZoojaRDpZ1eSIh/EpzLNwlWuvzSZ3UbDFspjFvTDXe6e/g==}
+    engines: {node: '>=12.20'}
 
   detect-libc@2.0.4:
     resolution: {integrity: sha512-3UDv+G9CsCKO1WKMGw9fwq/SWJYbI0c5Y7LU1AXYoDdbhE2AHQ6N6Nb34sG8Fj7T5APy8qXDCKuuIHd1BR0tVA==}
@@ -1371,6 +1378,8 @@ snapshots:
   csstype@3.1.3: {}
 
   decimal.js@10.6.0: {}
+
+  detect-indent@7.0.1: {}
 
   detect-libc@2.0.4: {}
 

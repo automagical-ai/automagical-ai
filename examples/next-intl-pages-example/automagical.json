@@ -1,7 +1,10 @@
 {
     "autoTranslate": {
-        "enabled": true,
         "defaultLocale": "en",
-        "locales": ["en", "de"]
-    }
+        "locales": [
+            "en",
+            "de"
+        ]
+    },
+    "updatedAt": "2025-07-29T21:14:54.649Z"
 }

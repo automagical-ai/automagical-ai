@@ -45,9 +45,7 @@ export async function performTranslations({
         const translation = deepGet(translations, key) as string | undefined
         if (translation) continue
 
-        const endpoint =
-            config.autoTranslate?.translateEndpoint ||
-            "https://autotranslate.ai/api/translate"
+        const endpoint = "https://autotranslate.ai/api/translate"
         console.log(
             `Translating message: ${message} to ${locale} using endpoint: ${endpoint}`
         )

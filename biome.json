@@ -6,7 +6,11 @@
         "useIgnoreFile": true
     },
     "files": {
-        "includes": ["**", "!**/*.css", "!**/messages/*.json"]
+        "includes": [
+            "**",
+            "!**/*.css",
+            "!**/messages/*.json"
+        ]
     },
     "formatter": {
         "indentStyle": "space",
@@ -53,7 +57,9 @@
                     "fix": "safe",
                     "level": "info",
                     "options": {
-                        "functions": ["cn"]
+                        "functions": [
+                            "cn"
+                        ]
                     }
                 }
             }
@@ -63,6 +69,11 @@
         "formatter": {
             "semicolons": "asNeeded",
             "trailingCommas": "none"
+        }
+    },
+    "json": {
+        "formatter": {
+            "lineWidth": 1
         }
     }
 }

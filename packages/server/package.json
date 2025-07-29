@@ -20,7 +20,8 @@
         "typescript": "5.8.3"
     },
     "dependencies": {
-        "@automagical-ai/core": "file:../core"
+        "@automagical-ai/core": "file:../core",
+        "detect-indent": "^7.0.1"
     },
     "packageManager": "pnpm@10.13.1"
 }

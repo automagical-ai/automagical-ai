@@ -1,6 +1,6 @@
 import type { AutoTranslateConfig } from "./auto-translate-config"
 
 export type AutomagicalConfig = {
-    autoTranslate?: AutoTranslateConfig
-    updatedAt?: Date
+    autoTranslate?: AutoTranslateConfig | null
+    updatedAt: Date
 }
