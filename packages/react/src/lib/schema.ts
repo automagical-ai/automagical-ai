@@ -24,8 +24,8 @@ export const schema = S.Collections({
                 autoTranslate: S.Optional(
                     S.Record({
                         disabled: S.Optional(S.Boolean()),
-                        defaultLocale: S.String(),
-                        locales: S.Json()
+                        defaultLocale: S.Optional(S.String()),
+                        locales: S.Optional(S.Json())
                     })
                 ),
                 autoText: S.Optional(

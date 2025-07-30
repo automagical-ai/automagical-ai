@@ -1,5 +1,5 @@
 import type { AutomagicalConfig } from "@automagical-ai/core"
-import type { IncomingMessage, ServerResponse } from "http"
+import { type IncomingMessage, ServerResponse } from "http"
 import { saveConfig } from "../lib/save-config"
 import { autoTranslate } from "./auto-translate"
 import { getToken } from "./get-token"
@@ -32,7 +32,7 @@ export function routeHandler(
 
     return async (
         request: Request | (IncomingMessage & { body?: unknown }),
-        response?: ServerResponse
+        response?: ServerResponse | unknown
     ) => {
         const url = new URL(
             request.url?.startsWith("http:") ||
@@ -119,30 +119,28 @@ export function routeHandler(
             }
         } catch (error) {
             console.error(error)
-            let errorMessage = "Unknown error"
+            let message = "Unknown error"
             if (error instanceof Error) {
-                errorMessage = error.message
+                message = error.message
             }
 
-            if (response) {
+            if (response instanceof ServerResponse) {
                 response.statusCode = 500
                 response.setHeader("Content-Type", "application/json")
-                response.end(JSON.stringify({ error: errorMessage }))
+                response.end(JSON.stringify({ message }))
                 return
             }
 
-            return new Response(JSON.stringify({ error: errorMessage }), {
-                status: 500
-            })
+            return Response.json({ message }, { status: 500 })
         }
 
-        if (response) {
+        if (response instanceof ServerResponse) {
             response.setHeader("Content-Type", "application/json")
             response.end(JSON.stringify(result))
             return
         }
 
-        return new Response(JSON.stringify(result))
+        return Response.json(result)
 
         //     case "check-translations":
         //         return checkTranslations({ request, config })

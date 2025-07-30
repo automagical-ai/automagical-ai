@@ -73,7 +73,7 @@
     },
     "json": {
         "formatter": {
-            "lineWidth": 1
+            "expand": "always"
         }
     }
 }

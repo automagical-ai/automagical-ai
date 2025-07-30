@@ -24,7 +24,6 @@ export function SyncConfig({
 
         setIsSyncing(true)
 
-        console.log("syncing config")
         try {
             let newConfig: AutomagicalConfig | undefined
 
@@ -42,13 +41,15 @@ export function SyncConfig({
 
                 // Check if we need to update the remote config
                 if (!isEqual(newConfig, application.config)) {
-                    newConfig.updatedAt = new Date()
+                    const updatedAt = new Date()
 
                     console.log("update remotely")
 
                     await triplit.http.update("applications", applicationId, {
-                        config: newConfig
+                        config: { ...newConfig, updatedAt }
                     })
+
+                    newConfig.updatedAt = updatedAt
                 } else {
                     newConfig = undefined
                 }

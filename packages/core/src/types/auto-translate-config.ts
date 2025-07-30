@@ -1,5 +1,5 @@
 export type AutoTranslateConfig = {
-    defaultLocale: string
-    locales: readonly string[]
+    defaultLocale?: string | null
+    locales?: readonly string[] | null
     disabled?: boolean | null
 }

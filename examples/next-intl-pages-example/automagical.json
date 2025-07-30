@@ -4,7 +4,8 @@
         "locales": [
             "en",
             "de"
-        ]
+        ],
+        "disabled": false
     },
-    "updatedAt": "2025-07-29T21:14:54.649Z"
+    "updatedAt": "2025-07-29T21:26:29.000Z"
 }
