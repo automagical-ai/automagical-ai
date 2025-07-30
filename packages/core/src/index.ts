@@ -1,2 +1,2 @@
+export * from "./lib/create-message-key"
 export * from "./types/automagical-config"
-export * from "./utils/create-message-key"
