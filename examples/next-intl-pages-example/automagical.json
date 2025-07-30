@@ -5,13 +5,13 @@
             "en",
             "de"
         ],
-        "disabled": false
+        "disabled": true
     },
-    "updatedAt": "2025-07-30T01:46:36.713Z",
     "autoText": {
         "disabled": false
     },
     "autoImage": {
         "disabled": false
-    }
+    },
+    "updatedAt": "2025-07-30T18:06:00.733Z"
 }

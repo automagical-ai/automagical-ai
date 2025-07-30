@@ -20,7 +20,7 @@ export async function saveTranslations(
         // Write the translations to the file
         fs.writeFileSync(
             filePath,
-            JSON.stringify(translations, null, 2),
+            `${JSON.stringify(translations, null, 2)}\n`,
             "utf8"
         )
 

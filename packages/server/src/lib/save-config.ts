@@ -18,7 +18,7 @@ export async function saveConfig(config: AutomagicalConfig) {
         const indent = detectIndent(fileContents).indent || 2
 
         // Write the config back with the detected indentation
-        fs.writeFileSync(filePath, JSON.stringify(config, null, indent))
+        fs.writeFileSync(filePath, `${JSON.stringify(config, null, indent)}\n`)
     } catch (error) {
         console.error(error)
         throw new Error("Failed to save automagical.json config file")
