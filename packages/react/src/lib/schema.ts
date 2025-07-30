@@ -1,15 +1,4 @@
-import { or, Schema as S } from "@triplit/client"
-
-const isUid = ["userId", "=", "$token.sub"] as const
-const isOrganizationMember = [
-    "organization.members.userId",
-    "=",
-    "$token.sub"
-] as const
-const hasApplicationAccess = or([
-    ["application.userId", "=", "$token.sub"],
-    ["application.organization.members.userId", "=", "$token.sub"]
-])
+import { Schema as S } from "@triplit/client"
 
 export const schema = S.Collections({
     applications: {
@@ -48,35 +37,7 @@ export const schema = S.Collections({
             archived: S.Boolean({ default: false }),
             createdAt: S.Date({ default: S.Default.now() }),
             updatedAt: S.Date({ default: S.Default.now() })
-        }),
-        permissions: {
-            authenticated: {
-                read: {
-                    filter: [
-                        or([
-                            isUid,
-                            isOrganizationMember,
-                            ["id", "=", "$token.sub"]
-                        ])
-                    ]
-                },
-                insert: {
-                    filter: [or([isUid, isOrganizationMember])]
-                },
-                update: {
-                    filter: [or([isUid, isOrganizationMember])]
-                },
-                postUpdate: {
-                    filter: [
-                        or([isUid, isOrganizationMember]),
-                        ["updatedAt", ">", "$prev.createdAt"]
-                    ]
-                },
-                delete: {
-                    filter: [or([isUid, isOrganizationMember])]
-                }
-            }
-        }
+        })
     },
     translations: {
         schema: S.Schema({
@@ -104,28 +65,6 @@ export const schema = S.Collections({
                     ]
                 ]
             })
-        },
-        permissions: {
-            authenticated: {
-                read: {
-                    filter: [hasApplicationAccess]
-                },
-                insert: {
-                    filter: [hasApplicationAccess]
-                },
-                update: {
-                    filter: [hasApplicationAccess]
-                },
-                postUpdate: {
-                    filter: [
-                        hasApplicationAccess,
-                        ["updatedAt", ">", "$prev.createdAt"]
-                    ]
-                },
-                delete: {
-                    filter: [hasApplicationAccess]
-                }
-            }
         }
     }
 })
