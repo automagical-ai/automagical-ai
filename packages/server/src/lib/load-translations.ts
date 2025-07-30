@@ -8,8 +8,6 @@ import { join } from "path"
 export async function loadTranslations(locale: string) {
     try {
         const filePath = join(process.cwd(), "messages", `${locale}.json`)
-
-        // // Read the file and parse it as JSON
         const fileContents = fs.readFileSync(filePath, "utf8")
         const translations = JSON.parse(fileContents)
 

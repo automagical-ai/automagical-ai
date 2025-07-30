@@ -1,6 +1,6 @@
 import type { AutomagicalConfig } from "@automagical-ai/core"
-import { deepGet } from "../lib/deep-get"
-import { flattenObject } from "../lib/flatten-object"
+import { get } from "lodash"
+import { flattenObject } from "./flatten-object"
 import { loadTranslations } from "./load-translations"
 import { performTranslations } from "./perform-translations"
 
@@ -25,7 +25,7 @@ export async function checkTranslations({
     // Process each key
     for (const key of allKeys) {
         try {
-            const message = deepGet(defaultTranslations, key) as string
+            const message = get(defaultTranslations, key) as string
 
             if (typeof message === "string") {
                 // Perform translation for this key and message

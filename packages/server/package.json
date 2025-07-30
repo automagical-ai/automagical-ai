@@ -16,12 +16,14 @@
     "author": "Automagical AI, LLC",
     "license": "GNU General Public License v3.0",
     "devDependencies": {
+        "@types/lodash": "^4.17.20",
         "@types/node": "^24.1.0",
         "typescript": "5.8.3"
     },
     "dependencies": {
         "@automagical-ai/core": "file:../core",
-        "detect-indent": "^7.0.1"
+        "detect-indent": "^7.0.1",
+        "lodash": "^4.17.21"
     },
     "packageManager": "pnpm@10.13.1"
 }

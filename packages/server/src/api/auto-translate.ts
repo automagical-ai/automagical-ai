@@ -1,8 +1,6 @@
-import { deepDelete } from "../lib/deep-delete"
-import { deepGet } from "../lib/deep-get"
-import { deepSet } from "../lib/deep-set"
-import { loadTranslations } from "../server/load-translations"
-import { saveTranslations } from "../server/save-translations"
+import { get, set, unset } from "lodash"
+import { loadTranslations } from "../lib/load-translations"
+import { saveTranslations } from "../lib/save-translations"
 import type { RouteParams } from "./route-handler"
 
 export async function autoTranslate({
@@ -36,11 +34,11 @@ export async function autoTranslate({
     // Load the existing translations for the default locale
     const translations = await loadTranslations(defaultLocale)
 
-    const currentValue = deepGet(translations, key) as string | undefined
+    const currentValue = get(translations, key) as string | undefined
 
     if (currentValue !== message) {
         // Update the message locally for the default locale
-        deepSet(translations, key, message)
+        set(translations, key, message)
         await saveTranslations(defaultLocale, translations)
 
         // If the message has changed, delete it locally from all other locales
@@ -48,7 +46,7 @@ export async function autoTranslate({
             if (locale === defaultLocale) continue
             const translations = await loadTranslations(locale)
 
-            deepDelete(translations, key)
+            unset(translations, key)
             await saveTranslations(locale, translations)
         }
     }
@@ -61,7 +59,7 @@ export async function autoTranslate({
         if (locale === defaultLocale) continue
         let translations = await loadTranslations(locale)
 
-        const translation = deepGet(translations, key) as string | undefined
+        const translation = get(translations, key) as string | undefined
         if (translation) continue
 
         const endpoint = `${apiUrl}/api/auto-translate`
@@ -93,7 +91,7 @@ export async function autoTranslate({
         }
 
         translations = await loadTranslations(locale)
-        deepSet(translations, key, data.result)
+        set(translations, key, data.result)
         await saveTranslations(locale, translations)
     }
 }

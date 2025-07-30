@@ -1,6 +1,6 @@
-import { deepDelete } from "../lib/deep-delete"
-import { loadTranslations } from "../server/load-translations"
-import { saveTranslations } from "../server/save-translations"
+import { unset } from "lodash"
+import { loadTranslations } from "../lib/load-translations"
+import { saveTranslations } from "../lib/save-translations"
 import type { RouteParams } from "./route-handler"
 
 export async function deleteTranslations({
@@ -30,7 +30,7 @@ export async function deleteTranslations({
     // Delete the translations locally
     for (const locale of locales) {
         const translations = await loadTranslations(locale)
-        deepDelete(translations, key)
+        unset(translations, key)
         await saveTranslations(locale, translations)
     }
 

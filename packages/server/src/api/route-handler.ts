@@ -1,5 +1,6 @@
 import type { AutomagicalConfig } from "@automagical-ai/core"
 import { type IncomingMessage, ServerResponse } from "http"
+
 import { saveConfig } from "../lib/save-config"
 import { autoTranslate } from "./auto-translate"
 import { getToken } from "./get-token"
@@ -60,7 +61,8 @@ export function routeHandler(
                 }
 
                 return request.body
-            } catch (_) {
+            } catch (error) {
+                console.error(error)
                 return null
             }
         }
@@ -89,7 +91,6 @@ export function routeHandler(
                     switch (slug) {
                         case "config": {
                             await saveConfig(body)
-
                             break
                         }
                         case "auto-translate": {

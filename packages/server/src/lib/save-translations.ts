@@ -1,5 +1,6 @@
 import fs from "fs"
 import { join } from "path"
+import { detectIndentation } from "./detect-indentation"
 
 /**
  * Saves translations to the messages/{locale}.json file
@@ -17,16 +18,15 @@ export async function saveTranslations(
             fs.mkdirSync(dirPath, { recursive: true })
         }
 
-        // Write the translations to the file
+        const indentation = detectIndentation()
+
         fs.writeFileSync(
             filePath,
-            `${JSON.stringify(translations, null, 2)}\n`,
+            `${JSON.stringify(translations, null, indentation)}\n`,
             "utf8"
         )
-
-        return true
     } catch (error) {
         console.error("Error saving translations:", error)
-        return false
+        throw new Error(`Failed to save translations for locale: ${locale}`)
     }
 }

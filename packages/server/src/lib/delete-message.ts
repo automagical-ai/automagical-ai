@@ -1,7 +1,7 @@
 import type { AutomagicalConfig } from "@automagical-ai/core"
-import { deepDelete } from "../lib/deep-delete"
-import { loadTranslations } from "./load-translations"
-import { saveTranslations } from "./save-translations"
+import { unset } from "lodash"
+import { loadTranslations } from "../lib/load-translations"
+import { saveTranslations } from "../lib/save-translations"
 
 export async function deleteMessage({
     request,
@@ -23,7 +23,7 @@ export async function deleteMessage({
     for (const locale of config.autoTranslate?.locales ?? []) {
         const translations = await loadTranslations(locale)
 
-        deepDelete(translations, key)
+        unset(translations, key)
         await saveTranslations(locale, translations)
         results.push(`Deleted from ${locale}`)
     }

@@ -1,7 +1,5 @@
 import type { AutomagicalConfig } from "@automagical-ai/core"
-import { deepDelete } from "../lib/deep-delete"
-import { deepGet } from "../lib/deep-get"
-import { deepSet } from "../lib/deep-set"
+import { get, set, unset } from "lodash"
 import { loadTranslations } from "./load-translations"
 import { saveTranslations } from "./save-translations"
 
@@ -19,9 +17,9 @@ export async function performTranslations({
     const translations = await loadTranslations(
         config.autoTranslate?.defaultLocale ?? "en"
     )
-    const currentValue = deepGet(translations, key) as string | undefined
+    const currentValue = get(translations, key) as string | undefined
 
-    deepSet(translations, key, message)
+    set(translations, key, message)
     await saveTranslations(
         config.autoTranslate?.defaultLocale ?? "en",
         translations
@@ -33,7 +31,7 @@ export async function performTranslations({
             if (locale === config.autoTranslate?.defaultLocale) continue
             const translations = await loadTranslations(locale)
 
-            deepDelete(translations, key)
+            unset(translations, key)
             await saveTranslations(locale, translations)
         }
     }
@@ -42,7 +40,7 @@ export async function performTranslations({
         if (locale === config.autoTranslate?.defaultLocale) continue
         let translations = await loadTranslations(locale)
 
-        const translation = deepGet(translations, key) as string | undefined
+        const translation = get(translations, key) as string | undefined
         if (translation) continue
 
         const endpoint = "https://autotranslate.ai/api/translate"
@@ -66,7 +64,7 @@ export async function performTranslations({
         }
 
         translations = await loadTranslations(locale)
-        deepSet(translations, key, data.result)
+        set(translations, key, data.result)
         await saveTranslations(locale, translations)
     }
 }
