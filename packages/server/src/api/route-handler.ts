@@ -42,7 +42,6 @@ export function routeHandler(
                 : `protocol://origin${request.url}`
         )
 
-        const searchParams = url.searchParams
         const method = request.method!
         const slug = url.pathname.split("/").pop()
 
@@ -142,15 +141,5 @@ export function routeHandler(
         }
 
         return Response.json(result)
-
-        //     case "check-translations":
-        //         return checkTranslations({ request, config })
-        //     case "translate-message":
-        //         return translateMessage({ request, config })
-        //     case "delete-message":
-        //         return deleteMessage({ request, config })
-        //     default:
-        //         return Response.json({ error: "Not found" }, { status: 404 })
-        // }
     }
 }
