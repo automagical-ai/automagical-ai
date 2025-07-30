@@ -23,24 +23,24 @@ export const schema = S.Collections({
             config: S.Record({
                 autoTranslate: S.Optional(
                     S.Record({
-                        disabled: S.Optional(S.Boolean()),
+                        enabled: S.Optional(S.Boolean({ default: true })),
                         defaultLocale: S.Optional(S.String()),
                         locales: S.Optional(S.Json())
                     })
                 ),
                 autoText: S.Optional(
                     S.Record({
-                        disabled: S.Optional(S.Boolean())
+                        enabled: S.Optional(S.Boolean({ default: true }))
                     })
                 ),
                 autoImage: S.Optional(
                     S.Record({
-                        disabled: S.Optional(S.Boolean())
+                        enabled: S.Optional(S.Boolean({ default: true }))
                     })
                 ),
                 autoSound: S.Optional(
                     S.Record({
-                        disabled: S.Optional(S.Boolean())
+                        enabled: S.Optional(S.Boolean({ default: true }))
                     })
                 ),
                 updatedAt: S.Date({ default: S.Default.now() })

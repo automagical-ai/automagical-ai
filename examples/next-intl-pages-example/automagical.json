@@ -1,17 +1,17 @@
 {
     "autoTranslate": {
+        "enabled": true,
         "defaultLocale": "en",
         "locales": [
             "en",
             "de"
-        ],
-        "disabled": true
+        ]
     },
     "autoText": {
-        "disabled": false
+        "enabled": true
     },
     "autoImage": {
-        "disabled": false
+        "enabled": true
     },
-    "updatedAt": "2025-07-30T18:06:00.733Z"
+    "updatedAt": "2025-07-30T19:08:17.668Z"
 }
