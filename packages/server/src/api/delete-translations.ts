@@ -23,6 +23,10 @@ export async function deleteTranslations({
 
     const { locales } = autoTranslate
 
+    if (!locales) {
+        throw new Error("Locales are required")
+    }
+
     // Delete the translations locally
     for (const locale of locales) {
         const translations = await loadTranslations(locale)

@@ -25,6 +25,14 @@ export async function autoTranslate({
 
     const { defaultLocale, locales } = autoTranslate
 
+    if (!defaultLocale) {
+        throw new Error("Default locale is required")
+    }
+
+    if (!locales) {
+        throw new Error("Locales are required")
+    }
+
     // Load the existing translations for the default locale
     const translations = await loadTranslations(defaultLocale)
 
