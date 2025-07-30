@@ -1,5 +1,5 @@
 import type { AutomagicalConfig } from "@automagical-ai/core"
-import { performTranslations } from "../lib/perform-translations"
+import { performTranslations } from "./perform-translations"
 
 export async function translateMessage({
     request,

@@ -1,7 +1,7 @@
 import type { AutomagicalConfig } from "@automagical-ai/core"
 import { unset } from "lodash"
-import { loadTranslations } from "../lib/load-translations"
-import { saveTranslations } from "../lib/save-translations"
+import { loadTranslations } from "./load-translations"
+import { saveTranslations } from "./save-translations"
 
 export async function deleteMessage({
     request,
