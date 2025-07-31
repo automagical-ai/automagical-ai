@@ -1,12 +1,13 @@
 import { TriplitClient } from "@triplit/client"
 import { useEffect, useState } from "react"
+
 import { useToken } from "../hooks/use-token"
 import { schema } from "../lib/schema"
 import { useAutomagicalContext } from "./automagical-provider"
 import { SyncConfig } from "./sync-config"
 
 export function TriplitSync() {
-    const { token } = useToken()
+    const { token, refetch: refetchToken } = useToken()
     const { dbURL } = useAutomagicalContext()
     const [triplit, setTriplit] = useState<TriplitClient<typeof schema>>()
 
@@ -26,8 +27,8 @@ export function TriplitSync() {
     useEffect(() => {
         if (!triplit || !token) return
 
-        triplit.startSession(token)
-    }, [triplit, token])
+        triplit.startSession(token, true, { refreshHandler: refetchToken })
+    }, [triplit, token, refetchToken])
 
     if (!triplit) return null
 

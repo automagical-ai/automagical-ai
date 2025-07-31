@@ -4,12 +4,14 @@ import { useAutomagicalContext } from "../components/automagical-provider"
 export function useToken() {
     const [token, setToken] = useState<string>()
     const retryTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-    const { baseURL } = useAutomagicalContext()
+    const { baseURL, setIsSyncing } = useAutomagicalContext()
     const retryCountRef = useRef(0)
     const maxRetries = 5
     const baseDelay = 1000
 
     const fetchToken = useCallback(async () => {
+        setIsSyncing(true)
+
         if (retryTimeoutRef.current) {
             clearTimeout(retryTimeoutRef.current)
             retryTimeoutRef.current = null
@@ -26,7 +28,10 @@ export function useToken() {
 
             setToken(data.token)
             retryCountRef.current = 0
-            return true
+
+            setIsSyncing(false)
+
+            return data.token
         } catch (error) {
             console.error(error)
 
@@ -45,9 +50,11 @@ export function useToken() {
                 console.error("Max retries reached, giving up")
             }
 
-            return false
+            setIsSyncing(false)
+
+            return null
         }
-    }, [baseURL])
+    }, [baseURL, setIsSyncing])
 
     useEffect(() => {
         fetchToken()

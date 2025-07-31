@@ -1,13 +1,12 @@
 {
-  "Home": {
-    "save-and-see-your-v:8b380f": "Speichern und sehen Sie Ihre Änderungen sofort.",
-    "deploy-now-v:67d8af": "Jetzt einsetzen",
-    "read-our-docs-v:db3870": "Lesen Sie unsere Dokumente",
-    "get-started-by-editing-v:68dfb3": "Beginnen Sie mit der Bearbeitung",
-    "examples-v:e68ee0": "Beispiele",
-    "go-to-domain-v:775e65": "Gehen Sie zu {domain} →",
-    "learn-v:ce78af": "Lernen",
-    "wassup-v:c0588a": "Wassup",
-    "wassup-my-dawg-v:9e2f0b": "Wassup mein Dawg"
-  }
+    "Home": {
+        "save-and-see-your-v:8b380f": "Speichern und sofortige Änderungen sehen.",
+        "learn-v:ce78af": "Lernen",
+        "wassup-my-dawg-v:9e2f0b": "Was geht ab, mein Freund?",
+        "get-started-by-editing-v:68dfb3": "Fangen Sie an, indem Sie bearbeiten",
+        "read-our-docs-v:db3870": "Lesen Sie unsere Dokumentation",
+        "examples-v:e68ee0": "Beispiele",
+        "go-to-domain-v:775e65": "Gehe zu {domain} →",
+        "deploy-now-v:67d8af": "Jetzt bereitstellen"
+    }
 }

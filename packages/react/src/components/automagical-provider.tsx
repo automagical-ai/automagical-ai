@@ -10,7 +10,7 @@ import {
     useEffect,
     useState
 } from "react"
-import { TranslationToast } from "../components/translation-toast"
+import { AutomagicalLoader } from "./automagical-loader"
 import { TriplitSync } from "./triplit-sync"
 
 interface AutomagicalProviderProps {
@@ -25,6 +25,7 @@ interface AutomagicalContextType extends AutomagicalProviderProps {
     dbURL: string
     activeTranslations: string[]
     setActiveTranslations: Dispatch<SetStateAction<string[]>>
+    setIsSyncing: Dispatch<SetStateAction<boolean>>
 }
 
 const AutomagicalContext = createContext<AutomagicalContextType | undefined>(
@@ -50,13 +51,13 @@ export function AutomagicalProvider({
         const syncApplication = async () => {
             setIsSyncing(true)
 
-            try {
-                await fetch(`${baseURL}/api/automagical/sync`, {
-                    method: "POST"
-                })
-            } catch (error) {
-                console.error("Error checking translations:", error)
-            }
+            // try {
+            //     await fetch(`${baseURL}/api/automagical/sync`, {
+            //         method: "POST"
+            //     })
+            // } catch (error) {
+            //     console.error("Error checking translations:", error)
+            // }
 
             setIsSyncing(false)
         }
@@ -77,14 +78,16 @@ export function AutomagicalProvider({
                 baseURL,
                 dbURL,
                 activeTranslations,
-                setActiveTranslations
+                setActiveTranslations,
+                setIsSyncing
             }}
         >
             {children}
 
-            <TranslationToast
+            <AutomagicalLoader
                 isLoading={isSyncing || activeTranslations.length > 0}
             />
+
             <TriplitSync />
         </AutomagicalContext.Provider>
     )

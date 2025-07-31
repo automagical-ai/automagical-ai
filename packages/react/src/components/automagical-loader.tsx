@@ -2,11 +2,7 @@
 
 import { useIsHydrated } from "../hooks/use-hydrated"
 
-interface TranslationToastProps {
-    isLoading: boolean
-}
-
-export function TranslationToast({ isLoading }: TranslationToastProps) {
+export function AutomagicalLoader({ isLoading }: { isLoading: boolean }) {
     const isHydrated = useIsHydrated()
 
     if (!isHydrated) return null
@@ -23,6 +19,7 @@ export function TranslationToast({ isLoading }: TranslationToastProps) {
                     }
                 }
             `}</style>
+
             <div
                 style={{
                     position: "fixed",
