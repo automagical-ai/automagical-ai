@@ -1,12 +1,12 @@
 {
     "Home": {
-        "save-and-see-your-v:8b380f": "Speichern und sofortige Änderungen sehen.",
         "learn-v:ce78af": "Lernen",
-        "wassup-my-dawg-v:9e2f0b": "Was geht ab, mein Freund?",
-        "get-started-by-editing-v:68dfb3": "Fangen Sie an, indem Sie bearbeiten",
+        "deploy-now-v:67d8af": "Jetzt bereitstellen",
+        "save-and-see-your-v:8b380f": "Speichern und sehen Sie Ihre Änderungen sofort.",
         "read-our-docs-v:db3870": "Lesen Sie unsere Dokumentation",
+        "welcome-to-the-next-js-v:1a3dc0": "Willkommen beim Next.js-Beispiel",
         "examples-v:e68ee0": "Beispiele",
         "go-to-domain-v:775e65": "Gehe zu {domain} →",
-        "deploy-now-v:67d8af": "Jetzt bereitstellen"
+        "get-started-by-editing-v:68dfb3": "Beginnen Sie, indem Sie bearbeiten"
     }
 }

@@ -40,7 +40,7 @@ export default function Home() {
                 {otherLocale}
             </Link>
 
-            <AutoTranslate>Wassup my dawg</AutoTranslate>
+            <AutoTranslate>Welcome to the Next.js example</AutoTranslate>
 
             <main className="row-start-2 flex flex-col items-center gap-[32px] sm:items-start">
                 <Image
