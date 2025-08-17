@@ -4,12 +4,18 @@ import { useAutomagicalContext } from "../components/automagical-provider"
 export function useToken() {
     const [token, setToken] = useState<string>()
     const retryTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+    const fetchingTokenRef = useRef(false)
     const { baseURL, setIsSyncing } = useAutomagicalContext()
     const retryCountRef = useRef(0)
     const maxRetries = 5
     const baseDelay = 1000
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
     const fetchToken = useCallback(async () => {
+        if (fetchingTokenRef.current) return
+
+        fetchingTokenRef.current = true
+
         setIsSyncing(true)
 
         if (retryTimeoutRef.current) {
@@ -51,10 +57,10 @@ export function useToken() {
             }
 
             setIsSyncing(false)
-
+            fetchingTokenRef.current = false
             return null
         }
-    }, [baseURL, setIsSyncing])
+    }, [baseURL])
 
     useEffect(() => {
         fetchToken()
