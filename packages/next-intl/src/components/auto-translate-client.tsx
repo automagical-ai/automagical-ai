@@ -3,7 +3,7 @@
 import { createMessageKey } from "@automagical-ai/core"
 import { LoadingText, useAutomagicalContext } from "@automagical-ai/react"
 import { useLocale, useTranslations } from "next-intl"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import type { AutoTranslateProps } from "./auto-translate"
 
 export function AutoTranslateClient({
@@ -60,7 +60,9 @@ export function AutoTranslateClient({
     const isTranslatingRef = useRef(false)
     const [isTranslating, setIsTranslating] = useState(false)
 
-    const translateMessage = useCallback(async () => {
+    const translateMessage = async () => {
+        if (isTranslatingRef.current) return
+
         isTranslatingRef.current = true
         setIsTranslating(true)
 
@@ -99,26 +101,14 @@ export function AutoTranslateClient({
         setActiveTranslations((prev: string[]) =>
             prev.filter((key) => key !== translationKey)
         )
-    }, [
-        previousMessage,
-        message,
-        setActiveTranslations,
-        t,
-        tKey,
-        namespace,
-        translationKey,
-        baseURL,
-        locale,
-        defaultLocale,
-        values
-    ])
+    }
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
     useEffect(() => {
         if (!needsTranslation) return
-        if (isTranslatingRef.current) return
 
         translateMessage()
-    }, [needsTranslation, translateMessage])
+    }, [needsTranslation])
 
     if (isTranslating) {
         return (
