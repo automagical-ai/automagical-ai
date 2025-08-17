@@ -1,3 +1,5 @@
+"use client"
+
 import { TriplitClient } from "@triplit/client"
 import { useEffect, useState } from "react"
 

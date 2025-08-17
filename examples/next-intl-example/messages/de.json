@@ -1,1 +1,11 @@
-{}
+{
+    "home": {
+        "save-and-see-your-v:8b380f": "Speichern Sie und sehen Sie Ihre Änderungen sofort.",
+        "get-started-by-editing-v:68dfb3": "Beginnen Sie mit dem Bearbeiten.",
+        "deploy-now-v:67d8af": "Jetzt bereitstellen",
+        "go-to-domain-v:775e65": "Zu {domain} →",
+        "examples-v:e68ee0": "Beispiele",
+        "read-our-docs-v:db3870": "Lesen Sie unsere Dokumentation.",
+        "learn-v:ce78af": "lernen"
+    }
+}

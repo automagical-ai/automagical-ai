@@ -28,7 +28,8 @@
     },
     "peerDependencies": {
         "react": ">=18.0.0",
-        "react-dom": ">=18.0.0"
+        "react-dom": ">=18.0.0",
+        "uuidv7": ">=1.0.0"
     },
     "dependencies": {
         "@automagical-ai/core": "file:../core",
