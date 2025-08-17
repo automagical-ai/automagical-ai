@@ -39,7 +39,6 @@ export function AutomagicalProvider({
     dbURL = "https://automagical.up.railway.app",
     config
 }: AutomagicalProviderProps & { children: ReactNode }) {
-    // @ts-ignore
     delete config.$schema
 
     const [isSyncing, setIsSyncing] = useState(false)
