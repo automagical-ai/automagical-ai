@@ -18,6 +18,40 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
+  examples/next-intl-example:
+    dependencies:
+      next:
+        specifier: 15.4.6
+        version: 15.4.6(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      next-intl:
+        specifier: ^4.3.4
+        version: 4.3.4(next@15.4.6(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
+      react:
+        specifier: 19.1.1
+        version: 19.1.1
+      react-dom:
+        specifier: 19.1.1
+        version: 19.1.1(react@19.1.1)
+    devDependencies:
+      '@tailwindcss/postcss':
+        specifier: ^4.1.12
+        version: 4.1.12
+      '@types/node':
+        specifier: ^24.3.0
+        version: 24.3.0
+      '@types/react':
+        specifier: ^19.1.10
+        version: 19.1.10
+      '@types/react-dom':
+        specifier: ^19.1.7
+        version: 19.1.7(@types/react@19.1.10)
+      tailwindcss:
+        specifier: ^4.1.12
+        version: 4.1.12
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
+
   examples/next-intl-pages-example:
     dependencies:
       '@automagical-ai/core':

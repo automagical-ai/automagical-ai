@@ -21,7 +21,14 @@
                     "type": "string",
                     "description": "Default locale for translations",
                     "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
-                    "examples": ["en", "de", "fr", "es", "en-US", "de-DE"]
+                    "examples": [
+                        "en",
+                        "de",
+                        "fr",
+                        "es",
+                        "en-US",
+                        "de-DE"
+                    ]
                 },
                 "locales": {
                     "type": "array",
@@ -32,7 +39,14 @@
                     },
                     "minItems": 1,
                     "uniqueItems": true,
-                    "examples": [["en", "de", "fr", "es"]]
+                    "examples": [
+                        [
+                            "en",
+                            "de",
+                            "fr",
+                            "es"
+                        ]
+                    ]
                 },
                 "translateEndpoint": {
                     "type": "string",
@@ -40,7 +54,10 @@
                     "description": "Custom endpoint for translation service"
                 }
             },
-            "required": ["defaultLocale", "locales"],
+            "required": [
+                "defaultLocale",
+                "locales"
+            ],
             "additionalProperties": false
         }
     },
