@@ -16,7 +16,7 @@
     "author": "Automagical AI, LLC",
     "license": "GNU General Public License v3.0",
     "devDependencies": {
-        "@types/node": "^24.1.0",
+        "@types/node": "^24.3.0",
         "typescript": "5.9.2"
     },
     "packageManager": "pnpm@10.13.1"

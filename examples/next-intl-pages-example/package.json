@@ -13,17 +13,17 @@
         "@automagical-ai/next-intl": "workspace:*",
         "@automagical-ai/react": "workspace:*",
         "@automagical-ai/server": "workspace:*",
-        "next": "15.4.5",
+        "next": "15.4.6",
         "next-intl": "^4.3.4",
         "react": "19.1.1",
         "react-dom": "19.1.1"
     },
     "devDependencies": {
-        "@tailwindcss/postcss": "^4.1.11",
-        "@types/node": "^24.1.0",
-        "@types/react": "^19.1.9",
+        "@tailwindcss/postcss": "^4.1.12",
+        "@types/node": "^24.3.0",
+        "@types/react": "^19.1.10",
         "@types/react-dom": "^19.1.7",
-        "tailwindcss": "^4.1.11",
+        "tailwindcss": "^4.1.12",
         "typescript": "^5.9.2"
     }
 }
