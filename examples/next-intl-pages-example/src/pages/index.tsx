@@ -28,9 +28,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 }
 
 export default function Home() {
-    const { AutoTranslate } = useAutoTranslate({ namespace: "Home" })
     const { locale, locales, route } = useRouter()
     const otherLocale = locales?.find((cur) => cur !== locale) as string
+
+    const { AutoTranslate } = useAutoTranslate({ namespace: "Home" })
 
     return (
         <div

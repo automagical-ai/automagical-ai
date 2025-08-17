@@ -1,4 +1,5 @@
 import type { NextConfig } from "next"
+
 import { autoTranslate } from "./automagical.json"
 
 const nextConfig: NextConfig = {

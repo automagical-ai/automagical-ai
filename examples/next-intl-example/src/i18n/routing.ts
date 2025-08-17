@@ -1,11 +1,12 @@
 import { defineRouting } from "next-intl/routing"
+import { autoTranslate } from "@/../automagical.json"
 
 export const routing = defineRouting({
     // A list of all locales that are supported
-    locales: ["en", "de"],
+    locales: autoTranslate.locales,
 
     // Used when no locale matches
-    defaultLocale: "en",
+    defaultLocale: autoTranslate.defaultLocale,
 
     localePrefix: "as-needed"
 })
