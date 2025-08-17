@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { notFound } from "next/navigation"
 import { hasLocale, NextIntlClientProvider } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
+import type { ReactNode } from "react"
 
 import automagicalConfig from "@/../automagical.json"
 import { routing } from "@/i18n/routing"
@@ -33,7 +34,7 @@ export default async function LocaleLayout({
     children,
     params
 }: {
-    children: React.ReactNode
+    children: ReactNode
     params: Promise<{ locale: string }>
 }) {
     // Ensure that the incoming `locale` is valid
