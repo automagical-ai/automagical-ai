@@ -29,7 +29,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
 export default function Home() {
     const { locale, locales, route } = useRouter()
-    const otherLocale = locales?.find((cur) => cur !== locale) as string
+    const otherLocale = locales?.find((cur) => cur !== locale)
 
     const { AutoTranslate } = useAutoTranslate({ namespace: "Home" })
 
@@ -40,8 +40,6 @@ export default function Home() {
             <Link href={route} locale={otherLocale}>
                 {otherLocale}
             </Link>
-
-            <AutoTranslate>Welcome to the Next.js example</AutoTranslate>
 
             <main className="row-start-2 flex flex-col items-center gap-[32px] sm:items-start">
                 <Image

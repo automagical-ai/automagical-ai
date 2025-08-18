@@ -9,7 +9,7 @@ import { routing } from "@/i18n/routing"
 
 export default function Home() {
     const locale = useLocale()
-    const otherLocale = routing.locales?.find((cur) => cur !== locale)
+    const otherLocale = routing.locales.find((cur) => cur !== locale)
 
     const { AutoTranslate } = useAutoTranslate({ namespace: "home" })
 

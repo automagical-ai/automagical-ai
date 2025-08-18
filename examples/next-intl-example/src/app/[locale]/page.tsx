@@ -7,7 +7,7 @@ import { routing } from "@/i18n/routing"
 
 export default async function Home() {
     const locale = await getLocale()
-    const otherLocale = routing.locales?.find((cur) => cur !== locale)
+    const otherLocale = routing.locales.find((cur) => cur !== locale)
 
     setNamespace("home")
 
