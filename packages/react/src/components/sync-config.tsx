@@ -1,16 +1,13 @@
+"use client"
+
 import type { AutomagicalConfig } from "@automagical-ai/core"
-import type { TriplitClient } from "@triplit/client"
 import { useQueryOne } from "@triplit/react"
 import { isEqual } from "lodash"
 import { useEffect } from "react"
-import type { schema } from "../lib/schema"
+import { triplit } from "../triplit/client"
 import { useAutomagicalContext } from "./automagical-provider"
 
-export function SyncConfig({
-    triplit
-}: {
-    triplit: TriplitClient<typeof schema>
-}) {
+export function SyncConfig() {
     const { applicationId, baseURL, config, setIsSyncing } =
         useAutomagicalContext()
     const { result: application } = useQueryOne(

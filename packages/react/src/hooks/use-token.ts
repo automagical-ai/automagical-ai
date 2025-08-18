@@ -5,7 +5,7 @@ import { useAutomagicalContext } from "../components/automagical-provider"
 
 export function useToken() {
     const [token, setToken] = useState<string>()
-    const retryTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+    const retryTimeoutRef = useRef<NodeJS.Timeout>(null)
     const fetchingTokenRef = useRef(false)
     const { baseURL, setIsSyncing } = useAutomagicalContext()
     const retryCountRef = useRef(0)

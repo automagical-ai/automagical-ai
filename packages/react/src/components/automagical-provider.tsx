@@ -10,6 +10,7 @@ import {
     useEffect,
     useState
 } from "react"
+
 import { AutomagicalLoader } from "./automagical-loader"
 import { TriplitSync } from "./triplit-sync"
 
@@ -21,9 +22,9 @@ interface AutomagicalProviderProps {
 }
 
 interface AutomagicalContextType extends AutomagicalProviderProps {
-    baseURL: string
-    dbURL: string
     activeTranslations: string[]
+    baseURL: string
+    dbURL?: string
     setActiveTranslations: Dispatch<SetStateAction<string[]>>
     setIsSyncing: Dispatch<SetStateAction<boolean>>
 }
@@ -34,10 +35,10 @@ const AutomagicalContext = createContext<AutomagicalContextType | undefined>(
 
 export function AutomagicalProvider({
     children,
+    config,
     applicationId,
     baseURL = "",
-    dbURL = "https://automagical.up.railway.app",
-    config
+    dbURL
 }: AutomagicalProviderProps & { children: ReactNode }) {
     delete config.$schema
 

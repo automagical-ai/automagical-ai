@@ -1,59 +1,30 @@
 "use client"
 
-import { TriplitClient } from "@triplit/client"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 import { useToken } from "../hooks/use-token"
-import { schema } from "../lib/schema"
+import { triplit } from "../triplit/client"
 import { useAutomagicalContext } from "./automagical-provider"
 import { SyncConfig } from "./sync-config"
-
-declare global {
-    interface Window {
-        __triplitClients?: Map<string, TriplitClient<typeof schema>>
-    }
-}
-
-function getOrCreateTriplitClient(dbURL: string) {
-    if (!window.__triplitClients) {
-        window.__triplitClients = new Map()
-    }
-
-    const existingClient = window.__triplitClients.get(dbURL)
-    if (existingClient) return existingClient
-
-    const newClient = new TriplitClient({
-        serverUrl: dbURL,
-        autoConnect: false,
-        schema
-    })
-
-    window.__triplitClients.set(dbURL, newClient)
-
-    return newClient
-}
 
 export function TriplitSync() {
     const { token, refetch: refetchToken } = useToken()
     const { dbURL } = useAutomagicalContext()
-    const [triplit, setTriplit] = useState<TriplitClient<typeof schema>>()
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
     useEffect(() => {
         if (!token) return
 
-        const client = getOrCreateTriplitClient(dbURL)
-        setTriplit(client)
+        triplit.disconnect()
 
-        client.startSession(token, true, {
+        if (dbURL !== undefined) {
+            triplit.updateServerUrl(dbURL)
+        }
+
+        triplit.startSession(token, true, {
             refreshHandler: refetchToken
         })
+    }, [dbURL, token])
 
-        return () => {
-            client.disconnect()
-        }
-    }, [dbURL, token, refetchToken])
-
-    if (!triplit) return null
-
-    return <SyncConfig triplit={triplit} />
+    return <SyncConfig />
 }
