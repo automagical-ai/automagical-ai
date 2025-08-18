@@ -15,7 +15,7 @@ export function AutoTranslateClient({
 }: AutoTranslateProps) {
     const message = messageProp ?? children
 
-    if (!message) {
+    if (message === undefined) {
         throw new Error(
             "AutoTranslate component must have a message or children"
         )
