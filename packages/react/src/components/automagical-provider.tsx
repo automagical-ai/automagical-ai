@@ -10,7 +10,7 @@ import {
     useEffect,
     useState
 } from "react"
-
+import { triplit } from "../triplit/client"
 import { AutomagicalLoader } from "./automagical-loader"
 import { TriplitSync } from "./triplit-sync"
 
@@ -38,7 +38,7 @@ export function AutomagicalProvider({
     config,
     applicationId: applicationIdProp,
     baseURL = "",
-    dbURL
+    dbURL = triplit.serverUrl
 }: AutomagicalProviderProps & { children: ReactNode }) {
     delete config.$schema
 
@@ -84,7 +84,7 @@ export function AutomagicalProvider({
         >
             {children}
 
-            {!!applicationId && (
+            {!!applicationId && process.env.NODE_ENV === "development" && (
                 <>
                     <AutomagicalLoader
                         isLoading={isSyncing || activeTranslations.length > 0}

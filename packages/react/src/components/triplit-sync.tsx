@@ -16,7 +16,10 @@ export function TriplitSync() {
         if (dbURL === triplit.serverUrl && token === triplit.token) return
 
         triplit.disconnect()
-        triplit.updateServerUrl(dbURL)
+
+        if (dbURL !== undefined) {
+            triplit.updateServerUrl(dbURL)
+        }
 
         if (!token) return
 
