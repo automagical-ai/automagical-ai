@@ -42,6 +42,7 @@ export function AutoTranslate({
 
     return (
         <AutoTranslateClient
+            key={resolvedKey}
             namespace={resolvedNamespace}
             tKey={tKey}
             dynamic={dynamic}

@@ -1,6 +1,6 @@
 {
     "autoTranslate": {
-        "enabled": true,
+        "enabled": false,
         "defaultLocale": "en",
         "locales": [
             "en",
@@ -13,5 +13,5 @@
     "autoImage": {
         "enabled": true
     },
-    "updatedAt": "2025-08-18T08:52:45.380Z"
+    "updatedAt": "2025-08-18T09:13:46.684Z"
 }
