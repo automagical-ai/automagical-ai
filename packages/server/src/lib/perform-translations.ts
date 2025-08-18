@@ -1,4 +1,4 @@
-import type { AutomagicalConfig } from "@automagical-ai/core"
+import { $fetch, type AutomagicalConfig } from "@automagical-ai/core"
 import { get, set, unset } from "lodash"
 import { loadTranslations } from "./load-translations"
 import { saveTranslations } from "./save-translations"
@@ -44,10 +44,12 @@ export async function performTranslations({
         if (translation) continue
 
         const endpoint = "https://autotranslate.ai/api/translate"
+
         console.log(
             `Translating message: ${message} to ${locale} using endpoint: ${endpoint}`
         )
-        const response = await fetch(endpoint, {
+
+        const data = await $fetch<{ result: string }>(endpoint, {
             method: "POST",
             body: JSON.stringify({
                 message,
@@ -56,12 +58,6 @@ export async function performTranslations({
                 to: locale
             })
         })
-
-        const data = await response.json()
-        if (!data.result) {
-            console.error(`Error translating message: ${message}`, data)
-            continue
-        }
 
         translations = await loadTranslations(locale)
         set(translations, key, data.result)

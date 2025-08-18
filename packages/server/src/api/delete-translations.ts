@@ -1,3 +1,4 @@
+import { $fetch } from "@automagical-ai/core"
 import { unset } from "lodash"
 import { loadTranslations } from "../lib/load-translations"
 import { saveTranslations } from "../lib/save-translations"
@@ -35,12 +36,11 @@ export async function deleteTranslations({
     }
 
     // Delete the translations from the server
-    await fetch(
+    await $fetch(
         `${apiUrl}/api/translations?applicationId=${applicationId}&key=${key}`,
         {
             method: "DELETE",
             headers: {
-                "Content-Type": "application/json",
                 ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {})
             }
         }

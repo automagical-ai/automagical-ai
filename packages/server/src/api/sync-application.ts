@@ -1,4 +1,4 @@
-import type { AutomagicalConfig } from "@automagical-ai/core"
+import { $fetch, type AutomagicalConfig } from "@automagical-ai/core"
 import type { AutoTranslateConfig } from "@automagical-ai/core/dist/types/auto-translate-config"
 import type { RouteParams } from "./route-handler"
 
@@ -12,19 +12,14 @@ export async function syncApplication({
 
     console.log(`${apiUrl}/api/applications/${applicationId}`)
 
-    const response = await fetch(
+    const data = await $fetch<{ config: AutomagicalConfig }>(
         `${apiUrl}/api/applications/${applicationId}`,
         {
             headers: {
-                "Content-Type": "application/json",
                 Authorization: `Bearer ${apiKey}`
             }
         }
     )
-
-    const data = (await response.json()) as {
-        config: AutomagicalConfig
-    }
 
     const remoteConfig = data.config
     let isDifferent = false
@@ -48,17 +43,16 @@ export async function syncApplication({
     }
 
     if (isDifferent) {
-        await fetch(`${apiUrl}/api/applications/${applicationId}`, {
+        await $fetch(`${apiUrl}/api/applications/${applicationId}`, {
             method: "PATCH",
             headers: {
-                "Content-Type": "application/json",
                 Authorization: `Bearer ${apiKey}`
             },
-            body: JSON.stringify({
+            body: {
                 config: {
                     autoTranslate
                 }
-            })
+            }
         })
     }
 }

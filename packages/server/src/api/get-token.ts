@@ -1,3 +1,4 @@
+import { $fetch } from "@automagical-ai/core"
 import type { RouteParams } from "./route-handler"
 
 export async function getToken({
@@ -5,17 +6,11 @@ export async function getToken({
 }: RouteParams) {
     const endpoint = `${apiUrl}/api/token?applicationId=${applicationId}`
 
-    const response = await fetch(endpoint, {
+    const data = await $fetch<{ token: string }>(endpoint, {
         headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${apiKey}`
         }
     })
-
-    const data = await response.json()
-    if (!data.token) {
-        throw new Error("No token found")
-    }
 
     return data
 }

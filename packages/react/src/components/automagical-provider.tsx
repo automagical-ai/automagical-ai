@@ -7,9 +7,9 @@ import {
     type ReactNode,
     type SetStateAction,
     useContext,
-    useEffect,
     useState
 } from "react"
+
 import { triplit } from "../triplit/client"
 import { AutomagicalLoader } from "./automagical-loader"
 import { TriplitSync } from "./triplit-sync"
@@ -45,25 +45,7 @@ export function AutomagicalProvider({
     const [isSyncing, setIsSyncing] = useState(false)
     const [activeTranslations, setActiveTranslations] = useState<string[]>([])
 
-    // Check translations whenever the locales array changes (or on initial mount)
-    // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
-    useEffect(() => {
-        const syncApplication = async () => {
-            setIsSyncing(true)
-
-            // try {
-            //     await fetch(`${baseURL}/api/automagical/sync`, {
-            //         method: "POST"
-            //     })
-            // } catch (error) {
-            //     console.error("Error checking translations:", error)
-            // }
-
-            setIsSyncing(false)
-        }
-
-        syncApplication()
-    }, [config, baseURL])
+    // TODO Check translations whenever the locales array changes (or on initial mount)
 
     const applicationId =
         applicationIdProp ??
@@ -114,7 +96,7 @@ export function useAutomagicalContext() {
 
     if (context === undefined) {
         throw new Error(
-            "useActiveTranslations must be used within an AutomagicalProvider"
+            "useAutomagicalContext must be used within an AutomagicalProvider"
         )
     }
 

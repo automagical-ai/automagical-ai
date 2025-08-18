@@ -19,8 +19,12 @@
     "author": "Automagical AI, LLC",
     "license": "GNU General Public License v3.0",
     "devDependencies": {
+        "@better-fetch/fetch": "^1.1.18",
         "@types/node": "^24.3.0",
         "typescript": "5.9.2"
+    },
+    "peerDependencies": {
+        "@better-fetch/fetch": ">=1.1.0"
     },
     "packageManager": "pnpm@10.14.0"
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { createMessageKey } from "@automagical-ai/core"
+import { $fetch, createMessageKey } from "@automagical-ai/core"
 import { LoadingText, useAutomagicalContext } from "@automagical-ai/react"
 import { useLocale, useTranslations } from "next-intl"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -77,32 +77,37 @@ export function AutoTranslateClient({
 
         setActiveTranslations((prev: string[]) => [...prev, translationKey])
 
-        // Delete the previous translations if it's changed and the key is generated
-        if (
-            !tKey &&
-            previousMessage !== message &&
-            (locale !== defaultLocale || t(translationKey, values) !== message)
-        ) {
-            const prevMessageKey = createMessageKey(previousMessage)
-            const translationKey = namespace
-                ? `${namespace}.${prevMessageKey}`
-                : prevMessageKey
+        try {
+            // Delete the previous translations if it's changed and the key is generated
+            if (
+                !tKey &&
+                previousMessage !== message &&
+                (locale !== defaultLocale ||
+                    t(translationKey, values) !== message)
+            ) {
+                const prevMessageKey = createMessageKey(previousMessage)
+                const translationKey = namespace
+                    ? `${namespace}.${prevMessageKey}`
+                    : prevMessageKey
 
-            await fetch(
-                `${baseURL}/api/automagical/translations?key=${translationKey}`,
-                {
-                    method: "DELETE"
+                await $fetch(
+                    `${baseURL}/api/automagical/translations?key=${translationKey}`,
+                    {
+                        method: "DELETE"
+                    }
+                )
+            }
+
+            await $fetch(`${baseURL}/api/automagical/auto-translate`, {
+                method: "POST",
+                body: {
+                    key: translationKey,
+                    message: message
                 }
-            )
-        }
-
-        await fetch(`${baseURL}/api/automagical/auto-translate`, {
-            method: "POST",
-            body: JSON.stringify({
-                key: translationKey,
-                message: message
             })
-        })
+        } catch (error) {
+            console.error(error)
+        }
 
         isTranslatingRef.current = false
         setPreviousMessage(message)

@@ -1,3 +1,4 @@
+import { $fetch } from "@automagical-ai/core"
 import { get, set, unset } from "lodash"
 import { loadTranslations } from "../lib/load-translations"
 import { saveTranslations } from "../lib/save-translations"
@@ -68,27 +69,19 @@ export async function autoTranslate({
             `Translating message: '${message}' from '${defaultLocale}' to '${locale}' using endpoint: ${endpoint}`
         )
 
-        // TODO Attach the API Key using bearer
-        const response = await fetch(endpoint, {
+        const data = await $fetch<{ result: string }>(endpoint, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
                 ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {})
             },
-            body: JSON.stringify({
+            body: {
                 applicationId,
                 key,
                 message,
                 from: defaultLocale,
                 to: locale
-            })
+            }
         })
-
-        const data = await response.json()
-        if (!data.result) {
-            console.error(`Error translating message: ${message}`, data)
-            continue
-        }
 
         translations = await loadTranslations(locale)
         set(translations, key, data.result)

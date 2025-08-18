@@ -1,6 +1,6 @@
 "use client"
 
-import type { AutomagicalConfig } from "@automagical-ai/core"
+import { $fetch, type AutomagicalConfig } from "@automagical-ai/core"
 import { useQueryOne } from "@triplit/react"
 import { isEqual } from "lodash"
 import { useEffect } from "react"
@@ -54,9 +54,9 @@ export function SyncConfig() {
             }
 
             if (newConfig) {
-                await fetch(`${baseURL}/api/automagical/config`, {
+                await $fetch(`${baseURL}/api/automagical/config`, {
                     method: "POST",
-                    body: JSON.stringify(newConfig)
+                    body: newConfig
                 })
             }
         } catch (error) {
