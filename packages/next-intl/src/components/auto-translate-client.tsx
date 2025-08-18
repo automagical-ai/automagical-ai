@@ -7,11 +7,20 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import type { AutoTranslateProps } from "./auto-translate"
 
 export function AutoTranslateClient({
-    children: message,
+    children,
+    message: messageProp,
     namespace,
     values,
     tKey
 }: AutoTranslateProps) {
+    const message = messageProp ?? children
+
+    if (!message) {
+        throw new Error(
+            "AutoTranslate component must have a message or children"
+        )
+    }
+
     const t = useTranslations()
 
     const locale = useLocale()

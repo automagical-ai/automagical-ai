@@ -4,20 +4,30 @@ import { getNamespace } from "../lib/namespace-cache"
 import { AutoTranslateClient } from "./auto-translate-client"
 
 export interface AutoTranslateProps {
-    children: string
-    values?: Record<string, string | number | Date>
+    children?: string
+    dynamic?: boolean
+    message?: string
     namespace?: string
     tKey?: string
-    dynamic?: boolean
+    values?: Record<string, string | number | Date>
 }
 
 export function AutoTranslate({
-    children: message,
+    children,
+    message: messageProp,
+    dynamic,
     namespace,
     tKey,
-    dynamic,
     values
 }: AutoTranslateProps) {
+    const message = messageProp ?? children
+
+    if (!message) {
+        throw new Error(
+            "AutoTranslate component must have a message or children"
+        )
+    }
+
     const resolvedNamespace = namespace ?? getNamespace()
     const resolvedKey = tKey ?? createMessageKey(message)
 

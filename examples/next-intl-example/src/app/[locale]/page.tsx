@@ -111,9 +111,10 @@ export default async function Home() {
                         width={16}
                         height={16}
                     />
-                    <AutoTranslate values={{ domain: "nextjs.org" }}>
-                        {"Go to {domain} →"}
-                    </AutoTranslate>
+                    <AutoTranslate
+                        values={{ domain: "nextjs.org" }}
+                        message={"Go to {domain} →"}
+                    />
                 </a>
             </footer>
         </div>
