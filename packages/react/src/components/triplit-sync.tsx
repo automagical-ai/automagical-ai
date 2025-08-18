@@ -8,29 +8,50 @@ import { schema } from "../lib/schema"
 import { useAutomagicalContext } from "./automagical-provider"
 import { SyncConfig } from "./sync-config"
 
+declare global {
+    interface Window {
+        __triplitClients?: Map<string, TriplitClient<typeof schema>>
+    }
+}
+
+function getOrCreateTriplitClient(dbURL: string) {
+    if (!window.__triplitClients) {
+        window.__triplitClients = new Map()
+    }
+
+    const existingClient = window.__triplitClients.get(dbURL)
+    if (existingClient) return existingClient
+
+    const newClient = new TriplitClient({
+        serverUrl: dbURL,
+        autoConnect: false,
+        schema
+    })
+
+    window.__triplitClients.set(dbURL, newClient)
+
+    return newClient
+}
+
 export function TriplitSync() {
     const { token, refetch: refetchToken } = useToken()
     const { dbURL } = useAutomagicalContext()
     const [triplit, setTriplit] = useState<TriplitClient<typeof schema>>()
 
-    // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
     useEffect(() => {
-        triplit?.disconnect()
+        if (!token) return
 
-        setTriplit(
-            new TriplitClient({
-                serverUrl: dbURL,
-                autoConnect: false,
-                schema
-            })
-        )
-    }, [dbURL])
+        const client = getOrCreateTriplitClient(dbURL)
+        setTriplit(client)
 
-    useEffect(() => {
-        if (!triplit || !token) return
+        client.startSession(token, true, {
+            refreshHandler: refetchToken
+        })
 
-        triplit.startSession(token, true, { refreshHandler: refetchToken })
-    }, [triplit, token, refetchToken])
+        return () => {
+            client.disconnect()
+        }
+    }, [dbURL, token, refetchToken])
 
     if (!triplit) return null
 

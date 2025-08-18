@@ -1,13 +1,13 @@
 import type { NextConfig } from "next"
 
-import { autoTranslate } from "./automagical.json"
+import automagicalConfig from "./automagical.json"
 
 const nextConfig: NextConfig = {
     /* config options here */
     reactStrictMode: true,
     i18n: {
-        locales: autoTranslate.locales,
-        defaultLocale: autoTranslate.defaultLocale
+        locales: automagicalConfig.autoTranslate.locales,
+        defaultLocale: automagicalConfig.autoTranslate.defaultLocale
     }
 }
 
