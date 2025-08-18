@@ -12,9 +12,13 @@ export async function saveConfig(config: AutomagicalConfig) {
         const indentation = detectIndentation()
         const filePath = join(process.cwd(), "automagical.json")
 
+        // Reorder properties to ensure updatedAt is always at the bottom
+        const { updatedAt, ...restConfig } = config
+        const orderedConfig = { ...restConfig, updatedAt }
+
         fs.writeFileSync(
             filePath,
-            `${JSON.stringify(config, null, indentation)}\n`
+            `${JSON.stringify(orderedConfig, null, indentation)}\n`
         )
     } catch (error) {
         console.error(error)

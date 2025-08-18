@@ -25,6 +25,7 @@ interface AutomagicalContextType extends AutomagicalProviderProps {
     activeTranslations: string[]
     baseURL: string
     dbURL?: string
+    isSyncing: boolean
     setActiveTranslations: Dispatch<SetStateAction<string[]>>
     setIsSyncing: Dispatch<SetStateAction<boolean>>
 }
@@ -60,6 +61,7 @@ export function AutomagicalProvider({
                 activeTranslations,
                 baseURL,
                 dbURL,
+                isSyncing,
                 setActiveTranslations,
                 setIsSyncing
             }}

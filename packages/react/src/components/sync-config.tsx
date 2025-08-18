@@ -9,7 +9,7 @@ import { triplit } from "../triplit/client"
 import { useAutomagicalContext } from "./automagical-provider"
 
 export function SyncConfig() {
-    const { applicationId, baseURL, config, setIsSyncing } =
+    const { applicationId, baseURL, config, isSyncing, setIsSyncing } =
         useAutomagicalContext()
     const { result: application } = useQueryOne(
         triplit,
@@ -17,7 +17,8 @@ export function SyncConfig() {
     )
 
     async function syncConfig() {
-        if (!config || !application?.config || !applicationId) return
+        if (!config || !application?.config || !applicationId || isSyncing)
+            return
 
         setIsSyncing(true)
 
