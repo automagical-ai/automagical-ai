@@ -36,7 +36,7 @@ const AutomagicalContext = createContext<AutomagicalContextType | undefined>(
 export function AutomagicalProvider({
     children,
     config,
-    applicationId,
+    applicationId: applicationIdProp,
     baseURL = "",
     dbURL
 }: AutomagicalProviderProps & { children: ReactNode }) {
@@ -65,8 +65,8 @@ export function AutomagicalProvider({
         syncApplication()
     }, [config, baseURL])
 
-    applicationId =
-        applicationId ??
+    const applicationId =
+        applicationIdProp ??
         process.env.NEXT_PUBLIC_AUTOMAGICAL_APPLICATION_ID ??
         process.env.NEXT_PUBLIC_AUTOMAGICAL_APP_ID
 
@@ -75,20 +75,24 @@ export function AutomagicalProvider({
             value={{
                 config,
                 applicationId,
+                activeTranslations,
                 baseURL,
                 dbURL,
-                activeTranslations,
                 setActiveTranslations,
                 setIsSyncing
             }}
         >
             {children}
 
-            <AutomagicalLoader
-                isLoading={isSyncing || activeTranslations.length > 0}
-            />
+            {!!applicationId && (
+                <>
+                    <AutomagicalLoader
+                        isLoading={isSyncing || activeTranslations.length > 0}
+                    />
 
-            <TriplitSync />
+                    <TriplitSync />
+                </>
+            )}
         </AutomagicalContext.Provider>
     )
 }

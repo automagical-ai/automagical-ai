@@ -13,13 +13,12 @@ export function TriplitSync() {
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
     useEffect(() => {
-        if (!token) return
+        if (dbURL === triplit.serverUrl && token === triplit.token) return
 
         triplit.disconnect()
+        triplit.updateServerUrl(dbURL)
 
-        if (dbURL !== undefined) {
-            triplit.updateServerUrl(dbURL)
-        }
+        if (!token) return
 
         triplit.startSession(token, true, {
             refreshHandler: refetchToken

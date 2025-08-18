@@ -1,12 +1,4 @@
-"use client"
-
-import { useIsHydrated } from "../hooks/use-hydrated"
-
 export function AutomagicalLoader({ isLoading }: { isLoading: boolean }) {
-    const isHydrated = useIsHydrated()
-
-    if (!isHydrated) return null
-
     return (
         <>
             <style>{`

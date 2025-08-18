@@ -1,13 +1,15 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
+
 import { useAutomagicalContext } from "../components/automagical-provider"
+import { triplit } from "../triplit/client"
 
 export function useToken() {
-    const [token, setToken] = useState<string>()
+    const [token, setToken] = useState<string | undefined>(triplit.token)
     const retryTimeoutRef = useRef<NodeJS.Timeout>(null)
     const fetchingTokenRef = useRef(false)
-    const { baseURL, setIsSyncing } = useAutomagicalContext()
+    const { baseURL, setIsSyncing, applicationId } = useAutomagicalContext()
     const retryCountRef = useRef(0)
     const maxRetries = 5
     const baseDelay = 1000
@@ -65,7 +67,9 @@ export function useToken() {
     }, [baseURL])
 
     useEffect(() => {
-        fetchToken()
+        if (triplit.decodedToken?.sub !== applicationId) {
+            fetchToken()
+        }
 
         window.addEventListener("online", fetchToken)
 
@@ -76,7 +80,7 @@ export function useToken() {
                 clearTimeout(retryTimeoutRef.current)
             }
         }
-    }, [fetchToken])
+    }, [fetchToken, applicationId])
 
     return { token, refetch: fetchToken }
 }

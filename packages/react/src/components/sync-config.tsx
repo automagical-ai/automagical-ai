@@ -4,6 +4,7 @@ import type { AutomagicalConfig } from "@automagical-ai/core"
 import { useQueryOne } from "@triplit/react"
 import { isEqual } from "lodash"
 import { useEffect } from "react"
+
 import { triplit } from "../triplit/client"
 import { useAutomagicalContext } from "./automagical-provider"
 
