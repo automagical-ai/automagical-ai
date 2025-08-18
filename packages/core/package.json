@@ -4,6 +4,9 @@
     "version": "0.0.1",
     "description": "Automagical AI Core",
     "main": "dist/index.js",
+    "bin": {
+        "automagical": "./dist/cli.js"
+    },
     "files": [
         "src",
         "dist"
