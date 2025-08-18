@@ -18,12 +18,16 @@
     "devDependencies": {
         "@types/lodash": "^4.17.20",
         "@types/node": "^24.3.0",
+        "detect-indent": "^7.0.1",
+        "lodash": "^4.17.21",
         "typescript": "5.9.2"
     },
     "dependencies": {
-        "@automagical-ai/core": "file:../core",
-        "detect-indent": "^7.0.1",
-        "lodash": "^4.17.21"
+        "@automagical-ai/core": "file:../core"
     },
-    "packageManager": "pnpm@10.13.1"
+    "peerDependencies": {
+        "detect-indent": ">=7.0.0",
+        "lodash": ">=4.17.0"
+    },
+    "packageManager": "pnpm@10.14.0"
 }

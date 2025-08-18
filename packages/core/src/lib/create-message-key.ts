@@ -5,10 +5,11 @@ export function createMessageKey(message: string) {
     let formatted = message
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")
+        // Remove leading and trailing hyphens
         .replace(/^-+|-+$/g, "")
 
+    // Truncate at the last complete word within the length limit
     if (formatted.length > 24) {
-        // Truncate at the last complete word within the length limit
         const lastHyphenIndex = formatted.lastIndexOf("-", 24)
         formatted =
             lastHyphenIndex > 0

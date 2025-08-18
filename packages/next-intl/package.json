@@ -35,5 +35,5 @@
         "@automagical-ai/core": "file:../core",
         "@automagical-ai/react": "file:../react"
     },
-    "packageManager": "pnpm@10.13.1"
+    "packageManager": "pnpm@10.14.0"
 }

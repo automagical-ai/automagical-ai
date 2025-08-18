@@ -16,27 +16,29 @@
     "author": "Automagical AI, LLC",
     "license": "GNU General Public License v3.0",
     "devDependencies": {
-        "@triplit/client": "^1.0.49",
-        "@triplit/react": "^1.0.50",
+        "@triplit/client": "^1.0.50",
+        "@triplit/react": "^1.0.51",
         "@types/lodash": "^4.17.20",
         "@types/node": "^24.3.0",
         "@types/react": "^19.1.10",
         "@types/react-dom": "^19.1.7",
+        "lodash": "^4.17.21",
         "react": "^19.1.1",
         "react-dom": "^19.1.1",
+        "superjson": "^2.2.2",
         "typescript": "5.9.2"
     },
     "peerDependencies": {
+        "@triplit/client": ">=1.0.50",
+        "@triplit/react": ">=1.0.50",
+        "lodash": ">=4.17.0",
         "react": ">=18.0.0",
         "react-dom": ">=18.0.0",
+        "superjson": ">=2.2.0",
         "uuidv7": ">=1.0.0"
     },
     "dependencies": {
-        "@automagical-ai/core": "file:../core",
-        "@triplit/client": "^1.0.50",
-        "@triplit/react": "^1.0.51",
-        "lodash": "^4.17.21",
-        "superjson": "^2.2.2"
+        "@automagical-ai/core": "file:../core"
     },
-    "packageManager": "pnpm@10.13.1"
+    "packageManager": "pnpm@10.14.0"
 }

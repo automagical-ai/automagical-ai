@@ -158,22 +158,16 @@ importers:
       '@automagical-ai/core':
         specifier: file:../core
         version: link:../core
+      uuidv7:
+        specifier: '>=1.0.0'
+        version: 1.0.2
+    devDependencies:
       '@triplit/client':
         specifier: ^1.0.50
         version: 1.0.50(typescript@5.9.2)(uuidv7@1.0.2)
       '@triplit/react':
         specifier: ^1.0.51
         version: 1.0.51(react@19.1.1)(typescript@5.9.2)(uuidv7@1.0.2)
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      superjson:
-        specifier: ^2.2.2
-        version: 2.2.2
-      uuidv7:
-        specifier: '>=1.0.0'
-        version: 1.0.2
-    devDependencies:
       '@types/lodash':
         specifier: ^4.17.20
         version: 4.17.20
@@ -186,12 +180,18 @@ importers:
       '@types/react-dom':
         specifier: ^19.1.7
         version: 19.1.7(@types/react@19.1.10)
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       react:
         specifier: ^19.1.1
         version: 19.1.1
       react-dom:
         specifier: ^19.1.1
         version: 19.1.1(react@19.1.1)
+      superjson:
+        specifier: ^2.2.2
+        version: 2.2.2
       typescript:
         specifier: 5.9.2
         version: 5.9.2
@@ -201,12 +201,6 @@ importers:
       '@automagical-ai/core':
         specifier: file:../core
         version: link:../core
-      detect-indent:
-        specifier: ^7.0.1
-        version: 7.0.1
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
     devDependencies:
       '@types/lodash':
         specifier: ^4.17.20
@@ -214,6 +208,12 @@ importers:
       '@types/node':
         specifier: ^24.3.0
         version: 24.3.0
+      detect-indent:
+        specifier: ^7.0.1
+        version: 7.0.1
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       typescript:
         specifier: 5.9.2
         version: 5.9.2
