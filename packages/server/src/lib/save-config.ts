@@ -4,6 +4,9 @@ import { stringify } from "javascript-stringify"
 import { join } from "path"
 import prettier from "prettier"
 import { detectIndentation } from "./detect-indentation"
+import { detectQuotes } from "./detect-quotes"
+import { detectSemi } from "./detect-semi"
+import { detectTrailingComma } from "./detect-trailing-comma"
 
 /**
  * Saves the AutomagicalConfig to automagical.config.ts while preserving indentation
@@ -12,6 +15,9 @@ import { detectIndentation } from "./detect-indentation"
 export async function saveConfig(config: AutomagicalConfig) {
     try {
         const indentation = detectIndentation()
+        const quotes = detectQuotes()
+        const semi = detectSemi()
+        const trailingComma = detectTrailingComma()
         const filePath = join(process.cwd(), "automagical.config.ts")
 
         // Normalize and reorder properties to ensure updatedAt is always at the bottom
@@ -31,8 +37,9 @@ export async function saveConfig(config: AutomagicalConfig) {
             parser: "typescript",
             tabWidth: indentation.amount,
             useTabs: indentation.type === "tab",
-            semi: false,
-            trailingComma: "none"
+            singleQuote: quotes === "single",
+            semi,
+            trailingComma
         })
 
         fs.writeFileSync(filePath, formatted)
