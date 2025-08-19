@@ -22,7 +22,7 @@ export async function saveTranslations(
 
         fs.writeFileSync(
             filePath,
-            `${JSON.stringify(translations, null, indentation)}\n`,
+            `${JSON.stringify(translations, null, indentation.type === "tab" ? "\t" : indentation.amount)}\n`,
             "utf8"
         )
     } catch (error) {

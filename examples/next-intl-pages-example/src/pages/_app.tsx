@@ -3,7 +3,7 @@ import type { AppProps } from "next/app"
 import { useRouter } from "next/router"
 import { NextIntlClientProvider } from "next-intl"
 
-import automagicalConfig from "@/../automagical.json"
+import automagicalConfig from "@/../automagical.config"
 
 import "@/styles/globals.css"
 

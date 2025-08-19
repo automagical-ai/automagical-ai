@@ -1,13 +1,12 @@
 "use client"
 
-import { $fetch } from "@automagical-ai/core"
+import { $fetch, dbClient } from "@automagical-ai/core"
 import { useCallback, useEffect, useState } from "react"
 
 import { useAutomagicalContext } from "../components/automagical-provider"
-import { triplit } from "../triplit/client"
 
 export function useToken() {
-    const [token, setToken] = useState<string | undefined>(triplit.token)
+    const [token, setToken] = useState<string | undefined>(dbClient.token)
     const { baseURL, setIsSyncing, applicationId } = useAutomagicalContext()
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
@@ -32,7 +31,7 @@ export function useToken() {
     }, [baseURL])
 
     useEffect(() => {
-        if (triplit.decodedToken?.sub !== applicationId) {
+        if (dbClient.decodedToken?.sub !== applicationId) {
             fetchToken()
         }
 

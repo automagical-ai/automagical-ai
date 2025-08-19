@@ -6,7 +6,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
 import type { ReactNode } from "react"
 
-import automagicalConfig from "@/../automagical.json"
+import automagicalConfig from "@/../automagical.config"
 import { routing } from "@/i18n/routing"
 
 import "../globals.css"

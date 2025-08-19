@@ -1,9 +1,8 @@
 "use client"
 
+import { dbClient } from "@automagical-ai/core"
 import { useEffect } from "react"
-
 import { useToken } from "../hooks/use-token"
-import { triplit } from "../triplit/client"
 import { useAutomagicalContext } from "./automagical-provider"
 import { SyncConfig } from "./sync-config"
 
@@ -13,17 +12,17 @@ export function TriplitSync() {
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
     useEffect(() => {
-        if (dbURL === triplit.serverUrl && token === triplit.token) return
+        if (dbURL === dbClient.serverUrl && token === dbClient.token) return
 
-        triplit.disconnect()
+        dbClient.disconnect()
 
         if (dbURL !== undefined) {
-            triplit.updateServerUrl(dbURL)
+            dbClient.updateServerUrl(dbURL)
         }
 
         if (!token) return
 
-        triplit.startSession(token, true, {
+        dbClient.startSession(token, true, {
             refreshHandler: refetchToken
         })
     }, [dbURL, token])

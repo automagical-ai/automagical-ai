@@ -1,7 +1,3 @@
-import type { AutoTranslateConfig } from "./auto-translate-config"
+import type { Application } from "../triplit/schema"
 
-export type AutomagicalConfig = {
-    autoTranslate?: AutoTranslateConfig | null
-    updatedAt?: string | Date
-    $schema?: string
-}
+export type AutomagicalConfig = Partial<Application["config"]>

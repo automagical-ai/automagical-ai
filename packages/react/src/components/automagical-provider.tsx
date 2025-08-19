@@ -1,6 +1,6 @@
 "use client"
 
-import type { AutomagicalConfig } from "@automagical-ai/core"
+import { type AutomagicalConfig, dbClient } from "@automagical-ai/core"
 import {
     createContext,
     type Dispatch,
@@ -10,7 +10,6 @@ import {
     useState
 } from "react"
 
-import { triplit } from "../triplit/client"
 import { AutomagicalLoader } from "./automagical-loader"
 import { TriplitSync } from "./triplit-sync"
 
@@ -39,10 +38,8 @@ export function AutomagicalProvider({
     config,
     applicationId: applicationIdProp,
     baseURL = "",
-    dbURL = triplit.serverUrl
+    dbURL = dbClient.serverUrl
 }: AutomagicalProviderProps & { children: ReactNode }) {
-    delete config.$schema
-
     const [isSyncing, setIsSyncing] = useState(false)
     const [activeTranslations, setActiveTranslations] = useState<string[]>([])
 

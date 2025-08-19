@@ -1,19 +1,18 @@
 "use client"
 
-import { $fetch, type AutomagicalConfig } from "@automagical-ai/core"
+import { $fetch, type AutomagicalConfig, dbClient } from "@automagical-ai/core"
 import { useQueryOne } from "@triplit/react"
 import { isEqual } from "lodash"
 import { useEffect } from "react"
 
-import { triplit } from "../triplit/client"
 import { useAutomagicalContext } from "./automagical-provider"
 
 export function SyncConfig() {
     const { applicationId, baseURL, config, isSyncing, setIsSyncing } =
         useAutomagicalContext()
     const { result: application } = useQueryOne(
-        triplit,
-        triplit.query("applications").Where("id", "=", applicationId)
+        dbClient,
+        dbClient.query("applications").Where("id", "=", applicationId)
     )
 
     async function syncConfig() {
@@ -24,10 +23,6 @@ export function SyncConfig() {
 
         try {
             let newConfig: AutomagicalConfig | undefined
-
-            if (config.updatedAt) {
-                config.updatedAt = new Date(config.updatedAt)
-            }
 
             // Check if the local config needs to be applied to the remote config
             if (
@@ -40,12 +35,12 @@ export function SyncConfig() {
                 if (!isEqual(newConfig, application.config)) {
                     const updatedAt = new Date()
 
-                    await triplit.http.update("applications", applicationId, {
+                    await dbClient.http.update("applications", applicationId, {
                         config: { ...newConfig, updatedAt }
                     })
 
-                    newConfig.updatedAt = updatedAt
-                } else {
+                    newConfig!.updatedAt = updatedAt
+                } else if (config.updatedAt) {
                     newConfig = undefined
                 }
             } else if (

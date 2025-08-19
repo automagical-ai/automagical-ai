@@ -1,4 +1,4 @@
-import { Schema as S } from "@triplit/client"
+import { type Entity, Schema as S } from "@triplit/client"
 
 export const schema = S.Collections({
     applications: {
@@ -68,3 +68,6 @@ export const schema = S.Collections({
         }
     }
 })
+
+export type Application = Entity<typeof schema, "applications">
+export type Translation = Entity<typeof schema, "translations">

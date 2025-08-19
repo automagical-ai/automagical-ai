@@ -1,7 +1,7 @@
 import { routeHandler } from "@automagical-ai/server"
 import type { NextRequest } from "next/server"
 
-import automagicalConfig from "@/../automagical.json"
+import automagicalConfig from "@/../automagical.config"
 
 const handler = (request: NextRequest) =>
     routeHandler(automagicalConfig, {

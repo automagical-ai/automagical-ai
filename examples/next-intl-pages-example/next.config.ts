@@ -1,6 +1,5 @@
 import type { NextConfig } from "next"
-
-import automagicalConfig from "./automagical.json"
+import automagicalConfig from "./automagical.config"
 
 const nextConfig: NextConfig = {
     /* config options here */
