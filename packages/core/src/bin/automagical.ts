@@ -18,7 +18,7 @@ async function main() {
         console.log("sync")
 
         // Load test.ts from the consumer project's root directory
-        const testFilePath = path.join(process.cwd(), "test.ts")
+        const testFilePath = path.join(process.cwd(), "automagical.config.ts")
         try {
             const testModule = await import(testFilePath)
             console.log(testModule.default || testModule)
