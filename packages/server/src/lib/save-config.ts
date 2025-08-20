@@ -2,7 +2,10 @@ import type { AutomagicalConfig } from "@automagical-ai/core"
 import fs from "fs"
 import { stringify } from "javascript-stringify"
 import { join } from "path"
+import estreePlugin from "prettier/plugins/estree"
+import tsPlugin from "prettier/plugins/typescript"
 import prettier from "prettier/standalone"
+
 import { detectIndentation } from "./detect-indentation"
 import { detectQuotes } from "./detect-quotes"
 import { detectSemi } from "./detect-semi"
@@ -39,7 +42,8 @@ export async function saveConfig(config: AutomagicalConfig) {
             useTabs: indentation.type === "tab",
             singleQuote: quotes === "single",
             semi,
-            trailingComma
+            trailingComma,
+            plugins: [tsPlugin, estreePlugin]
         })
 
         fs.writeFileSync(filePath, formatted)

@@ -34,7 +34,7 @@ export function routeHandler(
     return async (
         request: Request | (IncomingMessage & { body?: unknown }),
         response?: ServerResponse | unknown
-    ): Promise<Response> => {
+    ) => {
         const url = new URL(
             request.url?.startsWith("http:") ||
                 request.url?.startsWith("https:")
@@ -128,6 +128,8 @@ export function routeHandler(
                 response.statusCode = 500
                 response.setHeader("Content-Type", "application/json")
                 response.end(JSON.stringify({ message }))
+
+                return
             }
 
             return Response.json({ message }, { status: 500 })
@@ -136,6 +138,8 @@ export function routeHandler(
         if (response instanceof ServerResponse) {
             response.setHeader("Content-Type", "application/json")
             response.end(JSON.stringify(result))
+
+            return
         }
 
         return Response.json(result)
