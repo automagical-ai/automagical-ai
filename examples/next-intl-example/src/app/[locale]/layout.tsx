@@ -2,7 +2,7 @@ import { AutomagicalProvider } from "@automagical-ai/react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { notFound } from "next/navigation"
-import { hasLocale, NextIntlClientProvider } from "next-intl"
+import { hasLocale, type Locale, NextIntlClientProvider } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
 import type { ReactNode } from "react"
 
@@ -35,7 +35,7 @@ export default async function LocaleLayout({
     params
 }: {
     children: ReactNode
-    params: Promise<{ locale: string }>
+    params: Promise<{ locale: Locale }>
 }) {
     // Ensure that the incoming `locale` is valid
     const { locale } = await params
