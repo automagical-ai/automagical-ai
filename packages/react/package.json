@@ -37,6 +37,5 @@
     },
     "dependencies": {
         "@automagical-ai/core": "file:../core"
-    },
-    "packageManager": "pnpm@10.14.0"
+    }
 }

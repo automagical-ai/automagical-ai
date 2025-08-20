@@ -22,13 +22,12 @@
         "@better-fetch/fetch": "^1.1.18",
         "@triplit/client": "^1.0.50",
         "@types/node": "^24.3.0",
-        "tsx": "^4.20.0",
+        "tsx": "^4.20.4",
         "typescript": "5.9.2"
     },
     "peerDependencies": {
         "@better-fetch/fetch": ">=1.1.0",
         "@triplit/client": ">=1.0.50",
         "tsx": ">=4.20.0"
-    },
-    "packageManager": "pnpm@10.14.0"
+    }
 }
