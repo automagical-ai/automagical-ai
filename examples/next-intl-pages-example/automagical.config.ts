@@ -2,7 +2,7 @@ import type { AutomagicalConfig } from "@automagical-ai/core"
 
 const automagicalConfig = {
     autoTranslate: {
-        enabled: false,
+        enabled: true,
         defaultLocale: "en",
         locales: ["en", "de"]
     },
@@ -12,7 +12,7 @@ const automagicalConfig = {
     autoImage: {
         enabled: true
     },
-    updatedAt: new Date(1755683759029)
+    updatedAt: new Date(1755685026010)
 } as const satisfies AutomagicalConfig
 
 export default automagicalConfig

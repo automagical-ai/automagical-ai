@@ -31,10 +31,18 @@ export function routeHandler(
     options.apiKey = options.apiKey ?? process.env.AUTOMAGICAL_API_KEY
     options.apiUrl = options.apiUrl ?? "https://automagical.ai/api"
 
-    return async (
+    async function handler(
+        request: IncomingMessage & { body?: unknown },
+        response: ServerResponse | unknown
+    ): Promise<void>
+
+    async function handler(request: Request): Promise<Response>
+
+    async function handler(
         request: Request | (IncomingMessage & { body?: unknown }),
         response?: ServerResponse | unknown
-    ) => {
+        // biome-ignore lint/suspicious/noConfusingVoidType: ignore
+    ): Promise<Response | void> {
         const url = new URL(
             request.url?.startsWith("http:") ||
                 request.url?.startsWith("https:")
@@ -144,4 +152,6 @@ export function routeHandler(
 
         return Response.json(result)
     }
+
+    return handler
 }
