@@ -1,11 +1,11 @@
 {
     "home": {
-        "save-and-see-your-v:8b380f": "Save and see your changes instantly.",
-        "get-started-by-editing-v:68dfb3": "Get started by editing",
-        "deploy-now-v:67d8af": "Deploy now",
-        "go-to-domain-v:775e65": "Go to {domain} →",
-        "read-our-docs-v:db3870": "Read our docs",
-        "examples-v:e68ee0": "Examples",
-        "learn-v:ce78af": "Learn"
+        "examples-v:e68ee04d": "Examples",
+        "save-and-see-v:8b380f3c": "Save and see your changes instantly.",
+        "deploy-now-v:67d8af17": "Deploy now",
+        "learn-v:ce78afd0": "Learn",
+        "get-started-by-v:68dfb3f5": "Get started by editing",
+        "read-our-docs-v:db3870ef": "Read our docs",
+        "go-to-domain-v:775e6525": "Go to {domain} →"
     }
 }

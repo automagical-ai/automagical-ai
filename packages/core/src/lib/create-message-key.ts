@@ -9,18 +9,18 @@ export function createMessageKey(message: string) {
         .replace(/^-+|-+$/g, "")
 
     // Truncate at the last complete word within the length limit
-    if (formatted.length > 24) {
-        const lastHyphenIndex = formatted.lastIndexOf("-", 24)
+    if (formatted.length > 16) {
+        const lastHyphenIndex = formatted.lastIndexOf("-", 16)
         formatted =
             lastHyphenIndex > 0
                 ? formatted.substring(0, lastHyphenIndex)
-                : formatted.substring(0, 24).replace(/-+$/g, "")
+                : formatted.substring(0, 16).replace(/-+$/g, "")
     }
 
     // Generate a random hash to ensure uniqueness
     const hash = createHash("sha256")
         .update(message)
         .digest("hex")
-        .substring(0, 6)
+        .substring(0, 8)
     return `${formatted}-v:${hash}`
 }
