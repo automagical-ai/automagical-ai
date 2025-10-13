@@ -22,6 +22,13 @@ export async function deleteTranslations({
         )
     }
 
+    if (!autoTranslate.enabled) {
+        return Response.json(
+            { error: "Auto translate is not enabled" },
+            { status: 400 }
+        )
+    }
+
     const { locales } = autoTranslate
 
     if (!locales) {
@@ -36,15 +43,20 @@ export async function deleteTranslations({
     }
 
     // Delete the translations from the server
-    await $fetch(
-        `${apiUrl}/api/translations?applicationId=${applicationId}&key=${key}`,
-        {
-            method: "DELETE",
-            headers: {
-                ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {})
+    if (applicationId) {
+        await $fetch(
+            `${apiUrl}/api/translations?applicationId=${applicationId}&key=${key}`,
+            {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${apiKey}`
+                },
+                body: {
+                    archived: true
+                }
             }
-        }
-    )
+        )
+    }
 
     return Response.json({ success: true })
 }

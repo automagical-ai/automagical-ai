@@ -37,7 +37,7 @@ export async function autoTranslate({
     }
 
     // Load the existing translations for the default locale
-    const translations = await loadTranslations(defaultLocale)
+    let translations = await loadTranslations(defaultLocale)
 
     const currentValue = get(translations, key) as string | undefined
     const messageChanged = currentValue !== message
@@ -51,7 +51,21 @@ export async function autoTranslate({
             await saveTranslations(locale, translations)
         }
 
-        // TODO: Mark all of these messages as archived on automagical.ai
+        // Mark all of these messages as archived on automagical.ai
+        if (applicationId) {
+            await $fetch(
+                `${apiUrl}/api/translations?applicationId=${applicationId}&key=${key}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        Authorization: `Bearer ${apiKey}`
+                    },
+                    body: {
+                        archived: true
+                    }
+                }
+            )
+        }
     }
 
     // Perform the translations for each locale
@@ -88,8 +102,23 @@ export async function autoTranslate({
     }
 
     // Update the message locally for the default locale
+    translations = await loadTranslations(defaultLocale)
     set(translations, key, message)
     await saveTranslations(defaultLocale, translations)
 
-    // TODO: PUT this message to automagical.ai/api/translations
+    // POST this message to automagical.ai/api/translations
+    if (applicationId) {
+        await $fetch(`${apiUrl}/api/translations`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${apiKey}`
+            },
+            body: {
+                applicationId,
+                key,
+                message,
+                locale: defaultLocale
+            }
+        })
+    }
 }

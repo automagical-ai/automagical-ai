@@ -3,6 +3,7 @@ import { type IncomingMessage, ServerResponse } from "http"
 
 import { saveConfig } from "../lib/save-config"
 import { autoTranslate } from "./auto-translate"
+import { deleteTranslations } from "./delete-translations"
 import { getToken } from "./get-token"
 
 export interface RouteHandlerOptions {
@@ -116,8 +117,12 @@ export function routeHandler(
                 }
                 case "DELETE": {
                     switch (slug) {
-                        // case "translations":
-                        // return await deleteTranslations({ request, config })
+                        case "translations":
+                            return await deleteTranslations({
+                                searchParams: url.searchParams,
+                                config,
+                                options
+                            })
                         default:
                             throw new Error("Not found")
                     }
