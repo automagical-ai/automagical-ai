@@ -125,9 +125,6 @@ importers:
       '@better-fetch/fetch':
         specifier: ^1.1.18
         version: 1.1.18
-      '@triplit/client':
-        specifier: ^1.0.50
-        version: 1.0.50(typescript@5.9.3)(uuidv7@1.0.2)
       '@types/node':
         specifier: ^24.7.2
         version: 24.7.2
@@ -187,9 +184,6 @@ importers:
         specifier: '>=1.0.0'
         version: 1.0.2
     devDependencies:
-      '@triplit/react':
-        specifier: ^1.0.51
-        version: 1.0.51(react@19.2.0)(typescript@5.9.3)(uuidv7@1.0.2)
       '@types/lodash':
         specifier: ^4.17.20
         version: 4.17.20
@@ -1059,37 +1053,6 @@ packages:
   '@tailwindcss/postcss@4.1.14':
     resolution: {integrity: sha512-BdMjIxy7HUNThK87C7BC8I1rE8BVUsfNQSI5siQ4JK3iIa3w0XyVvVL9SXLWO//CtYTcp1v7zci0fYwJOjB+Zg==}
 
-  '@triplit/client@1.0.50':
-    resolution: {integrity: sha512-3vjXTSdDQ3fzLDrewCK7elkAQc7CiDg0eZEOZInQbVMFRiakdieO5C2voSnNjSepIYHxDxFSBllgg32QsNpL9Q==}
-    engines: {node: '>=18.0.0'}
-
-  '@triplit/db@1.1.10':
-    resolution: {integrity: sha512-9BHDrlDvJOyA9Wl8AsmbUSLhilaReA8gpFoWYjS9VEcm5d6TtqKazPQrFm0/o2WNJdrs01+qR6CysAo449MAyA==}
-    peerDependencies:
-      better-sqlite3: '*'
-      expo-sqlite: '*'
-      lmdb: '*'
-      uuidv7: '*'
-    peerDependenciesMeta:
-      better-sqlite3:
-        optional: true
-      expo-sqlite:
-        optional: true
-      lmdb:
-        optional: true
-      uuidv7:
-        optional: true
-
-  '@triplit/logger@0.0.3':
-    resolution: {integrity: sha512-hHcoD6/BsNwBtXjEp8Wiy0/YA2SqIYXd1nMukEPBmFkjT7Cd30eqtsBRT0NRq2mIFX2mr5h9JaO27zDToKnwdw==}
-    peerDependencies:
-      typescript: ^5.0.0
-
-  '@triplit/react@1.0.51':
-    resolution: {integrity: sha512-yGmYWACWycrNHMEfnR1k6CQ398ESIBgFeM47fXFhrdhMJ84QgdRk6VF/C21P80D1Rk/AQePfB0TUIaY4U9BRJg==}
-    peerDependencies:
-      react: '*'
-
   '@types/lodash@4.17.20':
     resolution: {integrity: sha512-H3MHACvFUEiujabxhaI/ImO6gUrd8oOurg7LQtS7mbwIXA/cUqWrvBsaeJ23aZEPk1TAYkurjfMbSELfoCXlGA==}
 
@@ -1142,15 +1105,9 @@ packages:
     resolution: {integrity: sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==}
     engines: {node: '>=12.5.0'}
 
-  comlink@4.4.2:
-    resolution: {integrity: sha512-OxGdvBmJuNKSCMO4NTl1L47VRp6xn2wG4F/2hYzB6tiCb709otOxtEYCSvK80PtjODfXXZu8ds+Nw5kVCjqd2g==}
-
   copy-anything@3.0.5:
     resolution: {integrity: sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==}
     engines: {node: '>=12.13'}
-
-  core-js@3.46.0:
-    resolution: {integrity: sha512-vDMm9B0xnqqZ8uSBpZ8sNtRtOdmfShrvT6h2TuQGLs0Is+cR0DYbj/KWP6ALVNbWPpqA/qPLoOuppJN07humpA==}
 
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
@@ -1169,9 +1126,6 @@ packages:
   detect-libc@2.1.2:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
-
-  elen@1.0.10:
-    resolution: {integrity: sha512-ZL799/V/kzxYJ6Wlfktreq6qQWfGc3VkGUQJW5lZQ8/MhsQiKTAwERPfhEwIsV2movRGe2DfV7H2MjRw76Z7Wg==}
 
   enhanced-resolve@5.18.3:
     resolution: {integrity: sha512-d4lC8xfavMeBjzGr2vECC3fsGXziXZQyJxD868h2M/mBI3PwAuODxAkLkq5HYuvrPYcUtiLzsTo8U3PgX3Ocww==}
@@ -1312,11 +1266,6 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  nanoid@5.1.6:
-    resolution: {integrity: sha512-c7+7RQ+dMB5dPwwCp4ee1/iV/q2P6aK1mTZcfr1BTuVlyW9hJYiMPybJCcnBlQtuSmTIWNeazm/zqNoZSSElBg==}
-    engines: {node: ^18 || >=20}
-    hasBin: true
-
   nanostores@1.0.1:
     resolution: {integrity: sha512-kNZ9xnoJYKg/AfxjrVL4SS0fKX++4awQReGqWnwTRHxeHGZ1FJFVgTqr/eMrNQdp0Tz7M7tG/TDaX8QfHDwVCw==}
     engines: {node: ^20.0.0 || >=22.0.0}
@@ -1451,9 +1400,6 @@ packages:
   simple-swizzle@0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
 
-  sorted-btree@1.8.1:
-    resolution: {integrity: sha512-395+XIP+wqNn3USkFSrNz7G3Ss/MXlZEqesxvzCRFwL14h6e8LukDHdLBePn5pwbm5OQ9vGu8mDyz2lLDIqamQ==}
-
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -1564,9 +1510,6 @@ packages:
   uuidv7@1.0.2:
     resolution: {integrity: sha512-8JQkH4ooXnm1JCIhqTMbtmdnYEn6oKukBxHn1Ic9878jMkL7daTI7anTExfY18VRCX7tcdn5quzvCb6EWrR8PA==}
     hasBin: true
-
-  web-worker@1.5.0:
-    resolution: {integrity: sha512-RiMReJrTAiA+mBjGONMnjVDP2u3p9R1vkcGz6gDIrOMT3oGuYwX2WRMYI9ipkphSuE5XKEhydbhNEJh4NY9mlw==}
 
   yallist@5.0.0:
     resolution: {integrity: sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw==}
@@ -2158,47 +2101,6 @@ snapshots:
       postcss: 8.5.6
       tailwindcss: 4.1.14
 
-  '@triplit/client@1.0.50(typescript@5.9.3)(uuidv7@1.0.2)':
-    dependencies:
-      '@triplit/db': 1.1.10(typescript@5.9.3)(uuidv7@1.0.2)
-      '@triplit/logger': 0.0.3(typescript@5.9.3)
-      comlink: 4.4.2
-      superjson: 2.2.2
-    transitivePeerDependencies:
-      - better-sqlite3
-      - expo-sqlite
-      - lmdb
-      - typescript
-      - uuidv7
-
-  '@triplit/db@1.1.10(typescript@5.9.3)(uuidv7@1.0.2)':
-    dependencies:
-      '@triplit/logger': 0.0.3(typescript@5.9.3)
-      core-js: 3.46.0
-      elen: 1.0.10
-      nanoid: 5.1.6
-      sorted-btree: 1.8.1
-      web-worker: 1.5.0
-    optionalDependencies:
-      uuidv7: 1.0.2
-    transitivePeerDependencies:
-      - typescript
-
-  '@triplit/logger@0.0.3(typescript@5.9.3)':
-    dependencies:
-      typescript: 5.9.3
-
-  '@triplit/react@1.0.51(react@19.2.0)(typescript@5.9.3)(uuidv7@1.0.2)':
-    dependencies:
-      '@triplit/client': 1.0.50(typescript@5.9.3)(uuidv7@1.0.2)
-      react: 19.2.0
-    transitivePeerDependencies:
-      - better-sqlite3
-      - expo-sqlite
-      - lmdb
-      - typescript
-      - uuidv7
-
   '@types/lodash@4.17.20': {}
 
   '@types/node@24.3.0':
@@ -2253,13 +2155,9 @@ snapshots:
       color-string: 1.9.1
     optional: true
 
-  comlink@4.4.2: {}
-
   copy-anything@3.0.5:
     dependencies:
       is-what: 4.1.16
-
-  core-js@3.46.0: {}
 
   csstype@3.1.3: {}
 
@@ -2270,8 +2168,6 @@ snapshots:
   detect-libc@2.0.4: {}
 
   detect-libc@2.1.2: {}
-
-  elen@1.0.10: {}
 
   enhanced-resolve@5.18.3:
     dependencies:
@@ -2409,8 +2305,6 @@ snapshots:
   mkdirp@3.0.1: {}
 
   nanoid@3.3.11: {}
-
-  nanoid@5.1.6: {}
 
   nanostores@1.0.1: {}
 
@@ -2589,8 +2483,6 @@ snapshots:
       is-arrayish: 0.3.2
     optional: true
 
-  sorted-btree@1.8.1: {}
-
   source-map-js@1.2.1: {}
 
   styled-jsx@5.1.6(react@19.1.1):
@@ -2689,7 +2581,5 @@ snapshots:
       react: 19.1.1
 
   uuidv7@1.0.2: {}
-
-  web-worker@1.5.0: {}
 
   yallist@5.0.0: {}
