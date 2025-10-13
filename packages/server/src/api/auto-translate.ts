@@ -18,6 +18,10 @@ export async function autoTranslate({
         throw new Error("AutoTranslate config not found")
     }
 
+    if (!autoTranslate.enabled) {
+        throw new Error("AutoTranslate is not enabled")
+    }
+
     if (!key || !message) {
         throw new Error("Key and message are required")
     }
@@ -36,24 +40,19 @@ export async function autoTranslate({
     const translations = await loadTranslations(defaultLocale)
 
     const currentValue = get(translations, key) as string | undefined
+    const messageChanged = currentValue !== message
 
-    if (currentValue !== message) {
-        // Update the message locally for the default locale
-        set(translations, key, message)
-        await saveTranslations(defaultLocale, translations)
-
-        // If the message has changed, delete it locally from all other locales
+    if (messageChanged) {
+        // If the message has changed, delete it locally from locales
         for (const locale of locales) {
-            if (locale === defaultLocale) continue
             const translations = await loadTranslations(locale)
-
             unset(translations, key)
+
             await saveTranslations(locale, translations)
         }
-    }
 
-    // PUT this message to automagical.ai/api/translations
-    // That endpoint will handle updating the existing text and deleting all others if it changed
+        // TODO: Mark all of these messages as archived on automagical.ai
+    }
 
     // Perform the translations for each locale
     for (const locale of locales) {
@@ -87,4 +86,10 @@ export async function autoTranslate({
         set(translations, key, data.result)
         await saveTranslations(locale, translations)
     }
+
+    // Update the message locally for the default locale
+    set(translations, key, message)
+    await saveTranslations(defaultLocale, translations)
+
+    // TODO: PUT this message to automagical.ai/api/translations
 }
