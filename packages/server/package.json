@@ -24,7 +24,7 @@
         "typescript": "5.9.3"
     },
     "dependencies": {
-        "@automagical-ai/core": "file:../core",
+        "@automagical-ai/core": "workspace:*",
         "javascript-stringify": "^2.1.0"
     },
     "peerDependencies": {

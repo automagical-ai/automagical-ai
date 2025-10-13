@@ -138,10 +138,10 @@ importers:
   packages/next-intl:
     dependencies:
       '@automagical-ai/core':
-        specifier: file:../core
+        specifier: workspace:*
         version: link:../core
       '@automagical-ai/react':
-        specifier: file:../react
+        specifier: workspace:*
         version: link:../react
       '@nanostores/react':
         specifier: '>=1.0.0'
@@ -178,7 +178,7 @@ importers:
   packages/react:
     dependencies:
       '@automagical-ai/core':
-        specifier: file:../core
+        specifier: workspace:*
         version: link:../core
       uuidv7:
         specifier: '>=1.0.0'
@@ -215,7 +215,7 @@ importers:
   packages/server:
     dependencies:
       '@automagical-ai/core':
-        specifier: file:../core
+        specifier: workspace:*
         version: link:../core
       javascript-stringify:
         specifier: ^2.1.0
