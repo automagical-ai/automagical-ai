@@ -2,14 +2,14 @@ import { atom, map } from "nanostores"
 import { renderLoader, updateLoaderVisibility } from "./automagical-loader"
 import type { AutomagicalConfig } from "./types/automagical-config"
 
-export interface Automagical {
+export interface AutomagicalOptions {
     config: AutomagicalConfig
     baseURL?: string
     applicationId?: string
     environment?: "development" | "production"
 }
 
-export const $automagical = map<Automagical>({
+export const $automagical = map<AutomagicalOptions>({
     config: {},
     applicationId:
         process.env.NEXT_PUBLIC_AUTOMAGICAL_APPLICATION_ID ??
@@ -20,7 +20,7 @@ export const $automagical = map<Automagical>({
 
 export const $activeTranslations = atom<string[]>([])
 
-export function automagical(options: Automagical) {
+export function automagical(options: AutomagicalOptions) {
     renderLoader()
     $automagical.set({ ...$automagical.get(), ...options })
 

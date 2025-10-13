@@ -1,8 +1,8 @@
 "use client"
 
-import { type Automagical, automagical } from "@automagical-ai/core"
+import { type AutomagicalOptions, automagical } from "@automagical-ai/core"
 import { useEffect } from "react"
 
-export function useAutomagical(options: Automagical) {
+export function useAutomagical(options: AutomagicalOptions) {
     useEffect(() => automagical(options), [options])
 }
