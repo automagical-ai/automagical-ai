@@ -1,4 +1,5 @@
 {
+    "root": false,
     "$schema": "https://biomejs.dev/schemas/2.2.5/schema.json",
     "vcs": {
         "enabled": true,
@@ -7,7 +8,18 @@
     },
     "files": {
         "ignoreUnknown": true,
-        "includes": ["**", "!node_modules"]
+        "includes": [
+            "**",
+            "!node_modules",
+            "!messages",
+            "!.next",
+            "!dist",
+            "!build",
+            "!auth-schema.ts",
+            "!**/*.css",
+            "!src/components/ui/**/*",
+            "!migrations/**/*"
+        ]
     },
     "formatter": {
         "enabled": true,
