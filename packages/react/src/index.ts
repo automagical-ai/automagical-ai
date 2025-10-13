@@ -1,4 +1,3 @@
-export * from "./components/automagical-loader"
-export * from "./components/automagical-provider"
+export * from "./components/automagical"
 export * from "./components/loading-text"
-export * from "./hooks/use-token"
+export * from "./hooks/use-automagical"

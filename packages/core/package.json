@@ -21,13 +21,15 @@
     "devDependencies": {
         "@better-fetch/fetch": "^1.1.18",
         "@triplit/client": "^1.0.50",
-        "@types/node": "^24.3.0",
-        "tsx": "^4.20.4",
-        "typescript": "5.9.2"
+        "@types/node": "^24.7.2",
+        "tsx": "^4.20.6",
+        "typescript": "5.9.3"
     },
     "peerDependencies": {
         "@better-fetch/fetch": ">=1.1.0",
         "@triplit/client": ">=1.0.50",
+        "nanostores": ">=1.0.0",
         "tsx": ">=4.20.0"
-    }
+    },
+    "dependencies": {}
 }

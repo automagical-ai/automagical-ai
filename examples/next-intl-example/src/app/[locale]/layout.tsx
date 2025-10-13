@@ -1,4 +1,4 @@
-import { AutomagicalProvider } from "@automagical-ai/react"
+import { Automagical } from "@automagical-ai/react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { notFound } from "next/navigation"
@@ -52,9 +52,9 @@ export default async function LocaleLayout({
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
                 <NextIntlClientProvider>
-                    <AutomagicalProvider config={automagicalConfig}>
-                        {children}
-                    </AutomagicalProvider>
+                    <Automagical config={automagicalConfig} />
+
+                    {children}
                 </NextIntlClientProvider>
             </body>
         </html>

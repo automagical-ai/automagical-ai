@@ -1,71 +1,64 @@
 "use client"
 
-import { $fetch, type AutomagicalConfig, dbClient } from "@automagical-ai/core"
-import { useQueryOne } from "@triplit/react"
-import { isEqual } from "lodash"
-import { useEffect } from "react"
+// export function SyncConfig() {
+//     const { applicationId, baseURL, config, isSyncing, setIsSyncing } =
+//         useAutomagicalContext()
+//     const { result: application } = useQueryOne(
+//         dbClient,
+//         dbClient.query("applications").Where("id", "=", applicationId)
+//     )
 
-import { useAutomagicalContext } from "./automagical-provider"
+//     async function syncConfig() {
+//         if (!config || !application?.config || !applicationId || isSyncing)
+//             return
 
-export function SyncConfig() {
-    const { applicationId, baseURL, config, isSyncing, setIsSyncing } =
-        useAutomagicalContext()
-    const { result: application } = useQueryOne(
-        dbClient,
-        dbClient.query("applications").Where("id", "=", applicationId)
-    )
+//         setIsSyncing(true)
 
-    async function syncConfig() {
-        if (!config || !application?.config || !applicationId || isSyncing)
-            return
+//         try {
+//             let newConfig: AutomagicalConfig | undefined
 
-        setIsSyncing(true)
+//             // Check if the local config needs to be applied to the remote config
+//             if (
+//                 !config.updatedAt ||
+//                 isEqual(application.config.updatedAt, config.updatedAt)
+//             ) {
+//                 newConfig = { ...application.config, ...config }
 
-        try {
-            let newConfig: AutomagicalConfig | undefined
+//                 // Check if we need to update the remote config
+//                 if (!isEqual(newConfig, application.config)) {
+//                     const updatedAt = new Date()
 
-            // Check if the local config needs to be applied to the remote config
-            if (
-                !config.updatedAt ||
-                isEqual(application.config.updatedAt, config.updatedAt)
-            ) {
-                newConfig = { ...application.config, ...config }
+//                     await dbClient.http.update("applications", applicationId, {
+//                         config: { ...newConfig, updatedAt }
+//                     })
 
-                // Check if we need to update the remote config
-                if (!isEqual(newConfig, application.config)) {
-                    const updatedAt = new Date()
+//                     newConfig!.updatedAt = updatedAt
+//                 } else if (config.updatedAt) {
+//                     newConfig = undefined
+//                 }
+//             } else if (
+//                 !isEqual(config.updatedAt, application.config.updatedAt)
+//             ) {
+//                 newConfig = { ...config, ...application.config }
+//             }
 
-                    await dbClient.http.update("applications", applicationId, {
-                        config: { ...newConfig, updatedAt }
-                    })
+//             if (newConfig) {
+//                 await $fetch(`${baseURL}/api/automagical/config`, {
+//                     method: "POST",
+//                     body: newConfig
+//                 })
+//             }
+//         } catch (error) {
+//             console.error(error)
+//         }
 
-                    newConfig!.updatedAt = updatedAt
-                } else if (config.updatedAt) {
-                    newConfig = undefined
-                }
-            } else if (
-                !isEqual(config.updatedAt, application.config.updatedAt)
-            ) {
-                newConfig = { ...config, ...application.config }
-            }
+//         setIsSyncing(false)
+//     }
 
-            if (newConfig) {
-                await $fetch(`${baseURL}/api/automagical/config`, {
-                    method: "POST",
-                    body: newConfig
-                })
-            }
-        } catch (error) {
-            console.error(error)
-        }
+//     // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
+//     useEffect(() => {
+//         syncConfig()
+//     }, [config, application?.config])
 
-        setIsSyncing(false)
-    }
-
-    // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
-    useEffect(() => {
-        syncConfig()
-    }, [config, application?.config])
-
-    return null
-}
+//     return null
+// }

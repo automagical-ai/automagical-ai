@@ -1,7 +1,13 @@
 "use client"
 
-import { $fetch, createMessageKey } from "@automagical-ai/core"
-import { LoadingText, useAutomagicalContext } from "@automagical-ai/react"
+import {
+    $activeTranslations,
+    $automagical,
+    $fetch,
+    createMessageKey
+} from "@automagical-ai/core"
+import { LoadingText } from "@automagical-ai/react"
+import { useStore } from "@nanostores/react"
 import { useLocale, useTranslations } from "next-intl"
 import { useEffect, useMemo, useRef, useState } from "react"
 import type { AutoTranslateProps } from "./auto-translate"
@@ -25,10 +31,9 @@ export function AutoTranslateClient({
 
     const locale = useLocale()
     const {
-        setActiveTranslations,
         baseURL,
         config: { autoTranslate }
-    } = useAutomagicalContext()
+    } = useStore($automagical)
 
     const defaultLocale = autoTranslate?.defaultLocale
 
@@ -75,7 +80,7 @@ export function AutoTranslateClient({
         isTranslatingRef.current = true
         setIsTranslating(true)
 
-        setActiveTranslations((prev: string[]) => [...prev, translationKey])
+        $activeTranslations.set([...$activeTranslations.get(), translationKey])
 
         try {
             // Delete the previous translations if it's changed and the key is generated
@@ -112,8 +117,9 @@ export function AutoTranslateClient({
         isTranslatingRef.current = false
         setPreviousMessage(message)
         setIsTranslating(false)
-        setActiveTranslations((prev: string[]) =>
-            prev.filter((key) => key !== translationKey)
+
+        $activeTranslations.set(
+            $activeTranslations.get().filter((key) => key !== translationKey)
         )
     }
 
