@@ -34,6 +34,6 @@
         "uuidv7": ">=1.0.0"
     },
     "dependencies": {
-        "@automagical-ai/core": "workspace:*"
+        "@automagical-ai/core": "file:../core"
     }
 }

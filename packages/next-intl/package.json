@@ -34,7 +34,7 @@
         "react-dom": ">=18.0.0"
     },
     "dependencies": {
-        "@automagical-ai/core": "workspace:*",
-        "@automagical-ai/react": "workspace:*"
+        "@automagical-ai/core": "file:../core",
+        "@automagical-ai/react": "file:../react"
     }
 }
