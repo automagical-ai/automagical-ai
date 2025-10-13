@@ -1,4 +1,6 @@
 export * from "./automagical"
 export * from "./lib/create-message-key"
+export * from "./lib/delete-translation"
 export * from "./lib/fetch"
+export * from "./lib/post-auto-translate"
 export * from "./types/automagical-config"

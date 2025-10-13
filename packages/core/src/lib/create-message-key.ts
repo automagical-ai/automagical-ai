@@ -1,4 +1,4 @@
-import { createHash } from "crypto"
+import { createHash } from "node:crypto"
 
 export function createMessageKey(message: string) {
     // Convert to lowercase and replace non-alphanumeric characters with hyphens

@@ -47,8 +47,7 @@ export function AutoTranslate({
             tKey={tKey}
             dynamic={dynamic}
             values={values}
-        >
-            {message}
-        </AutoTranslateClient>
+            message={message}
+        />
     )
 }

@@ -3,13 +3,15 @@
 import {
     $activeTranslations,
     $automagical,
-    $fetch,
-    createMessageKey
+    createMessageKey,
+    deleteTranslation,
+    postAutoTranslate
 } from "@automagical-ai/core"
 import { LoadingText } from "@automagical-ai/react"
 import { useStore } from "@nanostores/react"
 import { useLocale, useTranslations } from "next-intl"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+
 import type { AutoTranslateProps } from "./auto-translate"
 
 export function AutoTranslateClient({
@@ -27,22 +29,23 @@ export function AutoTranslateClient({
         )
     }
 
-    const t = useTranslations()
+    const [previousMessage, setPreviousMessage] = useState(message)
 
+    const t = useTranslations()
     const locale = useLocale()
+
     const {
-        baseURL,
         config: { autoTranslate }
     } = useStore($automagical)
-
     const defaultLocale = autoTranslate?.defaultLocale
-
-    const [previousMessage, setPreviousMessage] = useState(message)
 
     const resolvedTKey = tKey ?? createMessageKey(message)
     const translationKey = namespace
         ? `${namespace}.${resolvedTKey}`
         : resolvedTKey
+
+    const activeTranslations = useStore($activeTranslations)
+    const isTranslating = activeTranslations.includes(translationKey)
 
     const needsTranslation = useMemo(
         () =>
@@ -71,17 +74,7 @@ export function AutoTranslateClient({
         ]
     )
 
-    const isTranslatingRef = useRef(false)
-    const [isTranslating, setIsTranslating] = useState(false)
-
     const translateMessage = async () => {
-        if (isTranslatingRef.current) return
-
-        isTranslatingRef.current = true
-        setIsTranslating(true)
-
-        $activeTranslations.set([...$activeTranslations.get(), translationKey])
-
         try {
             // Delete the previous translations if it's changed and the key is generated
             if (
@@ -95,32 +88,13 @@ export function AutoTranslateClient({
                     ? `${namespace}.${prevMessageKey}`
                     : prevMessageKey
 
-                await $fetch(
-                    `${baseURL}/api/automagical/translations?key=${translationKey}`,
-                    {
-                        method: "DELETE"
-                    }
-                )
+                deleteTranslation(translationKey)
             }
 
-            await $fetch(`${baseURL}/api/automagical/auto-translate`, {
-                method: "POST",
-                body: {
-                    key: translationKey,
-                    message: message
-                }
-            })
-        } catch (error) {
-            console.error(error)
-        }
+            await postAutoTranslate(translationKey, message)
 
-        isTranslatingRef.current = false
-        setPreviousMessage(message)
-        setIsTranslating(false)
-
-        $activeTranslations.set(
-            $activeTranslations.get().filter((key) => key !== translationKey)
-        )
+            setPreviousMessage(message)
+        } catch (_) {}
     }
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
