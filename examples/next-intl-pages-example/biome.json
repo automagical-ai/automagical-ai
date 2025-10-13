@@ -15,10 +15,7 @@
             "!.next",
             "!dist",
             "!build",
-            "!auth-schema.ts",
-            "!**/*.css",
-            "!src/components/ui/**/*",
-            "!migrations/**/*"
+            "!**/*.css"
         ]
     },
     "formatter": {
