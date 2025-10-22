@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 
-import path from "node:path"
+import path from "path"
 
 async function main() {
     const args = process.argv.slice(2)
