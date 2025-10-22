@@ -14,11 +14,8 @@ export default function Home() {
     const { AutoTranslate } = useAutoTranslate({ namespace: "home" })
 
     useEffect(() => {
-        // Remove ?locale from the URL
-        const url = new URL(window.location.href)
-        url.searchParams.delete("x-locale")
-        window.history.replaceState(null, "", url.toString())
-    }, [])
+        cookieStore.set("NEXT_LOCALE", locale)
+    }, [locale])
 
     return (
         <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">

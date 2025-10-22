@@ -1,12 +1,14 @@
 import { AutoTranslate, setNamespace } from "@automagical-ai/next-intl"
 import Image from "next/image"
-import { getLocale } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 import { routing } from "@/i18n/routing"
 
-export default async function Home() {
-    await new Promise((resolve) => setTimeout(resolve))
-    const locale = await getLocale()
+export default async function Home({
+    params
+}: {
+    params: Promise<{ locale: string }>
+}) {
+    const { locale } = await params
     const otherLocale = routing.locales.find((cur) => cur !== locale)
 
     setNamespace("home")

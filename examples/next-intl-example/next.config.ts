@@ -26,12 +26,12 @@ const nextConfig: NextConfig = {
         return [
             {
                 source: `/${defaultLocale}`,
-                destination: `/?x-locale=${defaultLocale}`,
+                destination: `/`,
                 permanent: true
             },
             {
                 source: `/${defaultLocale}/:path*`,
-                destination: `/:path*?x-locale=${defaultLocale}`,
+                destination: `/:path*`,
                 permanent: true
             },
             ...locales
@@ -45,12 +45,6 @@ const nextConfig: NextConfig = {
                             type: "cookie" as const,
                             key: "NEXT_LOCALE",
                             value: locale
-                        }
-                    ],
-                    missing: [
-                        {
-                            type: "query" as const,
-                            key: "x-locale"
                         }
                     ]
                 })),
