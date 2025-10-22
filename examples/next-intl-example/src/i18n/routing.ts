@@ -1,5 +1,5 @@
 import { defineRouting } from "next-intl/routing"
-import automagicalConfig from "@/../automagical.config"
+import automagicalConfig from "../../automagical.config"
 
 export const routing = defineRouting({
     // A list of all locales that are supported

@@ -3,7 +3,7 @@
 import { useAutoTranslate } from "@automagical-ai/next-intl"
 import Image from "next/image"
 import { useLocale } from "next-intl"
-
+import { useEffect } from "react"
 import { Link } from "@/i18n/navigation"
 import { routing } from "@/i18n/routing"
 
@@ -12,6 +12,13 @@ export default function Home() {
     const otherLocale = routing.locales.find((cur) => cur !== locale)
 
     const { AutoTranslate } = useAutoTranslate({ namespace: "home" })
+
+    useEffect(() => {
+        // Remove ?locale from the URL
+        const url = new URL(window.location.href)
+        url.searchParams.delete("x-locale")
+        window.history.replaceState(null, "", url.toString())
+    }, [])
 
     return (
         <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">

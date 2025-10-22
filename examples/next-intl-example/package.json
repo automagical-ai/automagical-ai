@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev --turbopack",
+        "dev": "next dev",
         "build": "next build",
         "start": "next start",
         "lint": "biome check",
@@ -15,7 +15,7 @@
         "@automagical-ai/next-intl": "workspace:*",
         "@automagical-ai/react": "workspace:*",
         "@automagical-ai/server": "workspace:*",
-        "next": "15.5.5",
+        "next": "16.0.0",
         "next-intl": "^4.3.12",
         "react": "19.2.0",
         "react-dom": "19.2.0"
@@ -24,8 +24,8 @@
         "@biomejs/biome": "^2.2.6",
         "@tailwindcss/postcss": "^4.1.14",
         "@types/node": "^24.7.2",
-        "@types/react": "^19.2.2",
-        "@types/react-dom": "^19.2.2",
+        "@types/react": "19.2.2",
+        "@types/react-dom": "19.2.2",
         "prettier": "^3.6.2",
         "tailwindcss": "^4.1.14",
         "typescript": "^5.9.3"
