@@ -4,8 +4,13 @@ import { Header } from "@/components/header"
 import { defaultLocale, type Locale, locales } from "@/i18n/locales"
 
 export const Route = createFileRoute("/{-$locale}")({
-    beforeLoad: async ({ params }) => {
-        const locale = (params.locale as Locale) || defaultLocale
+    beforeLoad: async (context) => {
+        if (context.params.locale === defaultLocale) {
+            const redirectTo = context.location.href.replace(/^\/en/, "")
+            throw redirect({ to: redirectTo, params: { locale: "" } })
+        }
+
+        const locale = (context.params.locale as Locale) || defaultLocale
 
         // Type-safe locale validation
         if (!locales.includes(locale)) {

@@ -16,27 +16,9 @@ const config = defineConfig({
         }),
         tailwindcss(),
         tanstackStart({
-            spa: {
-                enabled: false
-            },
-            pages: [
-                {
-                    path: "/",
-                    prerender: { enabled: true }
-                },
-                {
-                    path: "/about",
-                    prerender: { enabled: true }
-                },
-                {
-                    path: "/de",
-                    prerender: { enabled: true }
-                },
-                {
-                    path: "/de/about",
-                    prerender: { enabled: true }
-                }
-            ]
+            prerender: {
+                enabled: true
+            }
         }),
         viteReact(),
         devtoolsJson()
