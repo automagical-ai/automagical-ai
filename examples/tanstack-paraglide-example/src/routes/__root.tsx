@@ -1,25 +1,31 @@
 import { TanStackDevtools } from "@tanstack/react-devtools"
-import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router"
+import {
+    createRootRoute,
+    HeadContent,
+    Link,
+    Scripts
+} from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
+import { m } from "@/paraglide/messages"
+import { getLocale, locales, setLocale } from "@/paraglide/runtime"
 
-import appCss from "@/styles/app.css?url"
+import appStyles from "../styles/app.css?url"
 
 export const Route = createRootRoute({
     head: () => ({
         meta: [
-            { title: "TanStack Start Starter" },
-            { charSet: "utf-8" },
+            {
+                charSet: "utf-8"
+            },
             {
                 name: "viewport",
                 content: "width=device-width, initial-scale=1"
+            },
+            {
+                title: "TanStack Start Starter"
             }
         ],
-        links: [
-            {
-                rel: "stylesheet",
-                href: appCss
-            }
-        ]
+        links: [{ rel: "stylesheet", href: appStyles }]
     }),
 
     shellComponent: RootDocument
@@ -27,17 +33,55 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
+        <html lang={getLocale()}>
             <head>
                 <HeadContent />
             </head>
+            <body className="bg-black text-white">
+                <div className="p-2 flex gap-2 text-lg justify-between">
+                    <div className="flex gap-2 text-lg">
+                        <Link
+                            to="/"
+                            activeProps={{
+                                className: "font-bold"
+                            }}
+                            activeOptions={{ exact: true }}
+                        >
+                            {m.home_page()}
+                        </Link>
 
-            <body className="min-h-screen flex flex-col bg-black text-white">
-                {children}
+                        <Link
+                            to="/about"
+                            activeProps={{
+                                className: "font-bold"
+                            }}
+                        >
+                            {m.about_page()}
+                        </Link>
+                    </div>
+
+                    <div className="flex gap-2 text-lg">
+                        {locales.map((locale) => (
+                            <button
+                                key={locale}
+                                type="button"
+                                onClick={() => setLocale(locale)}
+                                data-active-locale={locale === getLocale()}
+                                className="rounded p-1 px-2 border border-gray-300 cursor-pointer data-[active-locale=true]:bg-gray-500 data-[active-locale=true]:text-white"
+                            >
+                                {locale}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                <hr />
+
+                <div className="p-2">{children}</div>
 
                 <TanStackDevtools
                     config={{
-                        position: "bottom-right"
+                        position: "bottom-left"
                     }}
                     plugins={[
                         {
@@ -46,7 +90,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                         }
                     ]}
                 />
-
                 <Scripts />
             </body>
         </html>

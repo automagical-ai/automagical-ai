@@ -1,11 +1,30 @@
 import { createFileRoute } from "@tanstack/react-router"
+import { createServerFn } from "@tanstack/react-start"
+import { m } from "@/paraglide/messages.js"
 
-export const Route = createFileRoute("/")({ component: IndexPage })
+const getServerMessage = createServerFn()
+    .inputValidator((emoji: string) => emoji)
+    .handler((ctx) => {
+        return m.server_message({ emoji: ctx.data })
+    })
 
-function IndexPage() {
+export const Route = createFileRoute("/")({
+    component: Home,
+    loader: async () => {
+        return {
+            messageFromLoader: m.example_message({ username: "John Doe" }),
+            serverFunctionMessage: await getServerMessage({ data: "📩" })
+        }
+    }
+})
+
+function Home() {
+    const { serverFunctionMessage, messageFromLoader } = Route.useLoaderData()
     return (
-        <main className="container mx-auto my-24 flex flex-col gap-4">
-            <h1 className="text-2xl font-bold">Hello, World!</h1>
-        </main>
+        <div className="p-2">
+            <h2>Message from loader: {messageFromLoader}</h2>
+            <h2>Server function message: {serverFunctionMessage}:</h2>
+            <h2>{m.example_message({ username: "John Doe" })}</h2>
+        </div>
     )
 }
