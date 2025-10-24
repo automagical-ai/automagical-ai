@@ -12,5 +12,5 @@
     },
     "author": "Automagical AI, LLC",
     "license": "GNU General Public License v3.0",
-    "packageManager": "pnpm@10.15.0"
+    "packageManager": "pnpm@10.19.0"
 }

@@ -1,0 +1,7 @@
+{
+    "example_message": "Guten Tag {username}",
+    "server_message": "Server Nachricht {emoji}",
+    "about_message": "Über uns",
+    "home_page": "Startseite",
+    "about_page": "Über uns"
+}
