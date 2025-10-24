@@ -7,7 +7,8 @@ import {
     useParams
 } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
-import { defaultLocale } from "@/i18n/locales"
+
+import { routing } from "../i18n/routing"
 import appStyles from "../styles/app.css?url"
 
 export const Route = createRootRoute({
@@ -31,15 +32,15 @@ export const Route = createRootRoute({
 })
 
 function RootDocument() {
-    const { locale } = useParams({ from: "/{-$locale}" })
+    const { locale } = useParams({ strict: false })
 
     return (
-        <html lang={locale || defaultLocale} suppressHydrationWarning>
+        <html lang={locale || routing.defaultLocale} suppressHydrationWarning>
             <head>
                 <HeadContent />
             </head>
 
-            <body className={`bg-black text-white ${locale}`}>
+            <body className="bg-black text-white">
                 <Outlet />
 
                 <TanStackDevtools

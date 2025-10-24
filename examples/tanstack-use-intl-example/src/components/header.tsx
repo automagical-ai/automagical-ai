@@ -1,20 +1,23 @@
-import { Link, useRouter } from "@tanstack/react-router"
-import { useLocale, useTranslations } from "use-intl"
-import { locales } from "@/i18n/locales"
+import { useLocation, useRouter } from "@tanstack/react-router"
+import { useTranslations } from "use-intl"
+import { Link } from "@/i18n/navigation"
+import { routing } from "@/i18n/routing"
 
 export function Header() {
     const { navigate } = useRouter()
-
     const t = useTranslations()
-    const locale = useLocale()
+
+    // get current pathname in TanStack Start
+    const location = useLocation()
+
+    console.log(location)
 
     return (
         <>
             <div className="p-2 flex gap-2 text-lg justify-between">
                 <div className="flex gap-2 text-lg">
                     <Link
-                        to="/{-$locale}"
-                        params={{ locale }}
+                        to="/"
                         activeProps={{
                             className: "font-bold"
                         }}
@@ -24,8 +27,7 @@ export function Header() {
                     </Link>
 
                     <Link
-                        to="/{-$locale}/about"
-                        params={{ locale }}
+                        to="/about"
                         activeProps={{
                             className: "font-bold"
                         }}
@@ -35,7 +37,7 @@ export function Header() {
                 </div>
 
                 <div className="flex gap-2 text-lg">
-                    {locales.map((locale) => (
+                    {routing.locales.map((locale) => (
                         <button
                             key={locale}
                             type="button"

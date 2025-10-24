@@ -1,27 +1,50 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router"
-import { IntlProvider } from "use-intl"
+import { createMiddleware } from "@tanstack/react-start"
+import { IntlProvider, type Locale } from "use-intl"
 import { Header } from "@/components/header"
-import { defaultLocale, type Locale, locales } from "@/i18n/locales"
+import { getMessages } from "@/i18n/messages"
+import { routing } from "@/i18n/routing"
+
+const localeMiddleware = createMiddleware().server(
+    async ({ next, context }) => {
+        console.log("context", context)
+        return next()
+    }
+)
 
 export const Route = createFileRoute("/{-$locale}")({
+    server: {
+        middleware: [localeMiddleware]
+    },
     beforeLoad: async (context) => {
-        if (context.params.locale === defaultLocale) {
+        if (context.params.locale === routing.defaultLocale) {
+            cookieStore.set("INTL_LOCALE", routing.defaultLocale)
             const redirectTo = context.location.href.replace(/^\/en/, "")
             throw redirect({ to: redirectTo, params: { locale: "" } })
         }
 
-        const locale = (context.params.locale as Locale) || defaultLocale
+        const locale =
+            (context.params.locale as Locale) || routing.defaultLocale
 
         // Type-safe locale validation
-        if (!locales.includes(locale)) {
+        if (
+            !routing.locales.includes(
+                locale as (typeof routing.locales)[number]
+            )
+        ) {
             throw redirect({
                 to: "/{-$locale}",
                 params: { locale: "" }
             })
         }
 
-        const messages = (await import(`../../../messages/${locale}.json`))
-            .default
+        if (typeof cookieStore !== "undefined") {
+            cookieStore.set("INTL_LOCALE", locale)
+        } else {
+            console.error("cookieStore is not available")
+        }
+
+        const messages = await getMessages(locale)
 
         return {
             locale,
