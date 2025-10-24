@@ -10,11 +10,34 @@ const config = defineConfig({
         port: 3001
     },
     plugins: [
+        // cloudflare({ viteEnvironment: { name: "ssr" } }),
         viteTsConfigPaths({
             projects: ["./tsconfig.json"]
         }),
         tailwindcss(),
-        tanstackStart(),
+        tanstackStart({
+            spa: {
+                enabled: false
+            },
+            pages: [
+                {
+                    path: "/",
+                    prerender: { enabled: true }
+                },
+                {
+                    path: "/about",
+                    prerender: { enabled: true }
+                },
+                {
+                    path: "/de",
+                    prerender: { enabled: true }
+                },
+                {
+                    path: "/de/about",
+                    prerender: { enabled: true }
+                }
+            ]
+        }),
         viteReact(),
         devtoolsJson()
     ]

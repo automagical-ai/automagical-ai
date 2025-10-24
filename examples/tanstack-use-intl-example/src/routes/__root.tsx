@@ -2,11 +2,12 @@ import { TanStackDevtools } from "@tanstack/react-devtools"
 import {
     createRootRoute,
     HeadContent,
-    Link,
-    Scripts
+    Outlet,
+    Scripts,
+    useParams
 } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
-
+import { defaultLocale } from "@/i18n/locales"
 import appStyles from "../styles/app.css?url"
 
 export const Route = createRootRoute({
@@ -29,53 +30,17 @@ export const Route = createRootRoute({
     shellComponent: RootDocument
 })
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootDocument() {
+    const { locale } = useParams({ from: "/{-$locale}" })
+
     return (
-        <html lang="en">
+        <html lang={locale || defaultLocale} suppressHydrationWarning>
             <head>
                 <HeadContent />
             </head>
-            <body className="bg-black text-white">
-                <div className="p-2 flex gap-2 text-lg justify-between">
-                    <div className="flex gap-2 text-lg">
-                        <Link
-                            to="/"
-                            activeProps={{
-                                className: "font-bold"
-                            }}
-                            activeOptions={{ exact: true }}
-                        >
-                            {`m.home_page()`}
-                        </Link>
 
-                        <Link
-                            to="/about"
-                            activeProps={{
-                                className: "font-bold"
-                            }}
-                        >
-                            {`m.about_page()`}
-                        </Link>
-                    </div>
-
-                    <div className="flex gap-2 text-lg">
-                        {[].map((locale) => (
-                            <button
-                                key={locale}
-                                type="button"
-                                onClick={() => {}}
-                                data-active-locale={true}
-                                className="rounded p-1 px-2 border border-gray-300 cursor-pointer data-[active-locale=true]:bg-gray-500 data-[active-locale=true]:text-white"
-                            >
-                                {locale}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                <hr />
-
-                <div className="p-2">{children}</div>
+            <body className={`bg-black text-white ${locale}`}>
+                <Outlet />
 
                 <TanStackDevtools
                     config={{
@@ -88,6 +53,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                         }
                     ]}
                 />
+
                 <Scripts />
             </body>
         </html>
