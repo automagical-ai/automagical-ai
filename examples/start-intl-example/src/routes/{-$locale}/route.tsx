@@ -1,6 +1,6 @@
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router"
+import { createFileRoute, notFound, Outlet } from "@tanstack/react-router"
 import { createMiddleware } from "@tanstack/react-start"
-import { IntlProvider, type Locale } from "use-intl"
+import { hasLocale, IntlProvider } from "use-intl"
 import { Header } from "@/components/header"
 import { getMessages } from "@/i18n/messages"
 import { routing } from "@/i18n/routing"
@@ -8,6 +8,19 @@ import { routing } from "@/i18n/routing"
 const localeMiddleware = createMiddleware().server(
     async ({ next, context }) => {
         console.log("context", context)
+
+        // if (context.params.locale === routing.defaultLocale) {
+        //     cookieStore.set("INTL_LOCALE", routing.defaultLocale)
+        //     const redirectTo = context.location.href.replace(/^\/en/, "")
+        //     throw redirect({ to: redirectTo, params: { locale: "" } })
+        // }
+
+        // if (typeof cookieStore !== "undefined") {
+        //     cookieStore.set("INTL_LOCALE", locale)
+        // } else {
+        //     console.error("cookieStore is not available")
+        // }
+
         return next()
     }
 )
@@ -16,32 +29,10 @@ export const Route = createFileRoute("/{-$locale}")({
     server: {
         middleware: [localeMiddleware]
     },
-    beforeLoad: async (context) => {
-        if (context.params.locale === routing.defaultLocale) {
-            cookieStore.set("INTL_LOCALE", routing.defaultLocale)
-            const redirectTo = context.location.href.replace(/^\/en/, "")
-            throw redirect({ to: redirectTo, params: { locale: "" } })
-        }
-
-        const locale =
-            (context.params.locale as Locale) || routing.defaultLocale
-
+    beforeLoad: async ({ params: { locale } }) => {
         // Type-safe locale validation
-        if (
-            !routing.locales.includes(
-                locale as (typeof routing.locales)[number]
-            )
-        ) {
-            throw redirect({
-                to: "/{-$locale}",
-                params: { locale: "" }
-            })
-        }
-
-        if (typeof cookieStore !== "undefined") {
-            cookieStore.set("INTL_LOCALE", locale)
-        } else {
-            console.error("cookieStore is not available")
+        if (!hasLocale(routing.locales, locale)) {
+            throw notFound()
         }
 
         const messages = await getMessages(locale)

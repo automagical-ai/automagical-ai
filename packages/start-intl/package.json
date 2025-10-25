@@ -1,0 +1,40 @@
+{
+    "name": "@automagical-ai/start-intl",
+    "homepage": "https://automagical.ai",
+    "version": "0.0.1",
+    "description": "Automagical AI Next.js Package",
+    "main": "dist/index.js",
+    "files": [
+        "src",
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc --watch"
+    },
+    "keywords": [],
+    "author": "Automagical AI, LLC",
+    "license": "GNU General Public License v3.0",
+    "devDependencies": {
+        "@types/node": "^24.7.2",
+        "@types/react": "^19.2.2",
+        "@types/react-dom": "^19.2.1",
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0",
+        "typescript": "5.9.3",
+        "use-intl": "^4.3.12"
+    },
+    "peerDependencies": {
+        "@nanostores/react": ">=1.0.0",
+        "nanostores": ">=1.0.0",
+        "react": ">=18.0.0",
+        "react-dom": ">=18.0.0",
+        "use-intl": ">=4.1.0"
+    },
+    "dependencies": {
+        "@automagical-ai/core": "file:../core",
+        "@automagical-ai/react": "file:../react",
+        "@tanstack/react-start": "^1.133.27",
+        "@tanstack/router": "0.0.1-beta.53"
+    }
+}
