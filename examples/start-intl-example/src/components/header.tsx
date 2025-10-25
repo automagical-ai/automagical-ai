@@ -1,4 +1,4 @@
-import { useLocation, useRouter } from "@tanstack/react-router"
+import { useRouter } from "@tanstack/react-router"
 import { useTranslations } from "use-intl"
 import { Link } from "@/i18n/navigation"
 import { routing } from "@/i18n/routing"
@@ -6,11 +6,6 @@ import { routing } from "@/i18n/routing"
 export function Header() {
     const { navigate } = useRouter()
     const t = useTranslations()
-
-    // get current pathname in TanStack Start
-    const location = useLocation()
-
-    console.log(location)
 
     return (
         <>
