@@ -1,3 +1,4 @@
+import { cloudflare } from "@cloudflare/vite-plugin"
 import { paraglideVitePlugin } from "@inlang/paraglide-js"
 import tailwindcss from "@tailwindcss/vite"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite"
@@ -34,7 +35,7 @@ const config = defineConfig({
                 }
             ]
         }),
-        // cloudflare({ viteEnvironment: { name: "ssr" } }),
+        cloudflare({ viteEnvironment: { name: "ssr" } }),
         viteTsConfigPaths({
             projects: ["./tsconfig.json"]
         }),

@@ -29,7 +29,7 @@ export const Route = createFileRoute("/{-$locale}")({
     server: {
         middleware: [localeMiddleware]
     },
-    beforeLoad: async ({ params: { locale } }) => {
+    beforeLoad: async ({ params: { locale = routing.defaultLocale } }) => {
         // Type-safe locale validation
         if (!hasLocale(routing.locales, locale)) {
             throw notFound()

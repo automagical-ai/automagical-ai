@@ -8,7 +8,7 @@ import {
 import { LoadingText } from "@automagical-ai/react"
 import { useStore } from "@nanostores/react"
 import { useEffect, useMemo, useState } from "react"
-import { useLocale, useTranslations } from "use-intl"
+import { createTranslator, useLocale, useTranslations } from "use-intl"
 
 export interface AutoTranslateProps {
     children?: string
@@ -17,6 +17,7 @@ export interface AutoTranslateProps {
     namespace?: string
     tKey?: string
     values?: Record<string, string | number | Date>
+    messages?: object
 }
 
 export function AutoTranslate({
@@ -24,7 +25,8 @@ export function AutoTranslate({
     message: messageProp,
     namespace,
     values,
-    tKey
+    tKey,
+    messages
 }: AutoTranslateProps) {
     const message = messageProp ?? children
 
@@ -34,7 +36,13 @@ export function AutoTranslate({
         )
     }
 
-    const t = useTranslations()
+    const locale = useLocale()
+
+    let t = useTranslations()
+
+    if (messages) {
+        t = createTranslator({ locale, messages }) as typeof t
+    }
 
     const resolvedTKey = tKey ?? createMessageKey(message)
     const translationKey = namespace
@@ -46,8 +54,6 @@ export function AutoTranslate({
     }
 
     const [previousMessage, setPreviousMessage] = useState(message)
-
-    const locale = useLocale()
 
     const {
         config: { autoTranslate }
