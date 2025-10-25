@@ -35,7 +35,7 @@ export default function Home() {
                 <ol className="list-inside list-decimal text-center font-mono text-sm/6 sm:text-left">
                     <li className="mb-2 tracking-[-.01em]">
                         <AutoTranslate>Get started by editing</AutoTranslate>{" "}
-                        <code className="rounded bg-black/[.05] px-1 py-0.5 font-mono font-semibold dark:bg-white/[.06]">
+                        <code className="rounded bg-black/5 px-1 py-0.5 font-mono font-semibold dark:bg-white/6">
                             src/app/[locale]/page.tsx
                         </code>
                         .
@@ -64,7 +64,7 @@ export default function Home() {
                         <AutoTranslate>Deploy now</AutoTranslate>
                     </a>
                     <a
-                        className="flex h-10 w-full items-center justify-center rounded-full border border-black/[.08] border-solid px-4 font-medium text-sm transition-colors hover:border-transparent hover:bg-[#f2f2f2] sm:h-12 sm:w-auto sm:px-5 sm:text-base dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
+                        className="flex h-10 w-full items-center justify-center rounded-full border border-black/8 border-solid px-4 font-medium text-sm transition-colors hover:border-transparent hover:bg-[#f2f2f2] sm:h-12 sm:w-auto sm:px-5 sm:text-base dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
                         href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
                         target="_blank"
                         rel="noopener noreferrer"
