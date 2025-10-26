@@ -7,31 +7,111 @@ import {
 import { hasLocale, type Locale } from "use-intl"
 
 import type { LocalePrefixMode, Pathnames, RoutingConfig } from "../routing"
+import { receiveRoutingConfig } from "../routing/config"
 import type { Locales } from "../routing/types"
+import { getLocalePrefix } from "../shared/utils"
+import { getAcceptLanguageLocale } from "./resolve-locale"
+import {
+    formatPathname,
+    getNormalizedPathname,
+    sanitizePathname
+} from "./utils"
 
 export function createMiddleware<
     const AppLocales extends Locales,
     const AppLocalePrefixMode extends LocalePrefixMode = "always",
     const AppPathnames extends Pathnames<AppLocales> = never
 >(routing: RoutingConfig<AppLocales, AppLocalePrefixMode, AppPathnames>) {
+    const resolvedRouting = receiveRoutingConfig(routing)
+
     const detectLocale = createIsomorphicFn()
         .server(() =>
-            routing.locales.find((locale) =>
-                getRequestHeader("accept-language")?.startsWith(locale)
+            getAcceptLanguageLocale(
+                getRequestHeader("accept-language") ?? "",
+                routing.locales,
+                routing.defaultLocale
             )
         )
         .client(() =>
-            routing.locales.find((locale) =>
-                navigator.language.startsWith(locale)
+            getAcceptLanguageLocale(
+                navigator.language,
+                routing.locales,
+                routing.defaultLocale
             )
         )
 
     const setLocaleCookie = createIsomorphicFn()
         .server(async (locale: Locale) => {
-            setResponseHeader("Set-Cookie", `INTL_LOCALE=${locale}`)
+            if (!resolvedRouting.localeCookie) return
+
+            const { name, sameSite, domain, partitioned, maxAge } =
+                resolvedRouting.localeCookie
+
+            const hasLocaleCookie =
+                getRequestHeader("cookie")
+                    ?.split("; ")
+                    .find((cookie) => cookie.startsWith(`${name}=`))
+                    ?.split("=")[1] === locale
+
+            console.log("hasLocaleCookie", hasLocaleCookie)
+
+            if (hasLocaleCookie) return
+
+            let cookieString = `${name}=${locale}`
+            cookieString += `; Path=/`
+            cookieString += `; SameSite=${sameSite}` // sameSite is required
+            if (domain) cookieString += `; Domain=${domain}`
+            if (partitioned) cookieString += `; Partitioned` // Boolean flag, no value
+            if (maxAge) cookieString += `; Max-Age=${maxAge};`
+
+            if (process.env.NODE_ENV !== "development") {
+                cookieString += `; Secure`
+            }
+
+            setResponseHeader("Set-Cookie", cookieString)
         })
         .client(async (locale: Locale) => {
-            await cookieStore.set("INTL_LOCALE", locale)
+            if (!resolvedRouting.localeCookie) return
+
+            const { name, sameSite, domain, partitioned, maxAge } =
+                resolvedRouting.localeCookie
+
+            await cookieStore.set({
+                name,
+                value: locale,
+                sameSite,
+                domain,
+                partitioned,
+                path: "/",
+                expires: maxAge
+                    ? new Date(Date.now() + maxAge * 1000).getTime()
+                    : undefined
+            })
+        })
+
+    const getLocaleFromCookie = createIsomorphicFn()
+        .server(async () => {
+            if (!resolvedRouting.localeCookie) return
+
+            const { name } = resolvedRouting.localeCookie
+
+            const hasLocaleCookie = getRequestHeader("cookie")
+                ?.split("; ")
+                .find((cookie) => cookie.startsWith(`${name}=`))
+
+            console.log("hasLocaleCookie", hasLocaleCookie)
+            const cookieLocale = getRequestHeader("cookie")
+                ?.split("; ")
+                .find((cookie) => cookie.startsWith(`${name}=`))
+                ?.split("=")[1]
+
+            console.log("locale from cookie", cookieLocale)
+            return cookieLocale
+        })
+        .client(async () => {
+            if (!resolvedRouting.localeCookie) return
+            const { name } = resolvedRouting.localeCookie
+            return (await cookieStore.get(name))?.value
         })
 
     type BeforeLoadContextType = {
@@ -43,7 +123,7 @@ export function createMiddleware<
         params: { locale },
         location
     }: BeforeLoadContextType) {
-        const { defaultLocale, locales, localePrefix } = routing
+        const { defaultLocale, locales, localePrefix } = resolvedRouting
 
         if (!hasLocale(locales, locale || defaultLocale)) {
             return
@@ -52,31 +132,82 @@ export function createMiddleware<
         // Always set a cookie if locale is in the URL
         if (locale && routing.localeCookie !== false) {
             await setLocaleCookie(locale as Locale)
+
+            const cookieLocale = await getLocaleFromCookie()
+
+            console.log("cookie locale", cookieLocale)
         }
 
+        let unsafeExternalPathname: string
+        try {
+            // Resolve potential foreign symbols (e.g. /ja/%E7%B4%84 → /ja/約))
+            unsafeExternalPathname = decodeURI(location.pathname)
+        } catch (error) {
+            // In case an invalid pathname is encountered, forward
+            console.log(error)
+            return
+        }
+
+        // Sanitize malicious URIs to prevent open redirect attacks due to
+        // decodeURI doesn't escape encoded backslashes ('%5C' & '%5c')
+        const externalPathname = sanitizePathname(unsafeExternalPathname)
+
+        const unprefixedExternalPathname = getNormalizedPathname(
+            externalPathname,
+            resolvedRouting.locales,
+            resolvedRouting.localePrefix
+        )
+
         // Remove locale from URL if it's the default and we're using "as-needed" prefix
-        if (locale === defaultLocale && localePrefix === "as-needed") {
-            const redirectTo = location.href.replace(
-                new RegExp(`^/${defaultLocale}`),
-                ""
-            )
-            throw redirect({ to: redirectTo, params: { locale: "" } })
+        if (locale === defaultLocale && localePrefix.mode === "as-needed") {
+            const redirectTo =
+                unprefixedExternalPathname + location.searchStr + location.hash
+
+            throw redirect({ to: redirectTo })
+        }
+
+        // Locale is in the URL, so we don't need to do anything
+        if (locale) return
+
+        if (routing.localeDetection === false) return
+
+        if (routing.localeCookie !== false) {
+            const cookieLocale = await getLocaleFromCookie()
+
+            // Only redirect if we have a cookie locale and it should be shown in the URL
+            if (cookieLocale) {
+                if (
+                    cookieLocale === defaultLocale &&
+                    localePrefix.mode === "as-needed"
+                )
+                    return
+
+                const redirectTo = formatPathname(
+                    unprefixedExternalPathname,
+                    getLocalePrefix(cookieLocale, resolvedRouting.localePrefix),
+                    location.searchStr + location.hash
+                )
+
+                throw redirect({ to: redirectTo })
+            }
         }
 
         // Locale detection
-        if (!locale && routing.localeDetection !== false) {
-            const detectedLocale = detectLocale()
+        const detectedLocale = detectLocale()
 
-            console.log("detectedLocale", detectedLocale)
-            // Only redirect if we detected a locale and it should be shown in the URL
-            if (
-                detectedLocale &&
-                (detectedLocale !== defaultLocale ||
-                    localePrefix !== "as-needed")
-            ) {
-                const redirectTo = `/${detectedLocale}${location.href}`
-                throw redirect({ to: redirectTo })
-            }
+        // Only redirect if we detected a locale and it should be shown in the URL
+        if (
+            detectedLocale &&
+            (detectedLocale !== defaultLocale ||
+                localePrefix.mode !== "as-needed")
+        ) {
+            const redirectTo = formatPathname(
+                unprefixedExternalPathname,
+                getLocalePrefix(detectedLocale, resolvedRouting.localePrefix),
+                location.searchStr + location.hash
+            )
+
+            throw redirect({ to: redirectTo })
         }
     }
 

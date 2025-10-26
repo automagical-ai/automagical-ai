@@ -11,10 +11,7 @@ type CookieAttributes = {
     maxAge?: number
     domain?: string
     partitioned?: boolean
-    path?: string
-    priority?: "low" | "medium" | "high"
     sameSite?: "strict" | "lax" | "none"
-    secure?: boolean
     // Not:
     // - 'httpOnly' (the client side needs to read the cookie)
     // - 'value' (only the middleware knows this)
@@ -157,10 +154,7 @@ function receiveLocaleCookie(
 
 export type InitializedLocaleCookieConfig = false | LocaleCookieConfig
 
-export type LocaleCookieConfig = Omit<
-    CookieAttributes,
-    "name" | "maxAge" | "sameSite"
-> &
+export type LocaleCookieConfig = Omit<CookieAttributes, "name" | "sameSite"> &
     Required<Pick<CookieAttributes, "name" | "sameSite">>
 
 function receiveLocalePrefixConfig<

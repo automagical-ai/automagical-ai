@@ -433,6 +433,9 @@ importers:
       '@automagical-ai/react':
         specifier: file:../react
         version: link:../react
+      '@formatjs/intl-localematcher':
+        specifier: ^0.6.2
+        version: 0.6.2
       '@nanostores/react':
         specifier: '>=1.0.0'
         version: 1.0.0(nanostores@1.0.1)(react@19.2.0)
@@ -448,7 +451,13 @@ importers:
       nanostores:
         specifier: '>=1.0.0'
         version: 1.0.1
+      negotiator:
+        specifier: ^1.0.0
+        version: 1.0.0
     devDependencies:
+      '@types/negotiator':
+        specifier: ^0.6.4
+        version: 0.6.4
       '@types/node':
         specifier: ^24.7.2
         version: 24.9.1
@@ -2007,6 +2016,9 @@ packages:
 
   '@types/lodash@4.17.20':
     resolution: {integrity: sha512-H3MHACvFUEiujabxhaI/ImO6gUrd8oOurg7LQtS7mbwIXA/cUqWrvBsaeJ23aZEPk1TAYkurjfMbSELfoCXlGA==}
+
+  '@types/negotiator@0.6.4':
+    resolution: {integrity: sha512-elf6BsTq+AkyNsb2h5cGNst2Mc7dPliVoAPm1fXglC/BM3f2pFA40BaSSv3E5lyHteEawVKLP+8TwiY1DMNb3A==}
 
   '@types/node@24.9.1':
     resolution: {integrity: sha512-QoiaXANRkSXK6p0Duvt56W208du4P9Uye9hWLWgGMDTEoKPhuenzNcC4vGUmrNkiOKTlIrBoyNQYNpSwfEZXSg==}
@@ -4644,6 +4656,8 @@ snapshots:
   '@types/estree@1.0.8': {}
 
   '@types/lodash@4.17.20': {}
+
+  '@types/negotiator@0.6.4': {}
 
   '@types/node@24.9.1':
     dependencies:
