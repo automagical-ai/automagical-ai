@@ -9,24 +9,24 @@ const getServerMessage = createServerFn()
         emoji,
         locale
     }))
-    .handler(async ({ data }) => {
-        const t = await getTranslator(data.locale)
+    .handler(async ({ data: { locale, emoji } }) => {
+        const t = await getTranslator(locale)
 
-        return t("server_message", { emoji: data.emoji })
+        return t("server_message", { emoji })
     })
 
 export const Route = createFileRoute("/{-$locale}/")({
     component: Home,
-    loader: async ({ context }) => {
+    loader: async ({ context: { locale, messages } }) => {
         const t = createTranslator({
-            locale: context.locale,
-            messages: context.messages
+            locale,
+            messages
         })
 
         return {
             messageFromLoader: t("example_message", { username: "John Doe" }),
             serverFunctionMessage: await getServerMessage({
-                data: { emoji: "📩", locale: context.locale }
+                data: { emoji: "📩", locale }
             })
         }
     }
@@ -34,12 +34,14 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 function Home() {
     const t = useTranslations()
-
     const { serverFunctionMessage, messageFromLoader } = Route.useLoaderData()
+
     return (
         <div className="p-2">
             <h2>Message from loader: {messageFromLoader}</h2>
+
             <h2>Server function message: {serverFunctionMessage}:</h2>
+
             <h2>{t("example_message", { username: "John Doe" })}</h2>
         </div>
     )
