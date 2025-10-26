@@ -34,6 +34,7 @@
     "dependencies": {
         "@automagical-ai/core": "file:../core",
         "@automagical-ai/react": "file:../react",
+        "@tanstack/react-router": "^1.133.27",
         "@tanstack/react-start": "^1.133.27",
         "@tanstack/router": "0.0.1-beta.53"
     }
