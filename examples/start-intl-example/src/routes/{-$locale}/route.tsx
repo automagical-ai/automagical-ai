@@ -1,12 +1,8 @@
-import {
-    createFileRoute,
-    notFound,
-    Outlet,
-    redirect
-} from "@tanstack/react-router"
+import { createFileRoute, notFound, Outlet } from "@tanstack/react-router"
 import { createMiddleware } from "@tanstack/react-start"
 import { hasLocale, IntlProvider } from "use-intl"
 import { Header } from "@/components/header"
+import { beforeLoadIntl } from "@/i18n/loader"
 import { getMessages } from "@/i18n/messages"
 import { routing } from "@/i18n/routing"
 
@@ -31,14 +27,8 @@ const localeMiddleware = createMiddleware().server(
 )
 
 export const Route = createFileRoute("/{-$locale}")({
-    server: {
-        middleware: [localeMiddleware]
-    },
-    beforeLoad: async ({ params: { locale }, location }) => {
-        if (locale === routing.defaultLocale) {
-            const redirectTo = location.href.replace(/^\/en/, "")
-            throw redirect({ to: redirectTo, params: { locale: "" } })
-        }
+    beforeLoad: async (context) => {
+        const locale = beforeLoadIntl(context)
 
         // Type-safe locale validation
         if (!hasLocale(routing.locales, locale || routing.defaultLocale)) {
