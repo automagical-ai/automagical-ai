@@ -7,10 +7,8 @@ import { localeMiddleware } from "@/i18n/middleware"
 import { routing } from "@/i18n/routing"
 
 export const Route = createFileRoute("/{-$locale}")({
-    beforeLoad: async ({ params, location }) => {
-        await localeMiddleware({ params, location })
-
-        const locale = params.locale || routing.defaultLocale
+    beforeLoad: async (context) => {
+        const locale = await localeMiddleware(context)
 
         // Type-safe locale validation
         if (!hasLocale(routing.locales, locale)) {

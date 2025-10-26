@@ -126,11 +126,11 @@ export function createMiddleware<
 
     async function localeMiddleware<
         TContext extends LocaleMiddlewareContextType
-    >({ params: { locale }, location }: TContext) {
+    >({ params: { locale }, location }: TContext): Promise<string> {
         const { defaultLocale, locales, localePrefix } = resolvedRouting
 
         if (!hasLocale(locales, locale || defaultLocale)) {
-            return
+            return locale || defaultLocale
         }
 
         // Always set a cookie if locale is in the URL
@@ -144,7 +144,7 @@ export function createMiddleware<
             unsafeExternalPathname = decodeURI(location.pathname)
         } catch (error) {
             console.log(error)
-            return
+            return locale || defaultLocale
         }
 
         // Sanitize malicious URIs to prevent open redirect attacks due to
@@ -166,16 +166,18 @@ export function createMiddleware<
         }
 
         // Locale is in the URL, so we don't need to do anything
-        if (locale) return
+        if (locale) return locale
 
-        if (routing.localeDetection === false) return
+        if (routing.localeDetection === false) return defaultLocale
 
         const nextLocale =
             (routing.localeCookie !== false && (await getLocaleFromCookie())) ||
             detectLocale()
 
         if (nextLocale === defaultLocale && localePrefix.mode === "as-needed")
-            return
+            return nextLocale
+
+        if (localePrefix.mode === "never") return nextLocale
 
         const redirectTo = formatPathname(
             unprefixedExternalPathname,
