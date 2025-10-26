@@ -1,15 +1,16 @@
 import { createFileRoute, notFound, Outlet } from "@tanstack/react-router"
 import { hasLocale, IntlProvider } from "use-intl"
+
 import { Header } from "@/components/header"
 import { getMessages } from "@/i18n/messages"
 import { localeMiddleware } from "@/i18n/middleware"
 import { routing } from "@/i18n/routing"
 
 export const Route = createFileRoute("/{-$locale}")({
-    beforeLoad: async (context) => {
-        await localeMiddleware(context)
+    beforeLoad: async ({ params, location }) => {
+        await localeMiddleware({ params, location })
 
-        const locale = context.params.locale || routing.defaultLocale
+        const locale = params.locale || routing.defaultLocale
 
         // Type-safe locale validation
         if (!hasLocale(routing.locales, locale)) {

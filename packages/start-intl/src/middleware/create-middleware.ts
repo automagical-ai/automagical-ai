@@ -54,8 +54,6 @@ export function createMiddleware<
                     .find((cookie) => cookie.startsWith(`${name}=`))
                     ?.split("=")[1] === locale
 
-            console.log("hasLocaleCookie", hasLocaleCookie)
-
             if (hasLocaleCookie) return
 
             let cookieString = `${name}=${locale}`
@@ -77,7 +75,6 @@ export function createMiddleware<
             const { name, sameSite, domain, partitioned, maxAge } =
                 resolvedRouting.localeCookie
 
-            // Build the cookie string for document.cookie
             let cookieString = `${name}=${locale}`
             cookieString += `; Path=/`
             if (sameSite) cookieString += `; SameSite=${sameSite}`
@@ -102,17 +99,11 @@ export function createMiddleware<
 
             const { name } = resolvedRouting.localeCookie
 
-            const hasLocaleCookie = getRequestHeader("cookie")
-                ?.split("; ")
-                .find((cookie) => cookie.startsWith(`${name}=`))
-
-            console.log("hasLocaleCookie", hasLocaleCookie)
             const cookieLocale = getRequestHeader("cookie")
                 ?.split("; ")
                 .find((cookie) => cookie.startsWith(`${name}=`))
                 ?.split("=")[1]
 
-            console.log("locale from cookie", cookieLocale)
             return cookieLocale
         })
         .client(async () => {
@@ -128,15 +119,14 @@ export function createMiddleware<
             return cookieValue
         })
 
-    type BeforeLoadContextType = {
+    type LocaleMiddlewareContextType = {
         params: { locale?: string }
         location: ParsedLocation
     }
 
-    async function localeMiddleware({
-        params: { locale },
-        location
-    }: BeforeLoadContextType) {
+    async function localeMiddleware<
+        TContext extends LocaleMiddlewareContextType
+    >({ params: { locale }, location }: TContext) {
         const { defaultLocale, locales, localePrefix } = resolvedRouting
 
         if (!hasLocale(locales, locale || defaultLocale)) {
@@ -146,10 +136,6 @@ export function createMiddleware<
         // Always set a cookie if locale is in the URL
         if (locale && routing.localeCookie !== false) {
             await setLocaleCookie(locale as Locale)
-
-            const cookieLocale = await getLocaleFromCookie()
-
-            console.log("cookie locale", cookieLocale)
         }
 
         let unsafeExternalPathname: string
@@ -157,7 +143,6 @@ export function createMiddleware<
             // Resolve potential foreign symbols (e.g. /ja/%E7%B4%84 → /ja/約))
             unsafeExternalPathname = decodeURI(location.pathname)
         } catch (error) {
-            // In case an invalid pathname is encountered, forward
             console.log(error)
             return
         }
@@ -185,44 +170,20 @@ export function createMiddleware<
 
         if (routing.localeDetection === false) return
 
-        if (routing.localeCookie !== false) {
-            const cookieLocale = await getLocaleFromCookie()
+        const nextLocale =
+            (routing.localeCookie !== false && (await getLocaleFromCookie())) ||
+            detectLocale()
 
-            // Only redirect if we have a cookie locale and it should be shown in the URL
-            if (cookieLocale) {
-                if (
-                    cookieLocale === defaultLocale &&
-                    localePrefix.mode === "as-needed"
-                )
-                    return
+        if (nextLocale === defaultLocale && localePrefix.mode === "as-needed")
+            return
 
-                const redirectTo = formatPathname(
-                    unprefixedExternalPathname,
-                    getLocalePrefix(cookieLocale, resolvedRouting.localePrefix),
-                    location.searchStr + location.hash
-                )
+        const redirectTo = formatPathname(
+            unprefixedExternalPathname,
+            getLocalePrefix(nextLocale, resolvedRouting.localePrefix),
+            location.searchStr + location.hash
+        )
 
-                throw redirect({ to: redirectTo })
-            }
-        }
-
-        // Locale detection
-        const detectedLocale = detectLocale()
-
-        // Only redirect if we detected a locale and it should be shown in the URL
-        if (
-            detectedLocale &&
-            (detectedLocale !== defaultLocale ||
-                localePrefix.mode !== "as-needed")
-        ) {
-            const redirectTo = formatPathname(
-                unprefixedExternalPathname,
-                getLocalePrefix(detectedLocale, resolvedRouting.localePrefix),
-                location.searchStr + location.hash
-            )
-
-            throw redirect({ to: redirectTo })
-        }
+        throw redirect({ to: redirectTo })
     }
 
     return {
