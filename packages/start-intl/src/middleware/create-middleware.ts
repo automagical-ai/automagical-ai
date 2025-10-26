@@ -2,6 +2,7 @@ import { type ParsedLocation, redirect } from "@tanstack/react-router"
 import { createIsomorphicFn } from "@tanstack/react-start"
 import {
     getRequestHeader,
+    getRequestProtocol,
     setResponseHeader
 } from "@tanstack/react-start/server"
 import { hasLocale, type Locale } from "use-intl"
@@ -64,7 +65,7 @@ export function createMiddleware<
             if (partitioned) cookieString += `; Partitioned` // Boolean flag, no value
             if (maxAge) cookieString += `; Max-Age=${maxAge};`
 
-            if (process.env.NODE_ENV !== "development") {
+            if (getRequestProtocol() === "https") {
                 cookieString += `; Secure`
             }
 
@@ -76,17 +77,23 @@ export function createMiddleware<
             const { name, sameSite, domain, partitioned, maxAge } =
                 resolvedRouting.localeCookie
 
-            await cookieStore.set({
-                name,
-                value: locale,
-                sameSite,
-                domain,
-                partitioned,
-                path: "/",
-                expires: maxAge
-                    ? new Date(Date.now() + maxAge * 1000).getTime()
-                    : undefined
-            })
+            // Build the cookie string for document.cookie
+            let cookieString = `${name}=${locale}`
+            cookieString += `; Path=/`
+            if (sameSite) cookieString += `; SameSite=${sameSite}`
+            if (domain) cookieString += `; Domain=${domain}`
+            if (partitioned) cookieString += `; Partitioned`
+            if (maxAge) {
+                cookieString += `; Max-Age=${maxAge}`
+            }
+
+            // In production, add Secure flag
+            if (window.location.protocol === "https:") {
+                cookieString += `; Secure`
+            }
+
+            // biome-ignore lint/suspicious/noDocumentCookie: Safari
+            document.cookie = cookieString
         })
 
     const getLocaleFromCookie = createIsomorphicFn()
@@ -111,7 +118,14 @@ export function createMiddleware<
         .client(async () => {
             if (!resolvedRouting.localeCookie) return
             const { name } = resolvedRouting.localeCookie
-            return (await cookieStore.get(name))?.value
+
+            // Read cookie from document.cookie
+            const cookieValue = document.cookie
+                .split("; ")
+                .find((row) => row.startsWith(`${name}=`))
+                ?.split("=")[1]
+
+            return cookieValue
         })
 
     type BeforeLoadContextType = {
