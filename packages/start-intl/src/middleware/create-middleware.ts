@@ -129,6 +129,7 @@ export function createMiddleware<
     >({ params: { locale }, location }: TContext): Promise<string> {
         const { defaultLocale, locales, localePrefix } = resolvedRouting
 
+        // Skip middleware if the locale is invalid
         if (!hasLocale(locales, locale || defaultLocale)) {
             return locale || defaultLocale
         }
@@ -138,6 +139,7 @@ export function createMiddleware<
             await setLocaleCookie(locale as Locale)
         }
 
+        // Parse the current pathname
         let unsafeExternalPathname: string
         try {
             // Resolve potential foreign symbols (e.g. /ja/%E7%B4%84 → /ja/約))
@@ -168,12 +170,22 @@ export function createMiddleware<
         // Locale is in the URL, so we don't need to do anything
         if (locale) return locale
 
-        if (routing.localeDetection === false) return defaultLocale
+        // Return default locale if locale detection is disabled
+        if (routing.localeDetection === false) {
+            return defaultLocale
+        }
 
+        // Prefer the locale from the cookie if enabled, otherwise detect it
         const nextLocale =
             (routing.localeCookie !== false && (await getLocaleFromCookie())) ||
             detectLocale()
 
+        // Return default locale if the locale is invalid
+        if (!hasLocale(locales, nextLocale)) {
+            return defaultLocale
+        }
+
+        // Skip redirect if the locale is the default and we're using "as-needed" prefix
         if (nextLocale === defaultLocale && localePrefix.mode === "as-needed")
             return nextLocale
 
