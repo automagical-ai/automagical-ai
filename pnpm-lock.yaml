@@ -409,7 +409,7 @@ importers:
   packages/server:
     dependencies:
       '@automagical-ai/core':
-        specifier: file:../core
+        specifier: workspace:*
         version: link:../core
       javascript-stringify:
         specifier: ^2.1.0
