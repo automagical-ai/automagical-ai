@@ -22,7 +22,10 @@ const config = defineConfig({
         }),
         viteReact(),
         devtoolsJson()
-    ]
+    ],
+    ssr: {
+        noExternal: true
+    }
 })
 
 export default config
