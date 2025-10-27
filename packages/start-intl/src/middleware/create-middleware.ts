@@ -127,6 +127,7 @@ export function createMiddleware<
     async function localeMiddleware<
         TContext extends LocaleMiddlewareContextType
     >({ params: { locale }, location }: TContext): Promise<string> {
+        console.log("localeMiddleware", locale, location)
         const { defaultLocale, locales, localePrefix } = resolvedRouting
 
         // Skip middleware if the locale is invalid
