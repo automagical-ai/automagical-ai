@@ -13,6 +13,7 @@ export default defineConfig({
         "@tanstack/react-router",
         "@tanstack/react-start",
         "@tanstack/react-start/server",
+        "#tanstack-router-entry",
         "@tanstack/router"
     ],
     treeshake: true,
