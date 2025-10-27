@@ -209,6 +209,9 @@ importers:
       web-vitals:
         specifier: ^5.1.0
         version: 5.1.0
+      wrangler:
+        specifier: ^4.45.0
+        version: 4.45.0
 
   examples/start-paraglide-example:
     dependencies:
