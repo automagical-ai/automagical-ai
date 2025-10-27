@@ -1,7 +1,7 @@
 {
     "name": "@automagical-ai/start-intl",
     "homepage": "https://automagical.ai",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "start-intl",
     "type": "module",
     "main": "dist/index.js",
