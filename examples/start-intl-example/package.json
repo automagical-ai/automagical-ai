@@ -11,7 +11,7 @@
         "lint": "biome lint",
         "check": "biome check",
         "preview": "vite preview",
-        "deploy": "CLOUDFLARE_ENV=development vite build && wrangler deploy",
+        "deploy": "vite build --mode=development && wrangler deploy",
         "cf-typegen": "wrangler types"
     },
     "dependencies": {
