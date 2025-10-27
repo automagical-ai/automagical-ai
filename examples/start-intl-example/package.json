@@ -11,9 +11,8 @@
         "lint": "biome lint",
         "check": "biome check",
         "preview": "vite preview",
-        "deploy": "pnpm run build && wrangler deploy",
-        "cf-typegen": "wrangler types",
-        "export": "cross-env IS_EXPORT=true vite build"
+        "deploy": "CLOUDFLARE_ENV=development vite build && wrangler deploy",
+        "cf-typegen": "wrangler types"
     },
     "dependencies": {
         "@automagical-ai/start-intl": "^0.0.2",
