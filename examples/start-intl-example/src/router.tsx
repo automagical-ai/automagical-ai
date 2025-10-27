@@ -30,6 +30,7 @@ export const getRouter = () => {
         defaultPreloadStaleTime: 0,
         rewrite: {
             input: ({ url }) => {
+                console.log("test_var", process.env.VITE_TEST_VAR)
                 console.log("rewrite", url.pathname)
                 const acceptLanguage = getAcceptLanguage()
                 const locale =
