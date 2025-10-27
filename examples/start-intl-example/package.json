@@ -11,7 +11,7 @@
         "lint": "biome lint",
         "check": "biome check",
         "preview": "vite preview",
-        "deploy": "vite build --mode=development && wrangler deploy",
+        "deploy": "pnpm run build && wrangler deploy",
         "cf-typegen": "wrangler types"
     },
     "dependencies": {
