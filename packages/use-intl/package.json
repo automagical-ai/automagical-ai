@@ -32,7 +32,7 @@
         "use-intl": ">=4.1.0"
     },
     "dependencies": {
-        "@automagical-ai/core": "file:../core",
-        "@automagical-ai/react": "file:../react"
+        "@automagical-ai/core": "workspace:*",
+        "@automagical-ai/react": "workspace:*"
     }
 }
