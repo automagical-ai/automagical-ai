@@ -1,41 +1,26 @@
-import {
-    createRouter,
-    type RegisteredRouter,
-    redirect
-} from "@tanstack/react-router"
+import { createRouter, redirect } from "@tanstack/react-router"
 import { createIsomorphicFn, getRouterInstance } from "@tanstack/react-start"
 import { getRequestHeader } from "@tanstack/react-start/server"
+
 import { routing } from "./i18n/routing"
-// Import the generated route tree
 import { routeTree } from "./routeTree.gen"
 
 const getAcceptLanguage = createIsomorphicFn()
-    .server(() => {
-        const acceptLanguage = getRequestHeader("accept-language")
-        const locale = acceptLanguage?.split("-")[0]
-        return locale
-    })
-    .client(() => {
-        return navigator.language
-    })
+    .server(() => getRequestHeader("accept-language"))
+    .client(() => navigator.language)
 
-let timeout: NodeJS.Timeout | null = null
-
-const isomorphicNavigate = createIsomorphicFn()
-    .server((locale: string) => {
+const ismorphicRedirect = createIsomorphicFn()
+    .server((href: string) => {
         if (process.env.TSS_PRERENDERING === "true") return
-        throw redirect({ href: `/${locale}` })
+        throw redirect({ href })
     })
-    .client((locale: string) => {
-        if (timeout) clearTimeout(timeout)
-
-        timeout = setTimeout(() => {
-            const router = getRouterInstance() as RegisteredRouter
-            router?.navigate({ href: `/${locale}` })
+    .client((href: string) => {
+        setTimeout(async () => {
+            const router = await getRouterInstance()
+            router.navigate({ href, replace: true })
         })
     })
 
-// Create a new router instance
 export const getRouter = () => {
     return createRouter({
         routeTree,
@@ -43,24 +28,20 @@ export const getRouter = () => {
         defaultPreloadStaleTime: 0,
         rewrite: {
             input: ({ url }) => {
+                console.log("rewrite", url.pathname)
                 const acceptLanguage = getAcceptLanguage()
                 const locale =
                     acceptLanguage?.split("-")[0] || routing.defaultLocale
 
-                if (url.pathname === "/") {
-                    // url.pathname = `/${locale}`
-
-                    isomorphicNavigate(locale)
-
-                    //const redirectTo = url.pathname
-                    // redirect({ to: redirectTo })
+                if (url.pathname === "/de") {
+                    ismorphicRedirect(`/ja`)
                 }
 
                 return url
-            },
-            output: ({ url }) => {
-                return url
             }
+        },
+        hydrate: (dehydrated) => {
+            console.log("hydrate", dehydrated)
         }
     })
 }

@@ -6,6 +6,9 @@ import { routing } from "@/i18n/routing"
 
 export const Route = createFileRoute("/{-$locale}")({
     beforeLoad: async (context) => {
+        const href =
+            typeof window !== "undefined" ? window.location.href : undefined
+        console.log("beforeLoad", href, context.location.publicHref)
         const locale = context.params.locale || routing.defaultLocale
 
         // Type-safe locale validation
