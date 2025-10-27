@@ -26,7 +26,7 @@ const config = defineConfig({
         devtoolsJson()
     ],
     ssr: {
-        external: ["#tanstack-start-entry"]
+        external: ["@automagical-ai/start-intl"]
     }
 })
 
