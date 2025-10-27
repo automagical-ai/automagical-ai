@@ -5,9 +5,15 @@
     "scripts": {
         "dev": "vite dev",
         "build": "vite build",
+        "serve": "vite preview",
+        "test": "vitest run",
+        "format": "biome format",
+        "lint": "biome lint",
+        "check": "biome check",
         "preview": "vite preview",
-        "deploy": "npm run build && wrangler deploy",
-        "cf-typegen": "wrangler types"
+        "deploy": "pnpm run build && wrangler deploy",
+        "cf-typegen": "wrangler types",
+        "export": "cross-env IS_EXPORT=true vite build"
     },
     "dependencies": {
         "@automagical-ai/start-intl": "^0.0.2",
