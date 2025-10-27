@@ -2,8 +2,14 @@
     "name": "@automagical-ai/start-intl",
     "homepage": "https://automagical.ai",
     "version": "0.0.1",
-    "description": "Automagical AI Next.js Package",
-    "main": "dist/index.js",
+    "description": "start-intl",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./src/index.ts",
+            "default": "./dist/index.js"
+        }
+    },
     "files": [
         "src",
         "dist"
@@ -26,15 +32,11 @@
         "use-intl": "^4.3.12"
     },
     "peerDependencies": {
-        "@nanostores/react": ">=1.0.0",
-        "nanostores": ">=1.0.0",
         "react": ">=18.0.0",
         "react-dom": ">=18.0.0",
         "use-intl": ">=4.1.0"
     },
     "dependencies": {
-        "@automagical-ai/core": "file:../core",
-        "@automagical-ai/react": "file:../react",
         "@formatjs/intl-localematcher": "^0.6.2",
         "@tanstack/react-router": "^1.133.27",
         "@tanstack/react-start": "^1.133.27",

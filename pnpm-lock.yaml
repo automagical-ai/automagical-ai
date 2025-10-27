@@ -125,8 +125,8 @@ importers:
   examples/start-intl-example:
     dependencies:
       '@automagical-ai/start-intl':
-        specifier: file:../../packages/start-intl
-        version: file:packages/start-intl(@better-fetch/fetch@1.1.18)(@nanostores/react@1.0.0(nanostores@1.0.1)(react@19.2.0))(lodash@4.17.21)(nanostores@1.0.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(superjson@2.2.3)(tsx@4.20.6)(use-intl@4.4.0(react@19.2.0))(uuidv7@1.0.2)(vite@7.1.12(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6))
+        specifier: workspace:*
+        version: link:../../packages/start-intl
       '@cloudflare/vite-plugin':
         specifier: ^1.13.15
         version: 1.13.15(vite@7.1.12(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6))(workerd@1.20251011.0)(wrangler@4.45.0)
@@ -427,18 +427,9 @@ importers:
 
   packages/start-intl:
     dependencies:
-      '@automagical-ai/core':
-        specifier: file:../core
-        version: link:../core
-      '@automagical-ai/react':
-        specifier: file:../react
-        version: link:../react
       '@formatjs/intl-localematcher':
         specifier: ^0.6.2
         version: 0.6.2
-      '@nanostores/react':
-        specifier: '>=1.0.0'
-        version: 1.0.0(nanostores@1.0.1)(react@19.2.0)
       '@tanstack/react-router':
         specifier: ^1.133.27
         version: 1.133.27(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -448,9 +439,6 @@ importers:
       '@tanstack/router':
         specifier: 0.0.1-beta.53
         version: 0.0.1-beta.53
-      nanostores:
-        specifier: '>=1.0.0'
-        version: 1.0.1
       negotiator:
         specifier: ^1.0.0
         version: 1.0.0
@@ -531,32 +519,6 @@ packages:
 
   '@asamuzakjp/nwsapi@2.3.9':
     resolution: {integrity: sha512-n8GuYSrI9bF7FFZ/SjhwevlHc8xaVlb/7HmHelnc/PZXBD2ZR49NnN9sMMuDdEGPeeRQ5d0hqlSlEpgCX3Wl0Q==}
-
-  '@automagical-ai/core@file:packages/core':
-    resolution: {directory: packages/core, type: directory}
-    hasBin: true
-    peerDependencies:
-      '@better-fetch/fetch': '>=1.1.0'
-      nanostores: '>=1.0.0'
-      tsx: '>=4.20.0'
-
-  '@automagical-ai/react@file:packages/react':
-    resolution: {directory: packages/react, type: directory}
-    peerDependencies:
-      lodash: '>=4.17.0'
-      react: '>=18.0.0'
-      react-dom: '>=18.0.0'
-      superjson: '>=2.2.0'
-      uuidv7: '>=1.0.0'
-
-  '@automagical-ai/start-intl@file:packages/start-intl':
-    resolution: {directory: packages/start-intl, type: directory}
-    peerDependencies:
-      '@nanostores/react': '>=1.0.0'
-      nanostores: '>=1.0.0'
-      react: '>=18.0.0'
-      react-dom: '>=18.0.0'
-      use-intl: '>=4.1.0'
 
   '@babel/code-frame@7.26.2':
     resolution: {integrity: sha512-RJlIHRueQgwWitWgF8OdFYGZX328Ax5BCemNGlqHfplnRT9ESi8JkFlvaVYbS+UubVY6dpv87Fs2u5M29iNFVQ==}
@@ -3502,52 +3464,6 @@ snapshots:
       lru-cache: 11.2.2
 
   '@asamuzakjp/nwsapi@2.3.9': {}
-
-  '@automagical-ai/core@file:packages/core(@better-fetch/fetch@1.1.18)(nanostores@1.0.1)(tsx@4.20.6)':
-    dependencies:
-      '@better-fetch/fetch': 1.1.18
-      nanostores: 1.0.1
-      tsx: 4.20.6
-
-  '@automagical-ai/react@file:packages/react(@better-fetch/fetch@1.1.18)(lodash@4.17.21)(nanostores@1.0.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(superjson@2.2.3)(tsx@4.20.6)(uuidv7@1.0.2)':
-    dependencies:
-      '@automagical-ai/core': file:packages/core(@better-fetch/fetch@1.1.18)(nanostores@1.0.1)(tsx@4.20.6)
-      lodash: 4.17.21
-      react: 19.2.0
-      react-dom: 19.2.0(react@19.2.0)
-      superjson: 2.2.3
-      uuidv7: 1.0.2
-    transitivePeerDependencies:
-      - '@better-fetch/fetch'
-      - nanostores
-      - tsx
-
-  '@automagical-ai/start-intl@file:packages/start-intl(@better-fetch/fetch@1.1.18)(@nanostores/react@1.0.0(nanostores@1.0.1)(react@19.2.0))(lodash@4.17.21)(nanostores@1.0.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(superjson@2.2.3)(tsx@4.20.6)(use-intl@4.4.0(react@19.2.0))(uuidv7@1.0.2)(vite@7.1.12(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6))':
-    dependencies:
-      '@automagical-ai/core': file:packages/core(@better-fetch/fetch@1.1.18)(nanostores@1.0.1)(tsx@4.20.6)
-      '@automagical-ai/react': file:packages/react(@better-fetch/fetch@1.1.18)(lodash@4.17.21)(nanostores@1.0.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(superjson@2.2.3)(tsx@4.20.6)(uuidv7@1.0.2)
-      '@formatjs/intl-localematcher': 0.6.2
-      '@nanostores/react': 1.0.0(nanostores@1.0.1)(react@19.2.0)
-      '@tanstack/react-router': 1.133.32(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@tanstack/react-start': 1.133.32(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vite@7.1.12(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6))
-      '@tanstack/router': 0.0.1-beta.53
-      nanostores: 1.0.1
-      negotiator: 1.0.0
-      react: 19.2.0
-      react-dom: 19.2.0(react@19.2.0)
-      use-intl: 4.4.0(react@19.2.0)
-    transitivePeerDependencies:
-      - '@better-fetch/fetch'
-      - '@rsbuild/core'
-      - crossws
-      - lodash
-      - superjson
-      - supports-color
-      - tsx
-      - uuidv7
-      - vite
-      - vite-plugin-solid
-      - webpack
 
   '@babel/code-frame@7.26.2':
     dependencies:
