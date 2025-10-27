@@ -24,7 +24,10 @@ const config = defineConfig({
         }),
         viteReact(),
         devtoolsJson()
-    ]
+    ],
+    ssr: {
+        external: ["@tanstack/start-server-core"]
+    }
 })
 
 export default config
