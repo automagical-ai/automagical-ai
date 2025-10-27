@@ -26,7 +26,7 @@ const config = defineConfig({
         devtoolsJson()
     ],
     ssr: {
-        external: ["@tanstack/start-server-core"]
+        external: ["#tanstack-start-entry"]
     }
 })
 
