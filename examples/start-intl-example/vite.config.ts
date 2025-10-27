@@ -11,7 +11,7 @@ const config = defineConfig({
         port: 3001
     },
     plugins: [
-        cloudflare(),
+        cloudflare({ viteEnvironment: { name: "ssr" } }),
         // netlify(),
         viteTsConfigPaths({
             projects: ["./tsconfig.json"]
@@ -19,15 +19,12 @@ const config = defineConfig({
         tailwindcss(),
         tanstackStart({
             prerender: {
-                enabled: true
+                enabled: false
             }
         }),
         viteReact(),
         devtoolsJson()
-    ],
-    ssr: {
-        external: ["@automagical-ai/start-intl"]
-    }
+    ]
 })
 
 export default config
