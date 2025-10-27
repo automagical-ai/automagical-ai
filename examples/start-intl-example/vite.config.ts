@@ -11,7 +11,7 @@ const config = defineConfig({
         port: 3001
     },
     plugins: [
-        cloudflare({ viteEnvironment: { name: "ssr" } }),
+        cloudflare(),
         // netlify(),
         viteTsConfigPaths({
             projects: ["./tsconfig.json"]
@@ -19,7 +19,7 @@ const config = defineConfig({
         tailwindcss(),
         tanstackStart({
             prerender: {
-                enabled: false
+                enabled: true
             }
         }),
         viteReact(),
