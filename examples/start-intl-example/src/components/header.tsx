@@ -1,10 +1,8 @@
-import { useRouter } from "@tanstack/react-router"
 import { useTranslations } from "use-intl"
 import { Link } from "@/i18n/navigation"
 import { routing } from "@/i18n/routing"
 
 export function Header() {
-    const { navigate } = useRouter()
     const t = useTranslations()
 
     return (

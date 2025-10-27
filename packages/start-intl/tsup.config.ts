@@ -12,6 +12,7 @@ export default defineConfig({
         "use-intl",
         "@tanstack/react-router",
         "@tanstack/react-start",
+        "@tanstack/react-start/server",
         "@tanstack/router"
     ],
     treeshake: true,

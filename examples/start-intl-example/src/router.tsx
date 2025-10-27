@@ -27,7 +27,7 @@ export const getRouter = () => {
                 const locale =
                     acceptLanguage?.split("-")[0] || routing.defaultLocale
 
-                if (url.pathname === "/") {
+                if (url.pathname === "/asdfsafs") {
                     url.pathname = `/${locale}`
                 }
                 return url
