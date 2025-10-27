@@ -1,12 +1,12 @@
 import { createRouter, redirect } from "@tanstack/react-router"
 import { createIsomorphicFn, getRouterInstance } from "@tanstack/react-start"
-import { getRequestHeader } from "@tanstack/react-start/server"
+// import { getRequestHeader } from "@tanstack/react-start/server"
 
 import { routing } from "./i18n/routing"
 import { routeTree } from "./routeTree.gen"
 
 const getAcceptLanguage = createIsomorphicFn()
-    .server(() => getRequestHeader("accept-language"))
+    .server(() => {})
     .client(() => navigator.language)
 
 const ismorphicRedirect = createIsomorphicFn()
