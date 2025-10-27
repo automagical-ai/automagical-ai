@@ -33,20 +33,15 @@ export function Header() {
 
                 <div className="flex gap-2 text-lg">
                     {routing.locales.map((locale) => (
-                        <button
-                            key={locale}
-                            type="button"
-                            onClick={() => {
-                                navigate({
-                                    to: "/{-$locale}",
-                                    params: { locale }
-                                })
-                            }}
-                            data-active-locale={true}
-                            className="rounded p-1 px-2 border border-gray-300 cursor-pointer data-[active-locale=true]:bg-gray-500 data-[active-locale=true]:text-white"
-                        >
-                            {locale}
-                        </button>
+                        <Link key={locale} to="/" params={{ locale }}>
+                            <button
+                                type="button"
+                                data-active-locale={true}
+                                className="rounded p-1 px-2 border border-gray-300 cursor-pointer data-[active-locale=true]:bg-gray-500 data-[active-locale=true]:text-white"
+                            >
+                                {locale}
+                            </button>
+                        </Link>
                     ))}
                 </div>
             </div>
