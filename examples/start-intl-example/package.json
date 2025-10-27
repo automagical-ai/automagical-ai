@@ -15,7 +15,7 @@
         "cf-typegen": "wrangler types"
     },
     "dependencies": {
-        "@automagical-ai/start-intl": "^0.0.3",
+        "@automagical-ai/start-intl": "file:../../packages/start-intl",
         "@tailwindcss/vite": "^4.1.16",
         "@tanstack/react-devtools": "^0.7.8",
         "@tanstack/react-router": "^1.133.32",
