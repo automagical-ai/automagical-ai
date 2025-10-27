@@ -3,8 +3,7 @@
     "name": "start-intl-example",
     "compatibility_date": "2025-09-02",
     "compatibility_flags": ["nodejs_compat"],
-    "no_bundle": true,
-    "main": "./src/server.ts",
+    "main": "@tanstack/react-start/server-entry",
     "assets": {
         "directory": "./dist/client",
         "html_handling": "drop-trailing-slash"
