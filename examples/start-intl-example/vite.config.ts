@@ -1,3 +1,4 @@
+import netlify from "@netlify/vite-plugin-tanstack-start"
 import tailwindcss from "@tailwindcss/vite"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite"
 import viteReact from "@vitejs/plugin-react"
@@ -10,7 +11,7 @@ const config = defineConfig({
         port: 3001
     },
     plugins: [
-        // cloudflare({ viteEnvironment: { name: "ssr" } }),
+        netlify(),
         viteTsConfigPaths({
             projects: ["./tsconfig.json"]
         }),
@@ -22,10 +23,7 @@ const config = defineConfig({
         }),
         viteReact(),
         devtoolsJson()
-    ],
-    ssr: {
-        noExternal: true
-    }
+    ]
 })
 
 export default config

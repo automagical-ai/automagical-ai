@@ -42,7 +42,7 @@ export function createMiddleware<
         )
 
     const setLocaleCookie = createIsomorphicFn()
-        .server(async (locale: Locale) => {
+        .server((locale: Locale) => {
             if (!resolvedRouting.localeCookie) return
 
             const { name, sameSite, domain, partitioned, maxAge } =
@@ -69,7 +69,7 @@ export function createMiddleware<
 
             setResponseHeader("Set-Cookie", cookieString)
         })
-        .client(async (locale: Locale) => {
+        .client((locale: Locale) => {
             if (!resolvedRouting.localeCookie) return
 
             const { name, sameSite, domain, partitioned, maxAge } =
@@ -94,7 +94,7 @@ export function createMiddleware<
         })
 
     const getLocaleFromCookie = createIsomorphicFn()
-        .server(async () => {
+        .server(() => {
             if (!resolvedRouting.localeCookie) return
 
             const { name } = resolvedRouting.localeCookie
@@ -106,7 +106,7 @@ export function createMiddleware<
 
             return cookieLocale
         })
-        .client(async () => {
+        .client(() => {
             if (!resolvedRouting.localeCookie) return
             const { name } = resolvedRouting.localeCookie
 
@@ -124,9 +124,10 @@ export function createMiddleware<
         location: ParsedLocation
     }
 
-    async function localeMiddleware<
-        TContext extends LocaleMiddlewareContextType
-    >({ params: { locale }, location }: TContext): Promise<string> {
+    function localeMiddleware<TContext extends LocaleMiddlewareContextType>({
+        params: { locale },
+        location
+    }: TContext): string {
         console.log("localeMiddleware", locale, location)
         const { defaultLocale, locales, localePrefix } = resolvedRouting
 
@@ -137,7 +138,7 @@ export function createMiddleware<
 
         // Always set a cookie if locale is in the URL
         if (locale && routing.localeCookie !== false) {
-            await setLocaleCookie(locale as Locale)
+            setLocaleCookie(locale as Locale)
         }
 
         // Parse the current pathname
@@ -178,7 +179,7 @@ export function createMiddleware<
 
         // Prefer the locale from the cookie if enabled, otherwise detect it
         const nextLocale =
-            (routing.localeCookie !== false && (await getLocaleFromCookie())) ||
+            (routing.localeCookie !== false && getLocaleFromCookie()) ||
             detectLocale()
 
         // Return default locale if the locale is invalid

@@ -140,3 +140,6 @@ vite.config.ts.timestamp-*
 
 .turbo
 .DS_Store
+
+# Local Netlify folder
+.netlify
