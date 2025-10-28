@@ -4,7 +4,6 @@
         "build": {
             "dependsOn": ["^build"],
             "outputs": ["{projectRoot}/dist"],
-            "inputs": ["{projectRoot}/.env"],
             "cache": true
         },
         "dev": {
