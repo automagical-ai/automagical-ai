@@ -1,12 +1,19 @@
-import { type ParsedLocation, redirect } from "@tanstack/react-router"
+import {
+    type ParsedLocation,
+    type Redirect,
+    redirect,
+    useLocation,
+    useParams,
+    useRouter
+} from "@tanstack/react-router"
 import { createIsomorphicFn } from "@tanstack/react-start"
 import {
     getRequestHeader,
     getRequestProtocol,
     setResponseHeader
 } from "@tanstack/react-start/server"
+import { useEffect } from "react"
 import { hasLocale, type Locale } from "use-intl"
-
 import type { LocalePrefixMode, Pathnames, RoutingConfig } from "../routing"
 import { receiveRoutingConfig } from "../routing/config"
 import type { Locales } from "../routing/types"
@@ -201,8 +208,27 @@ export function createMiddleware<
         throw redirect({ to: redirectTo })
     }
 
+    const useLocaleMiddleware = () => {
+        const router = useRouter()
+        const { locale: localeParam } = useParams({ strict: false })
+        const location = useLocation()
+
+        // biome-ignore lint/correctness/useExhaustiveDependencies: Ignore dis
+        useEffect(() => {
+            try {
+                localeMiddleware({ params: { locale: localeParam }, location })
+            } catch (redirect) {
+                router.navigate({
+                    to: (redirect as Redirect).options.to,
+                    replace: true
+                })
+            }
+        }, [])
+    }
+
     return {
         localeMiddleware,
+        useLocaleMiddleware,
         setLocaleCookie,
         detectLocale
     }
