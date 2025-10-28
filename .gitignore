@@ -138,7 +138,6 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-.turbo
 .DS_Store
 
 # Local Netlify folder
