@@ -6,7 +6,9 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "format": "biome format",
+        "lint": "biome lint",
+        "check": "biome check"
     },
     "dependencies": {
         "@automagical-ai/core": "workspace:*",

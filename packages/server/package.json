@@ -3,15 +3,15 @@
     "homepage": "https://automagical.ai",
     "version": "0.0.1",
     "description": "Automagical AI Server",
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc --watch"
+    },
     "main": "dist/index.js",
     "files": [
         "src",
         "dist"
     ],
-    "scripts": {
-        "build": "tsc",
-        "dev": "tsc --watch"
-    },
     "keywords": [],
     "author": "Automagical AI, LLC",
     "license": "GNU General Public License v3.0",

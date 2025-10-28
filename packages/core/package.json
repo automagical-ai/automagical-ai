@@ -3,6 +3,10 @@
     "homepage": "https://automagical.ai",
     "version": "0.0.1",
     "description": "Automagical AI Core",
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc --watch"
+    },
     "main": "dist/index.js",
     "bin": {
         "automagical": "./src/bin/automagical.ts"
@@ -11,10 +15,7 @@
         "src",
         "dist"
     ],
-    "scripts": {
-        "build": "tsc",
-        "dev": "tsc --watch"
-    },
+
     "keywords": [],
     "author": "Automagical AI, LLC",
     "license": "GNU General Public License v3.0",

@@ -3,6 +3,10 @@
     "homepage": "https://automagical.ai",
     "version": "0.0.3",
     "description": "start-intl",
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch"
+    },
     "type": "module",
     "main": "dist/index.js",
     "exports": {
@@ -15,10 +19,6 @@
         "src",
         "dist"
     ],
-    "scripts": {
-        "build": "tsup",
-        "dev": "tsup --watch"
-    },
     "keywords": [],
     "author": "Automagical AI, LLC",
     "license": "GNU General Public License v3.0",
