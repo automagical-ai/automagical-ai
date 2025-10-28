@@ -7,6 +7,13 @@ import { routing } from "@/i18n/routing"
 
 export const Route = createFileRoute("/{-$locale}")({
     beforeLoad: async (context) => {
+        console.log("process.env.VITE_TEST_VAR", process.env.VITE_TEST_VAR)
+        console.log(
+            "import.meta.env.VITE_TEST_VAR",
+            import.meta.env.VITE_TEST_VAR
+        )
+        console.log("process.env.PRIVATE_VAR", process.env.PRIVATE_VAR)
+        console.log("import.meta.env.PRIVATE_VAR", import.meta.env.PRIVATE_VAR)
         const href =
             typeof window !== "undefined" ? window.location.href : undefined
         console.log("beforeLoad", href, context.location.publicHref)
