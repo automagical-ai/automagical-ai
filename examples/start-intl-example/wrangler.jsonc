@@ -16,7 +16,7 @@
         }
     },
     "vars": {
-        "VITE_TEST_VAR": "test_var",
-        "PRIVATE_VAR": "private_var"
+        "VITE_TEST_VAR": "runtime_vite_test_var",
+        "PRIVATE_VAR": "runtime_private_var"
     }
 }

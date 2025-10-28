@@ -1,4 +1,5 @@
 import { createFileRoute, notFound, Outlet } from "@tanstack/react-router"
+import { useEffect } from "react"
 import { hasLocale, IntlProvider } from "use-intl"
 import { Header } from "@/components/header"
 import { getMessages } from "@/i18n/messages"
@@ -7,6 +8,13 @@ import { routing } from "@/i18n/routing"
 
 export const Route = createFileRoute("/{-$locale}")({
     beforeLoad: async (context) => {
+        console.log("process.env.VITE_TEST_VAR", process.env.VITE_TEST_VAR)
+        console.log(
+            "import.meta.env.VITE_TEST_VAR",
+            import.meta.env.VITE_TEST_VAR
+        )
+        console.log("process.env.PRIVATE_VAR", process.env.PRIVATE_VAR)
+        console.log("import.meta.env.PRIVATE_VAR", import.meta.env.PRIVATE_VAR)
         const locale = localeMiddleware(context)
 
         // Type-safe locale validation
@@ -27,6 +35,15 @@ export const Route = createFileRoute("/{-$locale}")({
 function LocaleLayoutComponent() {
     useLocaleMiddleware()
 
+    useEffect(() => {
+        console.log("process.env.VITE_TEST_VAR", process.env.VITE_TEST_VAR)
+        console.log(
+            "import.meta.env.VITE_TEST_VAR",
+            import.meta.env.VITE_TEST_VAR
+        )
+        console.log("process.env.PRIVATE_VAR", process.env.PRIVATE_VAR)
+        console.log("import.meta.env.PRIVATE_VAR", import.meta.env.PRIVATE_VAR)
+    }, [])
     const { locale, messages } = Route.useRouteContext()
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
