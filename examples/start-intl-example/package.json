@@ -5,7 +5,7 @@
     "scripts": {
         "dev": "vite dev",
         "build": "vite build && pnpm prerender",
-        "prerender": "PRERENDER=true vite build --outDir dist-prerender && mv dist-prerender/client/* dist/client && rm -rf dist-prerender",
+        "prerender": "PRERENDER=true vite build --outDir dist-prerender && cp -r dist-prerender/client dist && rm -rf dist-prerender",
         "serve": "BROWSER=none netlify serve",
         "test": "vitest run",
         "format": "biome format",
