@@ -4,7 +4,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite dev",
-        "build": "vite build && pnpm prerender",
+        "build": "vite build",
         "prerender": "PRERENDER=true vite build --outDir dist-prerender && cp -a dist-prerender/client/. dist/client/ && rm -rf dist-prerender",
         "serve": "BROWSER=none netlify serve",
         "test": "vitest run",

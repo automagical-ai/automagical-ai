@@ -30,31 +30,6 @@ export const getRouter = () => {
         defaultPreloadStaleTime: 0,
         rewrite: {
             input: ({ url }) => {
-                console.log("rewrite", url.pathname)
-
-                console.log(
-                    "process.env.VITE_TEST_VAR",
-                    process.env.VITE_TEST_VAR
-                )
-                console.log(
-                    "import.meta.env.VITE_TEST_VAR",
-                    import.meta.env.VITE_TEST_VAR
-                )
-
-                console.log("process.env.PRIVATE_VAR", process.env.PRIVATE_VAR)
-                console.log(
-                    "import.meta.env.PRIVATE_VAR",
-                    import.meta.env.PRIVATE_VAR
-                )
-
-                console.log(
-                    "process.env.SECRET_SAUCE",
-                    process.env.SECRET_SAUCE
-                )
-                console.log(
-                    "import.meta.env.SECRET_SAUCE",
-                    import.meta.env.SECRET_SAUCE
-                )
                 const acceptLanguage = getAcceptLanguage()
                 const locale =
                     acceptLanguage?.split("-")[0] || routing.defaultLocale
