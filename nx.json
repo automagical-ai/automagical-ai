@@ -6,6 +6,10 @@
             "outputs": ["{projectRoot}/dist"],
             "cache": true
         },
+        "dev": {
+            "dependsOn": ["^dev"],
+            "continuous": true
+        },
         "lint": {
             "cache": true
         },
