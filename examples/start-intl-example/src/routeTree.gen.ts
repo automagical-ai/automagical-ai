@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
 import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
+import { Route as Char123LocaleChar125SsrRouteImport } from './routes/{-$locale}/ssr'
 import { Route as Char123LocaleChar125AboutRouteImport } from './routes/{-$locale}/about'
 
 const Char123LocaleChar125RouteRoute =
@@ -25,6 +26,11 @@ const Char123LocaleChar125IndexRoute =
     path: '/',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
+const Char123LocaleChar125SsrRoute = Char123LocaleChar125SsrRouteImport.update({
+  id: '/ssr',
+  path: '/ssr',
+  getParentRoute: () => Char123LocaleChar125RouteRoute,
+} as any)
 const Char123LocaleChar125AboutRoute =
   Char123LocaleChar125AboutRouteImport.update({
     id: '/about',
@@ -35,24 +41,36 @@ const Char123LocaleChar125AboutRoute =
 export interface FileRoutesByFullPath {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/{-$locale}/about': typeof Char123LocaleChar125AboutRoute
+  '/{-$locale}/ssr': typeof Char123LocaleChar125SsrRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
 }
 export interface FileRoutesByTo {
   '/{-$locale}/about': typeof Char123LocaleChar125AboutRoute
+  '/{-$locale}/ssr': typeof Char123LocaleChar125SsrRoute
   '/{-$locale}': typeof Char123LocaleChar125IndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/{-$locale}/about': typeof Char123LocaleChar125AboutRoute
+  '/{-$locale}/ssr': typeof Char123LocaleChar125SsrRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/{-$locale}' | '/{-$locale}/about' | '/{-$locale}/'
+  fullPaths:
+    | '/{-$locale}'
+    | '/{-$locale}/about'
+    | '/{-$locale}/ssr'
+    | '/{-$locale}/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/{-$locale}/about' | '/{-$locale}'
-  id: '__root__' | '/{-$locale}' | '/{-$locale}/about' | '/{-$locale}/'
+  to: '/{-$locale}/about' | '/{-$locale}/ssr' | '/{-$locale}'
+  id:
+    | '__root__'
+    | '/{-$locale}'
+    | '/{-$locale}/about'
+    | '/{-$locale}/ssr'
+    | '/{-$locale}/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -75,6 +93,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
+    '/{-$locale}/ssr': {
+      id: '/{-$locale}/ssr'
+      path: '/ssr'
+      fullPath: '/{-$locale}/ssr'
+      preLoaderRoute: typeof Char123LocaleChar125SsrRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/about': {
       id: '/{-$locale}/about'
       path: '/about'
@@ -87,12 +112,14 @@ declare module '@tanstack/react-router' {
 
 interface Char123LocaleChar125RouteRouteChildren {
   Char123LocaleChar125AboutRoute: typeof Char123LocaleChar125AboutRoute
+  Char123LocaleChar125SsrRoute: typeof Char123LocaleChar125SsrRoute
   Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute
 }
 
 const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
   {
     Char123LocaleChar125AboutRoute: Char123LocaleChar125AboutRoute,
+    Char123LocaleChar125SsrRoute: Char123LocaleChar125SsrRoute,
     Char123LocaleChar125IndexRoute: Char123LocaleChar125IndexRoute,
   }
 
