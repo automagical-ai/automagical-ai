@@ -4,7 +4,7 @@ import {
     HeadContent,
     Outlet,
     Scripts,
-    useRouteContext
+    useParams
 } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 
@@ -32,10 +32,10 @@ export const Route = createRootRoute({
 })
 
 function RootDocument() {
-    const { locale } = useRouteContext({ strict: false })
+    const { locale } = useParams({ strict: false })
 
     return (
-        <html lang={locale || routing.defaultLocale} suppressHydrationWarning>
+        <html lang={locale || routing.defaultLocale}>
             <head>
                 <HeadContent />
             </head>
