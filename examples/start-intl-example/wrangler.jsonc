@@ -14,9 +14,5 @@
             "head_sampling_rate": 1,
             "invocation_logs": true
         }
-    },
-    "vars": {
-        "VITE_TEST_VAR": "runtime_vite_test_var",
-        "PRIVATE_VAR": "runtime_private_var"
     }
 }
