@@ -1,8 +1,7 @@
-import { createRouter, redirect } from "@tanstack/react-router"
-import { createIsomorphicFn, getRouterInstance } from "@tanstack/react-start"
+import { createRouter } from "@tanstack/react-router"
+import { createIsomorphicFn } from "@tanstack/react-start"
 import { getRequestHeader } from "@tanstack/react-start/server"
 
-import { routing } from "./i18n/routing"
 import { routeTree } from "./routeTree.gen"
 
 const getAcceptLanguage = createIsomorphicFn()
@@ -11,18 +10,6 @@ const getAcceptLanguage = createIsomorphicFn()
     })
     .client(() => navigator.language)
 
-const ismorphicRedirect = createIsomorphicFn()
-    .server((href: string) => {
-        if (process.env.TSS_PRERENDERING === "true") return
-        throw redirect({ href })
-    })
-    .client((href: string) => {
-        setTimeout(async () => {
-            const router = await getRouterInstance()
-            router.navigate({ href, replace: true })
-        })
-    })
-
 export const getRouter = () => {
     return createRouter({
         routeTree,
@@ -30,14 +17,6 @@ export const getRouter = () => {
         defaultPreloadStaleTime: 0,
         rewrite: {
             input: ({ url }) => {
-                const acceptLanguage = getAcceptLanguage()
-                const locale =
-                    acceptLanguage?.split("-")[0] || routing.defaultLocale
-
-                if (url.pathname === "/de") {
-                    ismorphicRedirect(`/ja`)
-                }
-
                 return url
             }
         },
