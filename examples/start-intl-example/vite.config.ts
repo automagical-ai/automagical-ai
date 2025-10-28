@@ -6,12 +6,19 @@ import { defineConfig } from "vite"
 import devtoolsJson from "vite-plugin-devtools-json"
 import viteTsConfigPaths from "vite-tsconfig-paths"
 
+const isPrerender = process.env.PRERENDER === "true"
+
 const config = defineConfig({
+    build: {
+        outDir: isPrerender ? "dist" : "dist-ssr"
+    },
     server: {
         port: 3001
     },
     plugins: [
-        cloudflare(),
+        !isPrerender
+            ? cloudflare({ viteEnvironment: { name: "ssr" } })
+            : undefined,
         // netlify(),
         viteTsConfigPaths({
             projects: ["./tsconfig.json"]
@@ -19,7 +26,7 @@ const config = defineConfig({
         tailwindcss(),
         tanstackStart({
             prerender: {
-                enabled: true
+                enabled: isPrerender
             }
         }),
         viteReact(),

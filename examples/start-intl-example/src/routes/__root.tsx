@@ -44,9 +44,6 @@ function RootDocument() {
                 <Outlet />
 
                 <TanStackDevtools
-                    config={{
-                        position: "bottom-left"
-                    }}
                     plugins={[
                         {
                             name: "Tanstack Router",

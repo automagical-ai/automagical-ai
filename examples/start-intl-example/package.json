@@ -4,7 +4,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite dev",
-        "build": "vite build",
+        "build": "vite build && pnpm prerender",
+        "prerender": "PRERENDER=true vite build",
         "serve": "BROWSER=none netlify serve",
         "test": "vitest run",
         "format": "biome format",
