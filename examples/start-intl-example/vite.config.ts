@@ -9,6 +9,10 @@ import viteTsConfigPaths from "vite-tsconfig-paths"
 const isPrerender = process.env.PRERENDER === "true"
 
 const config = defineConfig({
+    build: {
+        assetsDir: "dist/client",
+        outDir: isPrerender ? "dist/client/dist" : "dist"
+    },
     server: {
         port: 3001
     },
