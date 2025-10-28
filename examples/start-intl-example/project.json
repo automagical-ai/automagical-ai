@@ -2,7 +2,13 @@
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "targets": {
         "build": {
-            "inputs": [{ "env": "VITE_TEST_VAR" }, { "env": "PRIVATE_VAR" }]
+            "cache": true,
+            "inputs": [
+                "default",
+                { "env": "VITE_TEST_VAR" },
+                { "env": "PRIVATE_VAR" }
+            ],
+            "outputs": ["{projectRoot}/dist"]
         }
     }
 }
