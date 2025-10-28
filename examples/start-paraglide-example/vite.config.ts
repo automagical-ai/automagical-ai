@@ -8,8 +8,10 @@ import devtoolsJson from "vite-plugin-devtools-json"
 import viteTsConfigPaths from "vite-tsconfig-paths"
 
 const config = defineConfig({
+    // root: "examples/start-paraglide-example",
     server: {
-        port: 3001
+        host: "0.0.0.0",
+        port: 3000
     },
     plugins: [
         paraglideVitePlugin({
