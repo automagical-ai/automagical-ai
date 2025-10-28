@@ -128,7 +128,6 @@ export function createMiddleware<
         params: { locale },
         location
     }: TContext): string {
-        console.log("localeMiddleware", locale, location)
         const { defaultLocale, locales, localePrefix } = resolvedRouting
 
         // Skip middleware if the locale is invalid
