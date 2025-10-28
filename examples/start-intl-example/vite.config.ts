@@ -5,14 +5,11 @@ import { defineConfig } from "vite"
 import devtoolsJson from "vite-plugin-devtools-json"
 import viteTsConfigPaths from "vite-tsconfig-paths"
 
-const isPrerender = process.env.PRERENDER === "true"
-
 const config = defineConfig({
     server: {
         port: 3001
     },
     plugins: [
-        // netlify(),
         viteTsConfigPaths({
             projects: ["./tsconfig.json"]
         }),

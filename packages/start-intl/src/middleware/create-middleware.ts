@@ -13,7 +13,7 @@ import {
     setResponseHeader
 } from "@tanstack/react-start/server"
 import { useEffect } from "react"
-import { hasLocale, type Locale } from "use-intl"
+import type { Locale } from "../global"
 import type { LocalePrefixMode, Pathnames, RoutingConfig } from "../routing"
 import { receiveRoutingConfig } from "../routing/config"
 import type { Locales } from "../routing/types"
@@ -138,7 +138,7 @@ export function createMiddleware<
         const { defaultLocale, locales, localePrefix } = resolvedRouting
 
         // Skip middleware if the locale is invalid
-        if (!hasLocale(locales, locale || defaultLocale)) {
+        if (!locales.includes(locale || defaultLocale)) {
             return locale || defaultLocale
         }
 
@@ -189,7 +189,7 @@ export function createMiddleware<
             detectLocale()
 
         // Return default locale if the locale is invalid
-        if (!hasLocale(locales, nextLocale)) {
+        if (!locales.includes(nextLocale)) {
             return defaultLocale
         }
 

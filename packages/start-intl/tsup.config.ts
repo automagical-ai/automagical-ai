@@ -9,7 +9,6 @@ export default defineConfig({
     external: [
         "react",
         "react-dom",
-        "use-intl",
         "@tanstack/react-router",
         "@tanstack/react-start",
         "@tanstack/react-start/server",

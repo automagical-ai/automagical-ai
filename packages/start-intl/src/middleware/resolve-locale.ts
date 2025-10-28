@@ -1,6 +1,6 @@
 import { match } from "@formatjs/intl-localematcher"
 import Negotiator from "negotiator"
-import type { Locale } from "use-intl"
+import type { Locale } from "../global"
 import type { Locales } from "../routing/types"
 
 export function getAcceptLanguageLocale<AppLocales extends Locales>(
