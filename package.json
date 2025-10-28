@@ -3,7 +3,9 @@
     "private": true,
     "devDependencies": {
         "@biomejs/biome": "^2.3.0",
-        "typescript": "5.9.3"
+        "typescript": "5.9.3",
+        "nx": "22.0.1",
+        "@nx/vite": "22.0.1"
     },
     "author": "Automagical AI, LLC",
     "license": "GNU General Public License v3.0",
