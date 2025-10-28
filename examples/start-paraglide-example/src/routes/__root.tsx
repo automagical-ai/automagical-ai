@@ -37,7 +37,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <head>
                 <HeadContent />
             </head>
-            <body className="bg-black text-white">
+            <body>
                 <div className="p-2 flex gap-2 text-lg justify-between">
                     <div className="flex gap-2 text-lg">
                         <Link

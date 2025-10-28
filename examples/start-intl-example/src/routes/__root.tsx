@@ -40,7 +40,7 @@ function RootDocument() {
                 <HeadContent />
             </head>
 
-            <body className="bg-black text-white">
+            <body>
                 <Outlet />
 
                 <TanStackDevtools
