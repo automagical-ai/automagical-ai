@@ -19,16 +19,6 @@
             "dependsOn": ["^dev"],
             "continuous": true
         },
-        "format": {
-            "inputs": ["biome"],
-            "dependsOn": ["^format"],
-            "cache": true
-        },
-        "lint": {
-            "inputs": ["biome"],
-            "dependsOn": ["^lint"],
-            "cache": true
-        },
         "check": {
             "inputs": ["biome"],
             "dependsOn": ["^check"],
