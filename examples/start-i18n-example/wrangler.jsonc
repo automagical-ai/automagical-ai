@@ -1,0 +1,19 @@
+{
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "start-i18n-example",
+    "compatibility_date": "2025-09-02",
+    "compatibility_flags": ["nodejs_compat"],
+    "main": "./dist/server/server.js",
+    "assets": {
+        "directory": "dist/client",
+        "html_handling": "drop-trailing-slash"
+    },
+    "observability": {
+        "logs": {
+            "enabled": true,
+            "head_sampling_rate": 1,
+            "invocation_logs": true
+        }
+    }
+}
+

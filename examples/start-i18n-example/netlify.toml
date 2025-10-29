@@ -1,0 +1,8 @@
+[build]
+  command = "vite build"
+  publish = "dist/client"
+  base = "examples/start-i18n-example"
+[dev]
+  command = "vite dev"
+  port = 3000
+
