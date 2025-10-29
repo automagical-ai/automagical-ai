@@ -20,7 +20,7 @@
     "license": "GNU General Public License v3.0",
     "devDependencies": {
         "@types/lodash": "^4.17.20",
-        "@types/node": "^24.9.1",
+        "@types/node": "^24.9.2",
         "detect-indent": "^7.0.2",
         "lodash": "^4.17.21",
         "prettier": "^3.6.2",

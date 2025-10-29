@@ -18,13 +18,12 @@
         "src",
         "dist"
     ],
-
     "keywords": [],
     "author": "Automagical AI, LLC",
     "license": "GNU General Public License v3.0",
     "devDependencies": {
         "@better-fetch/fetch": "^1.1.18",
-        "@types/node": "^24.9.1",
+        "@types/node": "^24.9.2",
         "tsx": "^4.20.6",
         "typescript": "5.9.3"
     },
