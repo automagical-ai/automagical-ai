@@ -7,5 +7,5 @@ export const Route = createFileRoute("/{-$locale}/about")({
 
 function RouteComponent() {
     const t = useTranslations()
-    return <div>{t("about_message")}</div>
+    return <main className="container mx-auto p-4">{t("about_message")}</main>
 }

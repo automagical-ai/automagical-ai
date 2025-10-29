@@ -1,6 +1,6 @@
 import { type LinkProps, Link as TanStackLink } from "@tanstack/react-router"
+import type { ComponentPropsWithRef } from "react"
 import { useLocale } from "use-intl"
-
 import { routing } from "./routing"
 
 type LocaleTo<T> = T extends `/{-$locale}${infer Rest}`
@@ -9,9 +9,10 @@ type LocaleTo<T> = T extends `/{-$locale}${infer Rest}`
         : Rest
     : T
 
-type LocaleLinkProps = Omit<LinkProps, "to"> & {
-    to: LocaleTo<LinkProps["to"]>
-}
+type LocaleLinkProps = ComponentPropsWithRef<"a"> &
+    Omit<LinkProps, "to"> & {
+        to: LocaleTo<LinkProps["to"]>
+    }
 
 export function Link({ to, params, ...props }: LocaleLinkProps) {
     const locale = useLocale()

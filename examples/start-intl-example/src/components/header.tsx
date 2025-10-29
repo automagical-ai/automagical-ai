@@ -1,50 +1,65 @@
-import { useTranslations } from "use-intl"
+import { useLocale, useTranslations } from "use-intl"
 import { Link } from "@/i18n/navigation"
 import { routing } from "@/i18n/routing"
 
 export function Header() {
     const t = useTranslations()
+    const locale = useLocale()
 
     return (
-        <>
-            <div className="p-2 flex gap-2 text-lg justify-between">
-                <div className="flex gap-2 text-lg">
-                    <Link
-                        to="/"
-                        activeProps={{
-                            className: "font-bold"
-                        }}
-                        activeOptions={{ exact: true }}
-                    >
-                        {t("home_page")}
+        <header className="border-b sticky top-0 z-50 bg-background">
+            <div className="container flex items-center mx-auto justify-between p-4">
+                <div className="flex items-center gap-5">
+                    <Link to="/">
+                        <h1 className="text-lg font-bold">start-intl</h1>
                     </Link>
 
-                    <Link
-                        to="/about"
-                        activeProps={{
-                            className: "font-bold"
-                        }}
-                    >
-                        {t("about_page")}
+                    <span className="border-r self-stretch" />
+
+                    <Link to="/about" className="text-sm hover:underline">
+                        {t("about")}
                     </Link>
                 </div>
 
-                <div className="flex gap-2 text-lg">
-                    {routing.locales.map((locale) => (
-                        <Link key={locale} to="/" params={{ locale }}>
-                            <button
-                                type="button"
-                                data-active-locale={true}
-                                className="rounded p-1 px-2 border border-gray-300 cursor-pointer data-[active-locale=true]:bg-gray-500 data-[active-locale=true]:text-white"
+                <div className="relative group">
+                    <button
+                        type="button"
+                        onMouseDown={(e) => {
+                            if (e.target !== document.activeElement) return
+
+                            e.preventDefault()
+                            e.stopPropagation()
+                            e.target instanceof HTMLElement && e.target.blur()
+                        }}
+                    >
+                        {locale}
+
+                        <span className="-mt-1.5 -me-0.5">⌄</span>
+                    </button>
+
+                    <div className="hidden group-focus-within:block mt-1 border absolute bg-background">
+                        {routing.locales.map((locale) => (
+                            <Link
+                                key={locale}
+                                to="/"
+                                params={{ locale: locale }}
+                                onClick={(e) =>
+                                    e.target instanceof HTMLElement &&
+                                    e.target.blur()
+                                }
                             >
-                                {locale}
-                            </button>
-                        </Link>
-                    ))}
+                                <button
+                                    tabIndex={-1}
+                                    type="button"
+                                    className="w-full border-none"
+                                >
+                                    {locale}
+                                </button>
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             </div>
-
-            <hr />
-        </>
+        </header>
     )
 }

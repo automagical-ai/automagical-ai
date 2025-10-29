@@ -6,11 +6,21 @@
     }
 
     * {
-        @apply border-gray-200 dark:border-gray-800;
+        @apply border-neutral-200 dark:border-neutral-800;
     }
 
     html,
     body {
-        @apply text-gray-900 bg-gray-50 dark:bg-gray-950 dark:text-gray-200 antialiased;
+        @apply text-black bg-white dark:bg-black dark:text-white antialiased;
+    }
+
+    button {
+        @apply cursor-pointer text-sm flex px-3 py-1 gap-1.5 border items-center hover:bg-neutral-50 dark:hover:bg-neutral-950;
+    }
+}
+
+@layer utilities {
+    .bg-background {
+        @apply bg-white dark:bg-black;
     }
 }
