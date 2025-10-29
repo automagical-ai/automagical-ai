@@ -11,7 +11,7 @@ export function Header() {
             <div className="container flex items-center mx-auto justify-between p-4">
                 <div className="flex items-center gap-5">
                     <Link to="/">
-                        <h1 className="text-lg font-bold">start-intl</h1>
+                        <h1 className="text-lg font-bold">start-i18n</h1>
                     </Link>
 
                     <span className="border-r self-stretch" />
