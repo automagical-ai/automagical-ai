@@ -3,4 +3,3 @@ import { routing } from "./routing"
 
 export const { localeMiddleware, useLocaleMiddleware } =
     createMiddleware(routing)
-
