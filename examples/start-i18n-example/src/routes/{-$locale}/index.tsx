@@ -6,9 +6,8 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 function Home() {
     return (
-        <div className="p-2">
+        <main className="container mx-auto p-4">
             <h1>Hello World</h1>
-        </div>
+        </main>
     )
 }
-

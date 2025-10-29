@@ -10,7 +10,9 @@ export function Header() {
         <header className="border-b sticky top-0 z-50 bg-background">
             <div className="container flex items-center mx-auto justify-between p-4">
                 <div className="flex items-center gap-5">
-                    <h1 className="text-lg font-bold">start-i18n demo</h1>
+                    <Link to="/">
+                        <h1 className="text-lg font-bold">start-i18n demo</h1>
+                    </Link>
 
                     <span className="border-r self-stretch" />
 
@@ -19,18 +21,16 @@ export function Header() {
                     </Link>
                 </div>
 
-                <div className="relative">
+                <div className="relative group">
                     <button
-                        tabIndex={0}
                         type="button"
                         onMouseDown={(e) => {
-                            if (e.target instanceof HTMLButtonElement) {
-                                if (e.target === document.activeElement) {
-                                    e.preventDefault()
-                                    e.stopPropagation()
-                                    e.target.blur()
-                                }
-                            }
+                            if (!(e.target instanceof HTMLButtonElement)) return
+                            if (e.target !== document.activeElement) return
+
+                            e.preventDefault()
+                            e.stopPropagation()
+                            e.target.blur()
                         }}
                     >
                         {currentLocale}
@@ -38,7 +38,7 @@ export function Header() {
                         <span className="-mt-1.5 -me-0.5">⌄</span>
                     </button>
 
-                    <div className="hidden in-focus-within:block mt-1 border absolute bg-background">
+                    <div className="hidden group-focus-within:block mt-1 border absolute bg-background">
                         {routing.locales.map((locale) => (
                             <Link
                                 key={locale}
@@ -51,6 +51,7 @@ export function Header() {
                                 }}
                             >
                                 <button
+                                    tabIndex={-1}
                                     type="button"
                                     className="w-full border-none"
                                 >
