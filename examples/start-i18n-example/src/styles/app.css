@@ -13,4 +13,14 @@
     body {
         @apply text-black bg-white dark:bg-black dark:text-white antialiased;
     }
+
+    button {
+        @apply cursor-pointer text-sm flex px-3 py-1 gap-1.5 border items-center hover:bg-neutral-50 dark:hover:bg-neutral-950;
+    }
+}
+
+@layer utilities {
+    .bg-background {
+        @apply bg-white dark:bg-black;
+    }
 }
