@@ -23,6 +23,7 @@ export function Header() {
 
                 <div className="relative group">
                     <button
+                        tabIndex={0}
                         type="button"
                         onMouseDown={(e) => {
                             if (e.target !== document.activeElement) return
