@@ -125,7 +125,7 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  examples/start-i18n-example:
+  examples/start-i18next-example:
     dependencies:
       '@automagical-ai/start-intl':
         specifier: workspace:*
