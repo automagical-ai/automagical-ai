@@ -5,7 +5,10 @@
     "description": "start-intl",
     "scripts": {
         "build": "tsup",
-        "dev": "tsup --watch"
+        "dev": "tsup --watch",
+        "format": "biome format",
+        "lint": "biome lint",
+        "check": "biome check"
     },
     "type": "module",
     "main": "dist/index.js",
