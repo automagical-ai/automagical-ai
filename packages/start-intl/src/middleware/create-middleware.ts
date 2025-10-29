@@ -25,6 +25,19 @@ import {
     sanitizePathname
 } from "./utils"
 
+// import initVisibilityScript from "@/scripts/init-visibility?raw"
+// const scriptWithVars = initVisibilityScript.replace(
+//     "__INITIAL_VISIBILITY__",
+//     initialVisibility
+// )
+
+// <script
+// // biome-ignore lint/security/noDangerouslySetInnerHtml: all g
+// dangerouslySetInnerHTML={{
+//     __html: scriptWithVars
+// }}
+// />
+
 export function createMiddleware<
     const AppLocales extends Locales,
     const AppLocalePrefixMode extends LocalePrefixMode = "always",
