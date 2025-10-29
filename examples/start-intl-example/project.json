@@ -2,11 +2,14 @@
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "targets": {
         "build": {
-            "cache": true,
             "inputs": [
                 "default",
+                "^default",
                 { "env": "VITE_TEST_VAR" },
-                { "env": "PRIVATE_VAR" }
+                { "env": "PRIVATE_VAR" },
+                {
+                    "runtime": "cat examples/start-intl-example/.env 2>/dev/null || echo ''"
+                }
             ],
             "outputs": ["{projectRoot}/dist"]
         }
