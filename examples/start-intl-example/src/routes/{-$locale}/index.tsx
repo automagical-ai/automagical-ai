@@ -45,7 +45,7 @@ function Home() {
         <main className="container mx-auto p-4">
             <h2>Message from loader: {messageFromLoader}</h2>
 
-            <h2>Server function message: {serverFunctionMessage}:</h2>
+            <h2>Server function messsage: {serverFunctionMessage}:</h2>
 
             <h2>{t("example_message", { username: "John Doe" })}</h2>
         </main>

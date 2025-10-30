@@ -4,7 +4,7 @@ import { useTranslations } from "use-intl"
 export const Route = createFileRoute("/{-$locale}/about")({
     component: RouteComponent,
     beforeLoad: async () => {
-        console.log("hello world")
+        console.log("hello worldzzzzzzzzsszzzzzzzzz")
     }
 })
 
