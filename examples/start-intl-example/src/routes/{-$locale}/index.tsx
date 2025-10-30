@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { createServerFn } from "@tanstack/react-start"
+import { useEffect } from "react"
 import type { Locale } from "use-intl"
 import { createTranslator, useTranslations } from "use-intl"
-import { getTranslator } from "@/i18n/messages"
+import { getTranslator, testFunction } from "@/i18n/messages"
 
 const getServerMessage = createServerFn()
     .inputValidator(({ emoji, locale }: { emoji: string; locale: Locale }) => ({
@@ -35,6 +36,10 @@ export const Route = createFileRoute("/{-$locale}/")({
 function Home() {
     const t = useTranslations()
     const { serverFunctionMessage, messageFromLoader } = Route.useLoaderData()
+
+    useEffect(() => {
+        testFunction()
+    }, [])
 
     return (
         <main className="container mx-auto p-4">

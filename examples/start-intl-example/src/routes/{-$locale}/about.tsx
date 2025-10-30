@@ -2,7 +2,10 @@ import { createFileRoute } from "@tanstack/react-router"
 import { useTranslations } from "use-intl"
 
 export const Route = createFileRoute("/{-$locale}/about")({
-    component: RouteComponent
+    component: RouteComponent,
+    beforeLoad: async () => {
+        console.log("hello world")
+    }
 })
 
 function RouteComponent() {

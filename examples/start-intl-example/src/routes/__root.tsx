@@ -7,7 +7,6 @@ import {
     useParams
 } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
-
 import { routing } from "../i18n/routing"
 import appStyles from "../styles/app.css?url"
 
@@ -28,10 +27,10 @@ export const Route = createRootRoute({
         links: [{ rel: "stylesheet", href: appStyles }]
     }),
 
-    shellComponent: RootDocument
+    component: RootComponent
 })
 
-function RootDocument() {
+function RootComponent() {
     const { locale } = useParams({ strict: false })
 
     return (
@@ -56,4 +55,11 @@ function RootDocument() {
             </body>
         </html>
     )
+}
+
+if (import.meta.hot) {
+    import.meta.hot.accept(() => {
+        // Force route invalidation when messages.ts changes
+        import.meta.hot?.invalidate()
+    })
 }

@@ -8,7 +8,6 @@ import viteTsConfigPaths from "vite-tsconfig-paths"
 const config = defineConfig({
     // root: "examples/start-intl-example",
     server: {
-        host: "0.0.0.0",
         port: 3000
     },
     plugins: [
@@ -18,7 +17,7 @@ const config = defineConfig({
         tailwindcss(),
         tanstackStart({
             prerender: {
-                enabled: true
+                enabled: false
             }
         }),
         viteReact(),

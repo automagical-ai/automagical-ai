@@ -1,10 +1,12 @@
 import { useParams } from "@tanstack/react-router"
+import { useTranslation } from "react-i18next"
 import { Link } from "@/i18n/navigation"
 import { routing } from "../i18n/routing"
 
 export function Header() {
     const { locale } = useParams({ strict: false })
     const currentLocale = locale || routing.defaultLocale
+    const { t } = useTranslation("root")
 
     return (
         <header className="border-b sticky top-0 z-50 bg-background">
@@ -17,7 +19,7 @@ export function Header() {
                     <span className="border-r self-stretch" />
 
                     <Link to="/about" className="text-sm hover:underline">
-                        About
+                        {t("about")}
                     </Link>
                 </div>
 
