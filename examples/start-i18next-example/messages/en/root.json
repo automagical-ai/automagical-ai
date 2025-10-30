@@ -1,0 +1,10 @@
+{
+    "title": "start-i18n",
+    "nav": {
+        "about": "About"
+    },
+    "language": {
+        "select": "Select Language"
+    }
+}
+

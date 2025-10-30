@@ -1,0 +1,6 @@
+{
+    "title": "Hallo Welt",
+    "welcome": "Willkommen zum Internationalisierungsbeispiel",
+    "description": "Dies ist ein einfaches Beispiel zur Demonstration der i18next-Integration mit TanStack Start."
+}
+
