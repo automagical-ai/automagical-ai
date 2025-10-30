@@ -12,7 +12,3 @@ export const getTranslator = async (locale: Locale) =>
         locale,
         messages: await getMessages(locale)
     })
-
-export function testFunction() {
-    console.log("testFunctionzz")
-}
