@@ -5,11 +5,15 @@ export function tanstackRouterHMR(): Plugin {
         name: "tanstack-router-hmr",
         enforce: "post",
         handleHotUpdate(ctx) {
+            const invalidatedModules = []
+
             for (const mod of ctx.server.moduleGraph.idToModuleMap.values()) {
                 if (mod.id?.includes("/router.ts")) {
-                    return [mod]
+                    invalidatedModules.push(mod)
                 }
             }
+
+            return invalidatedModules
         }
     }
 }
