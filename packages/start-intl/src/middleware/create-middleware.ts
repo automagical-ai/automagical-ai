@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-router"
 import { createIsomorphicFn } from "@tanstack/react-start"
 import {
+    getCookie,
     getRequestHeader,
     getRequestProtocol,
     setResponseHeader
@@ -38,7 +39,7 @@ import {
 // }}
 // />
 
-export function createMiddleware<
+export function createDetection<
     const AppLocales extends Locales,
     const AppLocalePrefixMode extends LocalePrefixMode = "always",
     const AppPathnames extends Pathnames<AppLocales> = never
@@ -68,11 +69,7 @@ export function createMiddleware<
             const { name, sameSite, domain, partitioned, maxAge } =
                 resolvedRouting.localeCookie
 
-            const hasLocaleCookie =
-                getRequestHeader("cookie")
-                    ?.split("; ")
-                    .find((cookie) => cookie.startsWith(`${name}=`))
-                    ?.split("=")[1] === locale
+            const hasLocaleCookie = getCookie(name) === locale
 
             if (hasLocaleCookie) return
 
@@ -144,7 +141,7 @@ export function createMiddleware<
         location: ParsedLocation
     }
 
-    function localeMiddleware<TContext extends LocaleMiddlewareContextType>({
+    function localeDetection<TContext extends LocaleMiddlewareContextType>({
         params: { locale },
         location
     }: TContext): string {
@@ -221,7 +218,7 @@ export function createMiddleware<
         throw redirect({ to: redirectTo })
     }
 
-    const useLocaleMiddleware = () => {
+    const useLocaleDetection = () => {
         const router = useRouter()
         const { locale: localeParam } = useParams({ strict: false })
         const location = useLocation()
@@ -229,7 +226,7 @@ export function createMiddleware<
         // biome-ignore lint/correctness/useExhaustiveDependencies: Ignore dis
         useEffect(() => {
             try {
-                localeMiddleware({ params: { locale: localeParam }, location })
+                localeDetection({ params: { locale: localeParam }, location })
             } catch (redirect) {
                 router.navigate({
                     to: (redirect as Redirect).options.to,
@@ -240,8 +237,8 @@ export function createMiddleware<
     }
 
     return {
-        localeMiddleware,
-        useLocaleMiddleware,
+        localeDetection,
+        useLocaleDetection,
         setLocaleCookie,
         detectLocale
     }

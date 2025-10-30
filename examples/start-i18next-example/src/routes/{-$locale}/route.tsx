@@ -1,10 +1,10 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router"
 import { Header } from "@/components/header"
-import { localeMiddleware } from "@/i18n/middleware"
+import { localeDetection } from "@/i18n/detection"
 
 export const Route = createFileRoute("/{-$locale}")({
     beforeLoad: async (context) => {
-        const locale = localeMiddleware(context)
+        const locale = localeDetection(context)
 
         return {
             locale
