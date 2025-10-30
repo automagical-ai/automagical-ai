@@ -1,36 +1,46 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { useSSR, useTranslation } from "react-i18next"
-import { localeDetection } from "@/i18n/detection"
+import { createServerFn } from "@tanstack/react-start"
+import { useTranslation } from "react-i18next"
 import { i18n } from "@/i18n/i18n"
 import { loadMessages } from "@/i18n/messages"
 
 export const Route = createFileRoute("/{-$locale}/")({
-    beforeLoad: async (context) => {
-        const locale = localeDetection(context)
-
-        await loadMessages(locale, "index")
-
-        console.log(i18n.store.data)
-
-        return {
-            initialI18nStore: i18n.store.data,
-            initialLanguage: locale
-        }
+    beforeLoad: async ({ context: { locale } }) => {
+        const messages = await loadMessages(locale, "index")
+        i18n.addResources(locale, "index", messages)
     },
     component: Home
 })
 
-function Home() {
-    const { initialI18nStore, initialLanguage } = Route.useRouteContext()
-    useSSR(initialI18nStore, initialLanguage)
+const getServerMessage = createServerFn()
+    .inputValidator(({ locale }: { locale: string }) => ({ locale }))
+    .handler(async ({ data: { locale } }) => {
+        i18n.changeLanguage(locale)
+        await loadMessages(locale, "index")
+        const message = i18n.t("hello_world", { ns: "index" })
 
+        // const autoTranslate = createAutoTranslate(i18n, "index")
+        // const message = autoTranslate("Hello, world!")
+        // const message = autoTranslate(i18n, "Hello, world!", { ns: "index" })
+
+        console.log("message", message)
+    })
+
+function Home() {
     const { t } = useTranslation("index")
+    // const { autoTranslate } = useAutoTranslate("index")
+    const { locale } = Route.useRouteContext()
 
     return (
         <main className="container mx-auto p-4">
-            <h1>{t("title")}</h1>
-            <p className="mt-4">{t("welcome")}</p>
-            <p>{t("description")}</p>
+            <h1>{t("hello_world")}</h1>
+
+            <button
+                onClick={() => getServerMessage({ data: { locale } })}
+                type="button"
+            >
+                Log server fn
+            </button>
         </main>
     )
 }

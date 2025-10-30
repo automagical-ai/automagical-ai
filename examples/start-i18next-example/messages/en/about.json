@@ -1,6 +1,3 @@
 {
-    "title": "About",
-    "description": "This is the about page.",
-    "content": "Learn more about this internationalization example project."
+    "about_page": "About Page"
 }
-

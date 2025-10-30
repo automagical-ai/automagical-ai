@@ -1,6 +1,3 @@
 {
-    "title": "こんにちは世界",
-    "welcome": "国際化の例へようこそ",
-    "description": "これは、TanStack Startとのi18next統合を示す簡単な例です。"
+    "hello_world": "こんにちは世界"
 }
-

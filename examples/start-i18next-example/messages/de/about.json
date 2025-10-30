@@ -1,6 +1,3 @@
 {
-    "title": "Über",
-    "description": "Dies ist die Über-Seite.",
-    "content": "Erfahren Sie mehr über dieses Internationalisierungsbeispiel-Projekt."
+    "about_page": "Über-Seite"
 }
-
