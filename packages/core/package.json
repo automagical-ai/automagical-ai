@@ -18,7 +18,6 @@
     ],
     "keywords": [],
     "author": "Automagical AI, LLC",
-    "license": "GNU General Public License v3.0",
     "devDependencies": {
         "@better-fetch/fetch": "^1.1.18",
         "@types/node": "^24.9.2",

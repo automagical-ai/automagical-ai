@@ -15,7 +15,6 @@
     ],
     "keywords": [],
     "author": "Automagical AI, LLC",
-    "license": "GNU General Public License v3.0",
     "devDependencies": {
         "@types/node": "^24.9.2",
         "@types/react": "^19.2.2",

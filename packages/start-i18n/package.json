@@ -22,7 +22,6 @@
     ],
     "keywords": [],
     "author": "Automagical AI, LLC",
-    "license": "GNU General Public License v3.0",
     "devDependencies": {
         "@types/negotiator": "^0.6.4",
         "@types/node": "^24.9.2",
