@@ -127,9 +127,9 @@ importers:
 
   examples/start-i18next-example:
     dependencies:
-      '@automagical-ai/start-intl':
+      '@automagical-ai/start-i18n':
         specifier: workspace:*
-        version: link:../../packages/start-intl
+        version: link:../../packages/start-i18n
       '@tailwindcss/vite':
         specifier: ^4.1.16
         version: 4.1.16(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1))
@@ -233,9 +233,9 @@ importers:
 
   examples/start-intl-example:
     dependencies:
-      '@automagical-ai/start-intl':
+      '@automagical-ai/start-i18n':
         specifier: workspace:*
-        version: link:../../packages/start-intl
+        version: link:../../packages/start-i18n
       '@tailwindcss/vite':
         specifier: ^4.1.16
         version: 4.1.16(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1))
@@ -546,7 +546,7 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
-  packages/start-intl:
+  packages/start-i18n:
     dependencies:
       '@formatjs/intl-localematcher':
         specifier: ^0.6.2

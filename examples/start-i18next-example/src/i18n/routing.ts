@@ -1,4 +1,4 @@
-import { defineRouting } from "@automagical-ai/start-intl"
+import { defineRouting } from "@automagical-ai/start-i18n"
 
 export const routing = defineRouting({
     // A list of all locales that are supported

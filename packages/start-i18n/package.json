@@ -1,8 +1,8 @@
 {
-    "name": "@automagical-ai/start-intl",
+    "name": "@automagical-ai/start-i18n",
     "homepage": "https://automagical.ai",
     "version": "0.0.3",
-    "description": "start-intl",
+    "description": "start-i18n",
     "scripts": {
         "build": "tsup",
         "dev": "tsup --watch",
