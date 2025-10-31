@@ -1,14 +1,27 @@
 import { createTranslator, type Locale, type Messages } from "use-intl"
 
-export const getMessages = async (locale: Locale) => {
-    return (await import(`../../messages/${locale}.json`)).default as Messages
+export async function loadMessages(locale: string, namespace: keyof Messages) {
+    const messages = (
+        await import(`../../messages/${locale}/${namespace}.json`)
+    ).default
+
+    return messages
 }
 
-export const getMessage = async (locale: Locale, key: keyof Messages) =>
-    (await getMessages(locale))[key]
+export const getMessages = async (
+    locale: Locale,
+    namespace: keyof Messages
+) => {
+    const messages = await loadMessages(locale, namespace)
+    return { [namespace]: messages }
+}
 
-export const getTranslator = async (locale: Locale) =>
+export const getTranslator = async (
+    locale: Locale,
+    namespace: keyof Messages
+) =>
     createTranslator({
         locale,
-        messages: await getMessages(locale)
+        messages: await getMessages(locale, namespace),
+        namespace
     })

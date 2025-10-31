@@ -11,6 +11,7 @@ export const Route = createFileRoute("/{-$locale}")({
     beforeLoad: async (ctx) => {
         const locale = localeDetection(ctx)
 
+        // Type-safe locale validation
         if (!hasLocale(locale)) {
             throw notFound()
         }

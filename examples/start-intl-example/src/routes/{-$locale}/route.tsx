@@ -14,7 +14,7 @@ export const Route = createFileRoute("/{-$locale}")({
             throw notFound()
         }
 
-        const messages = await getMessages(locale)
+        const messages = await getMessages(locale, "root")
 
         return {
             locale,

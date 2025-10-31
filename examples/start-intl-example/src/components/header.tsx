@@ -3,7 +3,7 @@ import { Link } from "@/i18n/navigation"
 import { routing } from "@/i18n/routing"
 
 export function Header() {
-    const t = useTranslations()
+    const t = useTranslations("root")
     const locale = useLocale()
 
     return (

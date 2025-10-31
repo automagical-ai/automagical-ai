@@ -7,6 +7,7 @@ import {
     useParams
 } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
+
 import { routing } from "../i18n/routing"
 import appStyles from "../styles/app.css?url"
 

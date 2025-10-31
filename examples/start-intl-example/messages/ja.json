@@ -1,7 +1,0 @@
-{
-    "example_message": "こんにちは {username}",
-    "server_message": "サーバーメッセージ {emoji}",
-    "about_message": "このサイトについて",
-    "home_page": "ホームページ",
-    "about": "こんにちは"
-}
