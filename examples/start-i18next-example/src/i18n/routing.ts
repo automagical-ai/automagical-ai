@@ -12,3 +12,7 @@ export const routing = defineRouting({
 
 export type Locales = typeof routing.locales
 export type Locale = Locales[number]
+
+export function hasLocale(candidate: string): candidate is Locale {
+    return routing.locales.includes(candidate as Locale)
+}
