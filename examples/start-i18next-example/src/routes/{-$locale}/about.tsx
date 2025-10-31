@@ -1,12 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { useTranslation } from "react-i18next"
-import { i18n } from "@/i18n/i18n"
-import { loadMessages } from "@/i18n/messages"
+import { addMessages } from "@/i18n/messages"
 
 export const Route = createFileRoute("/{-$locale}/about")({
     beforeLoad: async ({ context: { locale } }) => {
-        const messages = await loadMessages(locale, "about")
-        i18n.addResources(locale, "about", messages)
+        await addMessages(locale, "about")
     },
     component: About
 })

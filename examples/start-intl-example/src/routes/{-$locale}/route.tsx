@@ -6,8 +6,8 @@ import { getMessages } from "@/i18n/messages"
 import { routing } from "@/i18n/routing"
 
 export const Route = createFileRoute("/{-$locale}")({
-    beforeLoad: async (context) => {
-        const locale = localeDetection(context)
+    beforeLoad: async (ctx) => {
+        const locale = localeDetection(ctx)
 
         // Type-safe locale validation
         if (!hasLocale(routing.locales, locale)) {
