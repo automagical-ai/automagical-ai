@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { createServerFn } from "@tanstack/react-start"
-import type { Locale } from "use-intl"
-import { useTranslations } from "use-intl"
+import { type Locale, useTranslations } from "use-intl"
+
 import { getMessages, getTranslator } from "@/i18n/messages"
 
 const getServerMessage = createServerFn()

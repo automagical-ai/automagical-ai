@@ -57,10 +57,3 @@ function RootComponent() {
         </html>
     )
 }
-
-if (import.meta.hot) {
-    import.meta.hot.accept(() => {
-        // Force route invalidation when messages.ts changes
-        import.meta.hot?.invalidate()
-    })
-}

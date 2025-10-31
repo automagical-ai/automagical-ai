@@ -1,5 +1,6 @@
 import { createFileRoute, notFound, Outlet } from "@tanstack/react-router"
 import { hasLocale, IntlProvider } from "use-intl"
+
 import { Header } from "@/components/header"
 import { localeDetection, useLocaleDetection } from "@/i18n/detection"
 import { getMessages } from "@/i18n/messages"
