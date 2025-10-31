@@ -1,2 +1,2 @@
-export * from "./middleware/create-middleware"
+export * from "./detection/create-detection"
 export * from "./routing"
