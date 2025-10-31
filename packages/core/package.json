@@ -6,8 +6,6 @@
     "scripts": {
         "build": "tsc",
         "dev": "tsc --watch",
-        "format": "biome format",
-        "lint": "biome lint",
         "check": "biome check"
     },
     "main": "dist/index.js",

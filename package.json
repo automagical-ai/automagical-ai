@@ -4,8 +4,6 @@
     "scripts": {
         "build": "nx run-many -t build",
         "dev": "nx run-many -t dev",
-        "format": "nx run-many -t format",
-        "lint": "nx run-many -t lint",
         "check": "nx run-many -t check"
     },
     "devDependencies": {

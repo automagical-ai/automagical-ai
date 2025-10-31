@@ -6,8 +6,6 @@
     "scripts": {
         "build": "tsup",
         "dev": "tsup --watch",
-        "format": "biome format",
-        "lint": "biome lint",
         "check": "biome check"
     },
     "type": "module",

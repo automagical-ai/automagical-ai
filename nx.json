@@ -1,14 +1,5 @@
 {
     "$schema": "./node_modules/nx/schemas/nx-schema.json",
-    "namedInputs": {
-        "default": ["{projectRoot}/**/*"],
-        "biome": [
-            "default",
-            "{projectRoot}/biome.json",
-            "{workspaceRoot}/biome.json",
-            { "externalDependencies": ["@biomejs/biome"] }
-        ]
-    },
     "targetDefaults": {
         "build": {
             "dependsOn": ["^build"],
@@ -20,7 +11,13 @@
             "continuous": true
         },
         "check": {
-            "inputs": ["biome"],
+            "inputs": [
+                "default",
+                "^default",
+                "{projectRoot}/biome.json",
+                "{workspaceRoot}/biome.json",
+                { "externalDependencies": ["@biomejs/biome"] }
+            ],
             "dependsOn": ["^check"],
             "cache": true
         }
