@@ -19,31 +19,28 @@ export const Route = createFileRoute("/{-$locale}/")({
     beforeLoad: async ({ context: { locale } }) => {
         await addMessages(locale, "index")
     },
-    // loader: async ({ context: { locale, messages } }) => {
-    //     const t = createTranslator({
-    //         locale,
-    //         messages
-    //     })
+    loader: async ({ context: { locale } }) => {
+        const t = await getTranslator(locale, "index")
 
-    //     return {
-    //         messageFromLoader: t("example_message", { username: "John Doe" }),
-    //         serverFunctionMessage: await getServerMessage({
-    //             data: { emoji: "📩", locale }
-    //         })
-    //     }
-    // },
+        return {
+            messageFromLoader: t("example_message", { username: "John Doe" }),
+            serverFunctionMessage: await getServerMessage({
+                data: { emoji: "📩", locale }
+            })
+        }
+    },
     component: IndexPage
 })
 
 function IndexPage() {
     const t = useTranslations("index")
-    // const { serverFunctionMessage, messageFromLoader } = Route.useLoaderData()
+    const { serverFunctionMessage, messageFromLoader } = Route.useLoaderData()
 
     return (
         <main className="container mx-auto p-4">
-            {/* <h2>Message from loader: {messageFromLoader}</h2>
+            <h2>Message from loader: {messageFromLoader}</h2>
 
-            <h2>Server function messsage: {serverFunctionMessage}:</h2> */}
+            <h2>Server function messsage: {serverFunctionMessage}:</h2>
 
             <h2>{t("hello_world", { username: "John Doe" })}</h2>
         </main>

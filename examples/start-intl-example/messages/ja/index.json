@@ -1,3 +1,5 @@
 {
-    "hello_world": "こんにちは世界"
+    "hello_world": "こんにちは世界",
+    "example_message": "こんにちは {username}",
+    "server_message": "サーバーメッセージ {emoji}"
 }
