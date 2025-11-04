@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router"
 import { createServerFn } from "@tanstack/react-start"
 import { type Locale, useTranslations } from "use-intl"
 
-import { getMessages, getTranslator } from "@/i18n/messages"
+import { addMessages, getTranslator } from "@/i18n/messages"
 
 const getServerMessage = createServerFn()
     .inputValidator(({ emoji, locale }: { emoji: string; locale: Locale }) => ({
@@ -16,9 +16,8 @@ const getServerMessage = createServerFn()
     })
 
 export const Route = createFileRoute("/{-$locale}/")({
-    beforeLoad: async ({ context: { locale, messages } }) => {
-        const indexMessages = await getMessages(locale, "index")
-        Object.assign(messages, indexMessages)
+    beforeLoad: async ({ context: { locale } }) => {
+        await addMessages(locale, "index")
     },
     // loader: async ({ context: { locale, messages } }) => {
     //     const t = createTranslator({
