@@ -29,6 +29,9 @@ function LocaleLayoutComponent() {
     useLocaleDetection()
 
     const { locale, messages } = Route.useRouteContext()
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
+    // HMR Bug Fix: https://github.com/TanStack/router/issues/5714
     const [prevLocale, setPrevLocale] = useState(locale)
     const [prevMessages, setPrevMessages] = useState(messages)
 
@@ -36,8 +39,6 @@ function LocaleLayoutComponent() {
         if (locale) setPrevLocale(locale)
         if (messages) setPrevMessages(messages)
     }, [locale, messages])
-
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
     return (
         <IntlProvider
