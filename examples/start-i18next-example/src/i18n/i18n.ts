@@ -6,7 +6,13 @@ import { routing } from "./routing"
 i18n.use(initReactI18next).init({
     resources: {},
     fallbackLng: routing.defaultLocale,
-    supportedLngs: routing.locales
+    supportedLngs: routing.locales,
+    i18nFormat: {
+        bindI18nStore: "added"
+    },
+    react: {
+        bindI18nStore: "added"
+    }
 })
 
 export { i18n }
