@@ -20,7 +20,7 @@
     "author": "Automagical AI, LLC",
     "devDependencies": {
         "@better-fetch/fetch": "^1.1.18",
-        "@types/node": "^24.9.2",
+        "@types/node": "^24.10.0",
         "tsx": "^4.20.6",
         "typescript": "5.9.3"
     },

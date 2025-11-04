@@ -17,7 +17,7 @@
     "author": "Automagical AI, LLC",
     "devDependencies": {
         "@types/lodash": "^4.17.20",
-        "@types/node": "^24.9.2",
+        "@types/node": "^24.10.0",
         "detect-indent": "^7.0.2",
         "lodash": "^4.17.21",
         "prettier": "^3.6.2",
